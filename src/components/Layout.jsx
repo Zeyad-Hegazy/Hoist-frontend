@@ -11,10 +11,20 @@ import {
 	faLongArrowAltLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../actions/auth";
 
 const Layout = () => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	const logoutHandler = () => {
+		dispatch(logout());
+		navigate("/login");
+	};
+
 	return (
 		<div className="flex">
 			<div className="w-48 h-[100vh] bg-gray-800 text-white">
@@ -80,7 +90,10 @@ const Layout = () => {
 							/>
 						</li>
 						<li>
-							<button className="px-4 py-2 bg-red-700 rounded-lg font-bold flex justify-center items-center">
+							<button
+								className="px-4 py-2 bg-red-700 rounded-lg font-bold flex justify-center items-center"
+								onClick={logoutHandler}
+							>
 								<FontAwesomeIcon icon={faLongArrowAltLeft} />
 								<span className="pb-1 ml-2">Logout</span>
 							</button>

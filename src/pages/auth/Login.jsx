@@ -14,7 +14,7 @@ const Login = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const user = useSelector((state) => state.auth.profile);
+	// const user = useSelector((state) => state.auth.profile);
 
 	const handleShowPassword = () => {
 		setShowPassword((prevShowPasswrd) => !prevShowPasswrd);
@@ -28,10 +28,8 @@ const Login = () => {
 		e.preventDefault();
 
 		dispatch(login(formData));
-		if (user.status !== "success") {
-			console.log("user not correct");
-		}
-		if (user.status === "success") navigate("/dashboard");
+
+		navigate("/dashboard");
 	};
 
 	return (
