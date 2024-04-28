@@ -32,7 +32,7 @@ const TableComponent = ({ columns, rows }) => {
 								<TableCell
 									key={col.id}
 									align={col.align}
-									style={{ minWidth: col.minWidth, color: "black" }}
+									style={{ minWidth: col.minWidth }}
 								>
 									{col.label}
 								</TableCell>
@@ -43,7 +43,7 @@ const TableComponent = ({ columns, rows }) => {
 						{rows
 							.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 							.map((row) => (
-								<TableRow key={row._id}>
+								<TableRow hover key={row._id}>
 									{columns.map((col) => (
 										<TableCell key={col.id} align={col.align}>
 											{row[col.id]}
