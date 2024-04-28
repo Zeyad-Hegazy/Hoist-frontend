@@ -3,7 +3,7 @@ import Header from "../../components/Header";
 import { useEffect } from "react";
 import { getall } from "./../../actions/employees";
 import TableComponent from "../../components/UI/Table";
-import Form from "../../components/UI/Form";
+import { createOne } from "./../../actions/employees";
 
 const coulmns = [
 	{
@@ -41,17 +41,17 @@ const Employees = () => {
 	}, [dispatch]);
 
 	const fields = [
-		{ label: "Employee Name", name: "name" },
-		{ label: "Role", name: "role" },
-		{ label: "Email", name: "email", type: "email" },
-		{ label: "Employee Phone", name: "phone" },
-		{ label: "Password", name: "password", type: "password" },
-		{ label: "Image", name: "image", type: "image" },
+		{ fullWidth: false, label: "Employee Name", name: "name" },
+		{ fullWidth: false, label: "Employee Phone", name: "phone" },
+		{ fullWidth: false, label: "Email", name: "email", type: "email" },
+		{ fullWidth: false, label: "Password", name: "password", type: "password" },
+		{ fullWidth: true, label: "Role", name: "role" },
+		{ fullWidth: false, label: "Signature", name: "signeture", type: "image" },
 	];
 
 	return (
 		<div>
-			<Header label={"Employees"} fields={fields} />
+			<Header label={"Employees"} fields={fields} confirmHandler={createOne} />
 			<main className="flex justify-center items-center">
 				{employees && <TableComponent columns={coulmns} rows={employees} />}
 			</main>
