@@ -1,4 +1,4 @@
-import { GET, CREATE } from "../constants/crud";
+import { GET, CREATE, DELETE } from "../constants/crud";
 import * as api from "../api/employees";
 
 export const getall = () => async (dispatch) => {
@@ -9,11 +9,20 @@ export const getall = () => async (dispatch) => {
 		console.log(error);
 	}
 };
-
 export const createOne = (formData) => async (dispatch) => {
 	try {
 		const data = await api.create(formData);
-		dispatch({ type: CREATE, payload: data.data });
+		dispatch({ type: CREATE, payload: data });
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
+};
+
+export const deleteEmployee = (id) => async (dispatch) => {
+	try {
+		await api.deleteemployee(id);
+		dispatch({ type: DELETE, payload: id });
 	} catch (error) {
 		console.log(error);
 	}

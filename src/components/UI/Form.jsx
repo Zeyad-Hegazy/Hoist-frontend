@@ -5,6 +5,8 @@ import { TextField, Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
+import { getall } from "../../actions/employees";
+import { openToastar } from "../../actions/toastar";
 
 const convertToBase64 = (file) => {
 	return new Promise((resolve, reject) => {
@@ -62,11 +64,17 @@ const Form = ({ title, fields, closeHandler, confirmHandler }) => {
 		return /^data:image\//.test(str);
 	}
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		dispatch(confirmHandler(formData));
+		const responseMessage = await dispatch(confirmHandler(formData));
+		
+		if (responseMessage !== null) {
+			dispatch(openToastar({ message: responseMessage }));
+		} else {
+			console.log("Response message is null.");
+		}
+		dispatch(getall());
 		closeHandler();
-		console.log(formData);
 	};
 
 	return (
