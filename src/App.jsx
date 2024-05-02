@@ -9,8 +9,13 @@ import ClientNot from "./pages/admin-view/ClientNot";
 import Equipments from "./pages/admin-view/Equipments";
 import Accounts from "./pages/admin-view/Accounts";
 import Login from "./pages/auth/Login";
+import Toastar from "./components/UI/Toastar";
+
+import { useSelector } from "react-redux";
 
 const App = () => {
+	const toastar = useSelector((state) => state.toastar);
+
 	return (
 		<div>
 			<Routes>
@@ -26,6 +31,7 @@ const App = () => {
 					<Route path="/accounts" element={<Accounts />} />
 				</Route>
 			</Routes>
+			<Toastar openSnackbar={toastar.open} snackbarMessage={toastar.message} />
 		</div>
 	);
 };

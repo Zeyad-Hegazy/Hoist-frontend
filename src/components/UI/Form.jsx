@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { getall } from "../../actions/employees";
-import { openToastar } from "../../actions/toastar";
 
 const convertToBase64 = (file) => {
 	return new Promise((resolve, reject) => {
@@ -72,71 +71,74 @@ const Form = ({ title, fields, closeHandler, confirmHandler }) => {
 	};
 
 	return (
-		<div className="max-w-lg mx-auto rounded-lg shadow-md relative">
-			<h2 className="text-2xl font-semibold mb-4">{title}</h2>
-			<button className="absolute top-2 right-2" onClick={closeHandler}>
-				<FontAwesomeIcon icon={faClose} className="text-2xl" />
-			</button>
-			<form onSubmit={handleSubmit}>
-				{fields.map((field) =>
-					field.type === "image" ? (
-						<div key={field.name} className="mb-4 flex flex-col ">
-							<label
-								htmlFor={field.name}
-								className="block mb-2 font-medium text-gray-700"
-							>
-								{field.label}
-							</label>
+		<div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-10">
+			<div className="bg-gray-950 p-8 rounded-lg">
+				<div className="max-w-lg mx-auto rounded-lg shadow-md relative">
+					<h2 className="text-2xl font-semibold mb-4">{title}</h2>
+					<button className="absolute top-2 right-2" onClick={closeHandler}>
+						<FontAwesomeIcon icon={faClose} className="text-2xl" />
+					</button>
+					<form onSubmit={handleSubmit}>
+						{fields.map((field) =>
+							field.type === "image" ? (
+								<div key={field.name} className="mb-4 flex flex-col ">
+									<label
+										htmlFor={field.name}
+										className="block mb-2 font-medium text-gray-700"
+									>
+										{field.label}
+									</label>
 
-							<div className="relative">
-								<input
-									type="file"
-									id={field.name}
+									<div className="relative">
+										<input
+											type="file"
+											id={field.name}
+											name={field.name}
+											accept="image/*"
+											className="hidden"
+											onChange={handleImageChange}
+										/>
+										<label
+											htmlFor={field.name}
+											className="px-4 py-2 bg-blue-400 text-black rounded-md cursor-pointer"
+										>
+											Choose File
+										</label>
+										{imagePreview && (
+											<img
+												src={imagePreview}
+												alt="Preview"
+												className="mt-2 w-32 h-32 object-cover"
+											/>
+										)}
+									</div>
+								</div>
+							) : (
+								<TextField
+									key={field.name}
+									fullWidth={field.fullWidth}
+									label={field.label}
 									name={field.name}
-									accept="image/*"
-									className="hidden"
-									onChange={handleImageChange}
+									type={field.type || "text"}
+									variant="outlined"
+									className="mb-4 mt-4 w-[50%]"
+									value={formData[field.name]}
+									onChange={handleChange}
 								/>
-								<label
-									htmlFor={field.name}
-									className="px-4 py-2 bg-blue-400 text-black rounded-md cursor-pointer"
-								>
-									Choose File
-								</label>
-								{imagePreview && (
-									<img
-										src={imagePreview}
-										alt="Preview"
-										className="mt-2 w-32 h-32 object-cover"
-									/>
-								)}
-							</div>
-						</div>
-					) : (
-						<TextField
-							key={field.name}
-							fullWidth={field.fullWidth}
-							label={field.label}
-							name={field.name}
-							type={field.type || "text"}
-							variant="outlined"
-							className="mb-4 mt-4 w-[50%]"
-							// style={{ margin: "5px" }}
-							value={formData[field.name]}
-							onChange={handleChange}
-						/>
-					)
-				)}
+							)
+						)}
 
-				<Button
-					type="submit"
-					variant="contained"
-					color="primary"
-					className="w-full mt-2"
-				>
-					Submit
-				</Button>
-			</form>
+						<Button
+							type="submit"
+							variant="contained"
+							color="primary"
+							className="w-full mt-2"
+						>
+							Submit
+						</Button>
+					</form>
+				</div>
+			</div>
 		</div>
 	);
 };
