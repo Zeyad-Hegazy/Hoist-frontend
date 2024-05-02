@@ -24,13 +24,13 @@ const Header = ({ label, fields, confirmHandler }) => {
   };
 
   return (
-    <div className="flex justify-between items-center custom-border">
-      <h1 className="text-[30px]">{label} Page</h1>
+    <div className="flex justify-between items-center bg-gray-700 p-3 shadow rounded-lg custom-border">
+      <h5 className="text-[20px]">{label} Page</h5>
       <button
-        className="px-4 py-2 bg-blue-700 text-white rounded-lg"
+        className="px-4 py-2 bg-indigo-600 add shadow-md text-white rounded-lg"
         onClick={openModal}
       >
-        <FontAwesomeIcon icon={faPlus} /> <span className="ml-1">Add New</span>
+        <FontAwesomeIcon icon={faPlus} /> <span className="ml-1 ">Add New</span>
       </button>
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-10">
