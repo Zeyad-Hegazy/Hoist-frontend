@@ -13,11 +13,13 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEye, faEdit } from "@fortawesome/free-solid-svg-icons";
 import DeleteDialog from "./DeleteDialog";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getone } from "../../actions/employees";
 
 const TableComponent = ({ columns, rows, opneForm }) => {
 	const dispatch = useDispatch();
+	// const selected = useSelector((state) => state);
+	// const [dataRow, setDataRow] = useState(rows);
 
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -38,22 +40,22 @@ const TableComponent = ({ columns, rows, opneForm }) => {
 		});
 	};
 
-  const handleClickOpen = (id) => {
-    setOpenDialogId(id);
-  };
+	const handleClickOpen = (id) => {
+		setOpenDialogId(id);
+	};
 
-  const handleClose = () => {
-    setOpenDialogId(null);
-  };
+	const handleClose = () => {
+		setOpenDialogId(null);
+	};
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+	const handleChangePage = (event, newPage) => {
+		setPage(newPage);
+	};
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+	const handleChangeRowsPerPage = (event) => {
+		setRowsPerPage(+event.target.value);
+		setPage(0);
+	};
 
 	return (
 		<Paper sx={{ width: "100%", overflow: "hidden", marginTop: "3rem" }}>
@@ -79,7 +81,7 @@ const TableComponent = ({ columns, rows, opneForm }) => {
 							.map((row) => (
 								<TableRow hover key={row._id}>
 									{columns.map((col) => (
-										<TableCell key={col.id} align={col.align}>
+										<TableCell key={col.id + row._id} align={col.align}>
 											{row[col.id]}
 										</TableCell>
 									))}

@@ -24,7 +24,7 @@ export const createOne = (formData) => async (dispatch) => {
 	try {
 		const data = await api.create(formData);
 		dispatch({ type: CREATE, payload: data });
-		dispatch(openToastar({ message: data.data.message }));
+		dispatch(openToastar({ message: data.data.message, status: data.status }));
 	} catch (error) {
 		console.log(error);
 	}

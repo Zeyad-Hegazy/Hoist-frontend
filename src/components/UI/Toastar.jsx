@@ -2,10 +2,12 @@
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { closeToastar } from "../../actions/toastar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Toastar = ({ openSnackbar, snackbarMessage }) => {
 	const dispatch = useDispatch();
+
+	const status = useSelector((state) => state.toastar.status);
 
 	const handleCloseSnackbar = () => {
 		dispatch(closeToastar());
@@ -16,6 +18,7 @@ const Toastar = ({ openSnackbar, snackbarMessage }) => {
 			open={openSnackbar}
 			autoHideDuration={3000}
 			onClose={handleCloseSnackbar}
+			anchorOrigin={{ vertical: "top", horizontal: "right" }}
 		>
 			<MuiAlert
 				elevation={6}
