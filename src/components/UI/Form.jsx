@@ -66,13 +66,7 @@ const Form = ({ title, fields, closeHandler, confirmHandler }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const responseMessage = await dispatch(confirmHandler(formData));
-		
-		if (responseMessage !== null) {
-			dispatch(openToastar({ message: responseMessage }));
-		} else {
-			console.log("Response message is null.");
-		}
+		await dispatch(confirmHandler(formData));
 		dispatch(getall());
 		closeHandler();
 	};

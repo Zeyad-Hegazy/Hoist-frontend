@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { CREATE, GET, GET_ONE, UPDATE, DELETE } from "../../constants/crud";
 
 export default (state = {}, action) => {
@@ -5,7 +6,7 @@ export default (state = {}, action) => {
 		case CREATE:
 			return {
 				...state,
-				employees: [...state.employees, action.payload],
+				result: [...state.result, action.payload],
 			};
 		case GET:
 			return action.payload;
@@ -17,7 +18,7 @@ export default (state = {}, action) => {
 		case UPDATE:
 			return {
 				...state,
-				employees: state.employees.map((employee) => {
+				employees: state.result.map((employee) => {
 					if (employee.id === action.payload.id) {
 						return action.payload;
 					}
@@ -27,7 +28,7 @@ export default (state = {}, action) => {
 		case DELETE:
 			return {
 				...state,
-				employees: state.employees.filter(
+				employees: state.result.filter(
 					(employee) => employee.id !== action.payload.id
 				),
 			};
