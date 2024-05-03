@@ -1,28 +1,45 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TextField, Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { getall } from "../../actions/employees";
 
-const convertToBase64 = (file) => {
+const convertToBase64 = async (fileOrUrl) => {
+	if (typeof fileOrUrl === "string" && /^data:image\//.test(fileOrUrl)) {
+		return fileOrUrl;
+	}
+
+	if (typeof fileOrUrl === "string" && /^(http|https):\/\//.test(fileOrUrl)) {
+		console.log(fileOrUrl);
+		const response = await fetch(fileOrUrl);
+		const blob = await response.blob();
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onloadend = () => resolve(reader.result);
+			reader.onerror = reject;
+			reader.readAsDataURL(blob);
+		});
+	}
+
 	return new Promise((resolve, reject) => {
-		const fileReader = new FileReader();
-		fileReader.readAsDataURL(file);
-
-		fileReader.onload = () => {
-			resolve(fileReader.result);
-		};
-
-		fileReader.onerror = (error) => {
-			reject(error);
-		};
+		const reader = new FileReader();
+		reader.onloadend = () => resolve(reader.result);
+		reader.onerror = reject;
+		reader.readAsDataURL(fileOrUrl);
 	});
 };
 
-const Form = ({ title, fields, closeHandler, confirmHandler }) => {
+const Form = ({
+	title,
+	fields,
+	closeHandler,
+	confirmHandler,
+	selected,
+	formAction,
+}) => {
 	const initialState = {};
 
 	const dispatch = useDispatch();
@@ -34,6 +51,15 @@ const Form = ({ title, fields, closeHandler, confirmHandler }) => {
 	const [formData, setFormData] = useState(initialState);
 	const [imagePreview, setImagePreview] = useState("");
 
+	useEffect(() => {
+		if (selected) {
+			setFormData(selected);
+			if (selected.signeture) {
+				setImagePreview(selected.signeture);
+			}
+		}
+	}, [selected]);
+
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData((prevState) => ({
@@ -44,7 +70,6 @@ const Form = ({ title, fields, closeHandler, confirmHandler }) => {
 
 	const handleImageChange = async (e) => {
 		const file = e.target.files[0];
-		console.log(file);
 		if (file) {
 			const base64 = await convertToBase64(file);
 			if (isValidBase64(base64)) {
@@ -65,7 +90,23 @@ const Form = ({ title, fields, closeHandler, confirmHandler }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		await dispatch(confirmHandler(formData));
+		const formDataCopy = { ...formData };
+
+		if (formAction === "edit" && !isValidBase64(formDataCopy.signeture)) {
+			try {
+				const base64Signature = await convertToBase64(formDataCopy.signeture);
+				formDataCopy.signeture = base64Signature;
+			} catch (error) {
+				console.error("Error converting image to base64:", error);
+			}
+		}
+
+		if (formAction === "create") {
+			await dispatch(confirmHandler(formDataCopy));
+		} else if (formAction === "edit") {
+			delete formDataCopy.password;
+			await dispatch(confirmHandler(formDataCopy, selected._id));
+		}
 		dispatch(getall());
 		closeHandler();
 	};
@@ -78,17 +119,19 @@ const Form = ({ title, fields, closeHandler, confirmHandler }) => {
 					<button className="absolute top-2 right-2" onClick={closeHandler}>
 						<FontAwesomeIcon icon={faClose} className="text-2xl" />
 					</button>
-					<form onSubmit={handleSubmit}>
+					<form
+						onSubmit={handleSubmit}
+						className="flex justify-between items-start flex-wrap gap-4"
+					>
 						{fields.map((field) =>
 							field.type === "image" ? (
-								<div key={field.name} className="mb-4 flex flex-col ">
+								<div key={field.name} className="mb-4 flex flex-col">
 									<label
 										htmlFor={field.name}
 										className="block mb-2 font-medium text-gray-700"
 									>
 										{field.label}
 									</label>
-
 									<div className="relative">
 										<input
 											type="file"
@@ -98,12 +141,14 @@ const Form = ({ title, fields, closeHandler, confirmHandler }) => {
 											className="hidden"
 											onChange={handleImageChange}
 										/>
-										<label
-											htmlFor={field.name}
-											className="px-4 py-2 bg-blue-400 text-black rounded-md cursor-pointer"
-										>
-											Choose File
-										</label>
+										{formAction !== "view" && (
+											<label
+												htmlFor={field.name}
+												className="px-4 py-2 bg-blue-400 text-black rounded-md cursor-pointer"
+											>
+												Choose File
+											</label>
+										)}
 										{imagePreview && (
 											<img
 												src={imagePreview}
@@ -121,21 +166,26 @@ const Form = ({ title, fields, closeHandler, confirmHandler }) => {
 									name={field.name}
 									type={field.type || "text"}
 									variant="outlined"
-									className="mb-4 mt-4 w-[50%]"
 									value={formData[field.name]}
 									onChange={handleChange}
+									disabled={
+										formAction === "view" ||
+										(formAction === "edit" && field.name === "password")
+									}
 								/>
 							)
 						)}
 
-						<Button
-							type="submit"
-							variant="contained"
-							color="primary"
-							className="w-full mt-2"
-						>
-							Submit
-						</Button>
+						{formAction !== "view" && (
+							<Button
+								type="submit"
+								variant="contained"
+								color="primary"
+								className="w-full mt-2"
+							>
+								{formAction === "edit" ? "Edit" : "Add"}
+							</Button>
+						)}
 					</form>
 				</div>
 			</div>

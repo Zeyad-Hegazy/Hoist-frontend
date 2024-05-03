@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
-import { getall } from "./../../actions/employees";
+import { getall, updatedEmployee } from "./../../actions/employees";
 import TableComponent from "../../components/UI/Table";
 import { createOne } from "./../../actions/employees";
 import Form from "../../components/UI/Form";
@@ -44,7 +44,9 @@ const fields = [
 
 const Employees = () => {
 	const dispatch = useDispatch();
-	const employees = useSelector((state) => state.employees.result);
+	const employees = useSelector((state) => state.employees);
+	const selectedEmployee = useSelector((state) => state.select);
+
 	const [FormVisibleAndAction, setFormVisibleAndAction] = useState({
 		action: "create",
 		visible: false,
@@ -67,6 +69,7 @@ const Employees = () => {
 			fields={fields}
 			closeHandler={toggleFormVisibility}
 			confirmHandler={createOne}
+			formAction={FormVisibleAndAction.action}
 		/>
 	);
 
@@ -76,8 +79,9 @@ const Employees = () => {
 				title={"View Employee Details"}
 				fields={fields}
 				closeHandler={toggleFormVisibility}
-				// readOne
+				selected={selectedEmployee}
 				confirmHandler={createOne}
+				formAction={FormVisibleAndAction.action}
 			/>
 		);
 	}
@@ -88,8 +92,9 @@ const Employees = () => {
 				title={"Edit Employee"}
 				fields={fields}
 				closeHandler={toggleFormVisibility}
-				// updateOne
-				confirmHandler={createOne}
+				selected={selectedEmployee}
+				confirmHandler={updatedEmployee}
+				formAction={FormVisibleAndAction.action}
 			/>
 		);
 	}
@@ -107,7 +112,8 @@ const Employees = () => {
 					<TableComponent
 						columns={coulmns}
 						rows={employees}
-						opneForm={setFormVisibleAndAction}
+						openForm={setFormVisibleAndAction}
+						formName="employees"
 					/>
 				)}
 			</main>
