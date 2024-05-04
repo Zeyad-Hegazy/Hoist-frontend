@@ -5,6 +5,7 @@ import { getall, updatedEmployee } from "./../../actions/employees";
 import TableComponent from "../../components/UI/Table";
 import { createOne } from "./../../actions/employees";
 import Form from "../../components/UI/Form";
+import EmployeeForm from "../../components/UI/employee-form/EmployeeForm";
 import { schema } from "../../utils/validation/employeeValidator";
 
 const coulmns = [
@@ -65,40 +66,34 @@ const Employees = () => {
 	};
 
 	let form = (
-		<Form
+		<EmployeeForm
 			title={"Add New Employee"}
-			fields={fields}
 			closeHandler={toggleFormVisibility}
 			confirmHandler={createOne}
 			formAction={FormVisibleAndAction.action}
-			validationSchema={schema}
 		/>
 	);
 
 	if (FormVisibleAndAction.action === "view") {
 		form = (
-			<Form
+			<EmployeeForm
 				title={"View Employee Details"}
-				fields={fields}
 				closeHandler={toggleFormVisibility}
 				selected={selectedEmployee}
 				confirmHandler={createOne}
 				formAction={FormVisibleAndAction.action}
-				validationSchema={schema}
 			/>
 		);
 	}
 
 	if (FormVisibleAndAction.action === "edit") {
 		form = (
-			<Form
+			<EmployeeForm
 				title={"Edit Employee"}
-				fields={fields}
 				closeHandler={toggleFormVisibility}
 				selected={selectedEmployee}
 				confirmHandler={updatedEmployee}
 				formAction={FormVisibleAndAction.action}
-				validationSchema={schema}
 			/>
 		);
 	}
