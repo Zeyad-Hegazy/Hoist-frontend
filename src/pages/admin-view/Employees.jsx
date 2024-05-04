@@ -5,6 +5,7 @@ import { getall, updatedEmployee } from "./../../actions/employees";
 import TableComponent from "../../components/UI/Table";
 import { createOne } from "./../../actions/employees";
 import Form from "../../components/UI/Form";
+import { schema } from "../../utils/validation/employeeValidator";
 
 const coulmns = [
 	{
@@ -70,6 +71,7 @@ const Employees = () => {
 			closeHandler={toggleFormVisibility}
 			confirmHandler={createOne}
 			formAction={FormVisibleAndAction.action}
+			validationSchema={schema}
 		/>
 	);
 
@@ -82,6 +84,7 @@ const Employees = () => {
 				selected={selectedEmployee}
 				confirmHandler={createOne}
 				formAction={FormVisibleAndAction.action}
+				validationSchema={schema}
 			/>
 		);
 	}
@@ -95,6 +98,7 @@ const Employees = () => {
 				selected={selectedEmployee}
 				confirmHandler={updatedEmployee}
 				formAction={FormVisibleAndAction.action}
+				validationSchema={schema}
 			/>
 		);
 	}

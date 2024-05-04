@@ -7,7 +7,12 @@ export const getall = () => async (dispatch) => {
 		const data = await api.getAll();
 		dispatch({ type: GET, payload: data.data.result });
 	} catch (error) {
-		console.log(error);
+		dispatch(
+			openToastar({
+				message: error.response.data.message,
+				status: error.response.status,
+			})
+		);
 	}
 };
 
@@ -26,7 +31,12 @@ export const createOne = (formData) => async (dispatch) => {
 		dispatch({ type: CREATE, payload: data.data.result });
 		dispatch(openToastar({ message: data.data.message, status: data.status }));
 	} catch (error) {
-		console.log(error);
+		dispatch(
+			openToastar({
+				message: error.response.data.message,
+				status: error.response.status,
+			})
+		);
 	}
 };
 
@@ -36,7 +46,12 @@ export const deleteEmployee = (id) => async (dispatch) => {
 		dispatch({ type: DELETE, payload: id });
 		dispatch(openToastar({ message: data.data.message }));
 	} catch (error) {
-		console.log(error);
+		dispatch(
+			openToastar({
+				message: error.response.data.message,
+				status: error.response.status,
+			})
+		);
 	}
 };
 
@@ -44,8 +59,13 @@ export const updatedEmployee = (formData, id) => async (dispatch) => {
 	try {
 		const data = await api.updatedemployee(formData, id);
 		dispatch({ type: UPDATE, payload: id });
-		dispatch(openToastar({ message: data.data.message }));
+		dispatch(openToastar({ message: data.data.message, status: data.status }));
 	} catch (error) {
-		console.log(error);
+		dispatch(
+			openToastar({
+				message: error.response.data.message,
+				status: error.response.status,
+			})
+		);
 	}
 };
