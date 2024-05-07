@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getall } from "../actions/employees";
 import convertToBase64, { isValidBase64 } from "./convertToBase64";
-import { schema } from "./validation/employeeValidator";
 
 const useForm = ({
 	selected,
@@ -10,6 +9,7 @@ const useForm = ({
 	initialState,
 	closeHandler,
 	confirmHandler,
+	schema,
 }) => {
 	const dispatch = useDispatch();
 
@@ -19,12 +19,16 @@ const useForm = ({
 	const [isFormValid, setIsFormValid] = useState(false);
 
 	useEffect(() => {
-		if (selected) {
-			setFormData(selected);
-			setImagePreview(convertToBase64(selected.signeture));
-		}
-	}, [selected]);
+		const fetchSelectedData = async () => {
+			if (selected) {
+				const base64Image = await convertToBase64(selected.signeture);
+				setImagePreview(base64Image);
+				setFormData({ ...selected, signeture: base64Image });
+			}
+		};
 
+		fetchSelectedData();
+	}, [selected]);
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData((prevState) => ({

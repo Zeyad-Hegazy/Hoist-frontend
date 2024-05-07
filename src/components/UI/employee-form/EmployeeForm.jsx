@@ -6,8 +6,10 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 // import { useDispatch } from "react-redux";
 // import { getall } from "../../../actions/employees";
 // import convertToBase64, { isValidBase64 } from "../../../utils/convertToBase64";
-// import { schema } from "../../../utils/validation/employeeValidator";
+import { schema } from "../../../utils/validation/employeeValidator";
 import useForm from "../../../utils/useForm";
+
+// TODO preview image in edit and view
 
 const EmployeeForm = ({
 	title,
@@ -39,6 +41,7 @@ const EmployeeForm = ({
 		initialState,
 		closeHandler,
 		confirmHandler,
+		schema,
 	});
 
 	// const dispatch = useDispatch();

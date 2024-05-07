@@ -4,9 +4,7 @@ import { useEffect, useState } from "react";
 import { getall, updatedEmployee } from "./../../actions/employees";
 import TableComponent from "../../components/UI/Table";
 import { createOne } from "./../../actions/employees";
-import Form from "../../components/UI/Form";
 import EmployeeForm from "../../components/UI/employee-form/EmployeeForm";
-import { schema } from "../../utils/validation/employeeValidator";
 
 const coulmns = [
 	{
