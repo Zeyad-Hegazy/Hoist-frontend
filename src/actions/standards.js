@@ -1,11 +1,13 @@
 import { GET, CREATE, DELETE, GET_ONE, UPDATE } from "../constants/crud";
-import * as api from "../api/employees";
+import * as api from "../api/standards"
 import { openToastar } from "./toastar";
 
-export const getall = () => async (dispatch) => {
-	try {
-		const data = await api.getAll();
-		dispatch({ type: GET +"_employee", payload: data.data.result });
+
+
+export const getAll = () => async (dispatch) => {
+  	try {
+		const data = await api.getall();
+		dispatch({ type: GET +"_standard", payload: data.data.result });
 	} catch (error) {
 		dispatch(
 			openToastar({
@@ -14,22 +16,26 @@ export const getall = () => async (dispatch) => {
 			})
 		);
 	}
-};
+}
 
-export const getone = (id) => async (dispatch) => {
-	try {
-		const data = await api.getemployee(id);
+export const getOne = (id) => async (dispatch) => {
+  	try {
+		const data = await api.getone(id);
 		dispatch({ type: GET_ONE, payload: data.data.result });
 	} catch (error) {
-		console.log(error);
+		dispatch(
+			openToastar({
+				message: error.response.data.message,
+				status: error.response.status,
+			})
+		);
 	}
-};
+}
 
 export const createOne = (formData) => async (dispatch) => {
-	try {
+  	try {
 		const data = await api.create(formData);
-		dispatch({ type: CREATE + "_employee", payload: data.data.result });
-		dispatch(openToastar({ message: data.data.message, status: data.status }));
+		dispatch({ type: CREATE + "_standard", payload: data.data.result });
 	} catch (error) {
 		dispatch(
 			openToastar({
@@ -38,12 +44,12 @@ export const createOne = (formData) => async (dispatch) => {
 			})
 		);
 	}
-};
+}
 
-export const deleteEmployee = (id) => async (dispatch) => {
+export const deleteOne = (id) => async (dispatch) => {
 	try {
-		const data = await api.deleteemployee(id);
-		dispatch({ type: DELETE +"_employee", payload: id });
+		const data = await api.deletone(id);
+		dispatch({ type: DELETE +"_standard", payload: id });
 		dispatch(openToastar({ message: data.data.message }));
 	} catch (error) {
 		dispatch(
@@ -55,10 +61,10 @@ export const deleteEmployee = (id) => async (dispatch) => {
 	}
 };
 
-export const updatedEmployee = (formData, id) => async (dispatch) => {
+export const updateOne = (formData, id) => async (dispatch) => {
 	try {
-		const data = await api.updatedemployee(formData, id);
-		dispatch({ type: UPDATE + "_employee", payload: id });
+		const data = await api.updatone(formData, id);
+		dispatch({ type: UPDATE + "_standard", payload: id });
 		dispatch(openToastar({ message: data.data.message, status: data.status }));
 	} catch (error) {
 		dispatch(

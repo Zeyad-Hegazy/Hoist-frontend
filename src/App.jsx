@@ -10,6 +10,7 @@ import Equipments from "./pages/admin-view/Equipments";
 import Accounts from "./pages/admin-view/Accounts";
 import Login from "./pages/auth/Login";
 import Toastar from "./components/UI/Toastar";
+import Standards from "./pages/admin-view/Standards"
 
 import { useSelector } from "react-redux";
 
@@ -29,6 +30,7 @@ const App = () => {
 					<Route path="/client-not" element={<ClientNot />} />
 					<Route path="/equipments" element={<Equipments />} />
 					<Route path="/accounts" element={<Accounts />} />
+					<Route path="/standards" element={<Standards />} />
 				</Route>
 			</Routes>
 			<Toastar openSnackbar={toastar.open} snackbarMessage={toastar.message} />

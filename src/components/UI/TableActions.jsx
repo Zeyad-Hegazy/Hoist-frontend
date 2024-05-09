@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DeleteDialog from "./DeleteDialog";
 import { useState } from "react";
 
-const TableActions = ({ getView, getEdit, id }) => {
+const TableActions = ({ getView, getEdit,getDelete ,id }) => {
 	const [openDialogId, setOpenDialogId] = useState(null);
 
 	const handleClickOpen = (id) => {
@@ -39,7 +39,8 @@ const TableActions = ({ getView, getEdit, id }) => {
 				setStateClose={handleClose}
 				state={openDialogId === id}
 				id={id}
-				message={"Are You Sure To Delete This Employee?"}
+				message={"Are You Sure To Delete ?"}
+				action={getDelete}
 			/>
 		</div>
 	);

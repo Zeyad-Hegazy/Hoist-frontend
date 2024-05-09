@@ -10,12 +10,7 @@ import { useDispatch } from "react-redux";
 import { deleteEmployee } from "../../actions/employees";
 import { getall } from "./../../actions/employees";
 
-export default function DeleteDialog({ id, message, state, setStateClose }) {
-	// const [open, setOpen] = React.useState(false);
-
-	// const handleClickOpen = () => {
-	// 	setOpen(true);
-	// };
+export default function DeleteDialog({ id, message, state, setStateClose, action }) {
 
 	const handleClose = () => {
 		setStateClose();
@@ -24,9 +19,8 @@ export default function DeleteDialog({ id, message, state, setStateClose }) {
 	const dispatch = useDispatch();
 
 	const handleDelete = async (id) => {
-		await dispatch(deleteEmployee(id)); // Wait for delete operation to complete
-		dispatch(getall()); // Dispatch getall action after delete
-		handleClose(); // Close the dialog
+		action()
+		handleClose();
 	};
 
 	return (

@@ -11,6 +11,7 @@ import {
 	faSignOutAlt,
 	faSearch,
 	faHandPaper,
+	faCogs 
 } from "@fortawesome/free-solid-svg-icons";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -73,6 +74,11 @@ const Layout = () => {
 					<li className="py-2 px-4 my-6">
 						<Link to="/equipments">
 							<FontAwesomeIcon className="mr-2" icon={faTools} /> Equipments
+						</Link>
+					</li>
+					<li className="py-2 px-4 my-6">
+						<Link to="/standards">
+							<FontAwesomeIcon className="mr-2" icon={faCogs } /> Standards
 						</Link>
 					</li>
 					<li className="py-2 px-4 my-6">

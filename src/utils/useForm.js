@@ -21,9 +21,13 @@ const useForm = ({
 	useEffect(() => {
 		const fetchSelectedData = async () => {
 			if (selected) {
-				const base64Image = await convertToBase64(selected.signeture);
-				setImagePreview(base64Image);
-				setFormData({ ...selected, signeture: base64Image });
+				if(selected.signeture) {
+					const base64Image = await convertToBase64(selected.signeture);
+					setImagePreview(base64Image);
+					setFormData({ ...selected, signeture: base64Image });
+				}else {
+					setFormData(selected);
+				}
 			}
 		};
 
