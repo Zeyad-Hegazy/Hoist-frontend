@@ -6,14 +6,20 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 // import { useDispatch } from "react-redux";
 // import { getall } from "../../../actions/employees";
 // import convertToBase64, { isValidBase64 } from "../../../utils/convertToBase64";
-import { schema } from "../../../utils/validation/standardValidator";
+import { schema } from "../../../utils/validation/installationVAlidator";
 import useForm from "../../../utils/useForm";
 
-// TODO preview image in edit and view
-
-const StandardForm = ({ title, closeHandler, confirmHandler, selected, formAction, getAll }) => {
+const InstallationForm = ({
+      title,
+      closeHandler,
+      confirmHandler,
+      getAll,
+      selected,
+      formAction,
+}) => {
       const initialState = {
             name: "",
+            client: "",
       };
       const {
             formData,
@@ -142,7 +148,7 @@ const StandardForm = ({ title, closeHandler, confirmHandler, selected, formActio
                                     <div className={`mb-4`}>
                                           <TextField
                                                 fullWidth={false}
-                                                label={"Standard Name"}
+                                                label={"Installation Name"}
                                                 name={"name"}
                                                 type={"text"}
                                                 variant="outlined"
@@ -154,6 +160,25 @@ const StandardForm = ({ title, closeHandler, confirmHandler, selected, formActio
                                                 disabled={formAction === "view"}
                                                 error={errors["name"] ? true : false}
                                                 helperText={errors["name"]}
+                                          />
+                                    </div>
+
+                                    {/* Client */}
+                                    <div className={`mb-4`}>
+                                          <TextField
+                                                fullWidth={false}
+                                                label={"Client Name"}
+                                                name={"client"}
+                                                type={"text"}
+                                                variant="outlined"
+                                                value={formData["client"]}
+                                                onChange={handleChange}
+                                                onBlur={(e) =>
+                                                      validateField(e.target.name, e.target.value)
+                                                }
+                                                disabled={formAction === "view"}
+                                                error={errors["client"] ? true : false}
+                                                helperText={errors["client"]}
                                           />
                                     </div>
 
@@ -175,4 +200,4 @@ const StandardForm = ({ title, closeHandler, confirmHandler, selected, formActio
       );
 };
 
-export default StandardForm;
+export default InstallationForm;

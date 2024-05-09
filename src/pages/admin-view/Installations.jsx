@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
-import { getAll, createOne, updateOne } from "./../../actions/standards";
+import { getAllIns, createOne, updateOneIns } from "./../../actions/installation";
 import TableComponent from "../../components/UI/Table";
-import StandardForm from "../../components/UI/standard-form/StandardForm";
+import InstallationForm from "../../components/UI/installation-form/InstallationForm";
 
 const coulmns = [
       {
@@ -12,12 +12,24 @@ const coulmns = [
             minWidth: 170,
             align: "center",
       },
+      {
+            id: "clientName",
+            label: "Client Name",
+            minWidth: 170,
+            align: "center",
+      },
+      {
+            id: "clientCountry",
+            label: "Client Country",
+            minWidth: 170,
+            align: "center",
+      },
 ];
 
-const Standards = () => {
+const Installations = () => {
       const dispatch = useDispatch();
-      const standards = useSelector((state) => state.standards);
-      const selectedStandard = useSelector((state) => state.select);
+      const installations = useSelector((state) => state.installations);
+      const selectedInstallation = useSelector((state) => state.select);
 
       const [FormVisibleAndAction, setFormVisibleAndAction] = useState({
             action: "create",
@@ -25,7 +37,7 @@ const Standards = () => {
       });
 
       useEffect(() => {
-            dispatch(getAll());
+            dispatch(getAllIns());
       }, [dispatch]);
 
       const toggleFormVisibility = () => {
@@ -36,21 +48,21 @@ const Standards = () => {
       };
 
       let form = (
-            <StandardForm
-                  title={"Add New Standard"}
+            <InstallationForm
+                  title={"Add New Installation"}
                   closeHandler={toggleFormVisibility}
                   confirmHandler={createOne}
-                  getAll={getAll}
+                  getAll={getAllIns}
                   formAction={FormVisibleAndAction.action}
             />
       );
 
       if (FormVisibleAndAction.action === "view") {
             form = (
-                  <StandardForm
-                        title={"View Standard Details"}
+                  <InstallationForm
+                        title={"View Installation Details"}
                         closeHandler={toggleFormVisibility}
-                        selected={selectedStandard}
+                        selected={selectedInstallation}
                         confirmHandler={createOne}
                         formAction={FormVisibleAndAction.action}
                   />
@@ -59,12 +71,12 @@ const Standards = () => {
 
       if (FormVisibleAndAction.action === "edit") {
             form = (
-                  <StandardForm
-                        title={"Edit Standard"}
+                  <InstallationForm
+                        title={"Edit Installation"}
                         closeHandler={toggleFormVisibility}
-                        selected={selectedStandard}
-                        confirmHandler={updateOne}
-                        getAll={getAll}
+                        selected={selectedInstallation}
+                        confirmHandler={updateOneIns}
+                        getAll={getAllIns}
                         formAction={FormVisibleAndAction.action}
                   />
             );
@@ -73,18 +85,18 @@ const Standards = () => {
       return (
             <div>
                   <Header
-                        label={"Standards"}
+                        label={"Installations"}
                         confirmHandler={createOne}
                         setAction={setFormVisibleAndAction}
                   />
                   {FormVisibleAndAction.visible && form && <div>{form}</div>}
                   <main className="flex justify-center items-center">
-                        {standards && (
+                        {installations && (
                               <TableComponent
                                     columns={coulmns}
-                                    rows={standards}
+                                    rows={installations}
                                     openForm={setFormVisibleAndAction}
-                                    formName="standards"
+                                    formName="installations"
                               />
                         )}
                   </main>
@@ -92,4 +104,4 @@ const Standards = () => {
       );
 };
 
-export default Standards;
+export default Installations;

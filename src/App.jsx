@@ -10,32 +10,34 @@ import Equipments from "./pages/admin-view/Equipments";
 import Accounts from "./pages/admin-view/Accounts";
 import Login from "./pages/auth/Login";
 import Toastar from "./components/UI/Toastar";
-import Standards from "./pages/admin-view/Standards"
+import Standards from "./pages/admin-view/Standards";
+import Installations from "./pages/admin-view/Installations";
 
 import { useSelector } from "react-redux";
 
 const App = () => {
-	const toastar = useSelector((state) => state.toastar);
+      const toastar = useSelector((state) => state.toastar);
 
-	return (
-		<div>
-			<Routes>
-				<Route path="/login" element={<Login />} />
-				<Route path="/" element={<Layout />}>
-					<Route path="/dashboard" element={<Dashboard />} />
-					<Route path="/workorder" element={<WorkOrder />} />
-					<Route path="/employees" element={<Employees />} />
-					<Route path="/auth" element={<Auth />} />
-					<Route path="/clients" element={<Clients />} />
-					<Route path="/client-not" element={<ClientNot />} />
-					<Route path="/equipments" element={<Equipments />} />
-					<Route path="/accounts" element={<Accounts />} />
-					<Route path="/standards" element={<Standards />} />
-				</Route>
-			</Routes>
-			<Toastar openSnackbar={toastar.open} snackbarMessage={toastar.message} />
-		</div>
-	);
+      return (
+            <div>
+                  <Routes>
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/" element={<Layout />}>
+                              <Route path="/dashboard" element={<Dashboard />} />
+                              <Route path="/workorder" element={<WorkOrder />} />
+                              <Route path="/employees" element={<Employees />} />
+                              <Route path="/auth" element={<Auth />} />
+                              <Route path="/clients" element={<Clients />} />
+                              <Route path="/client-not" element={<ClientNot />} />
+                              <Route path="/equipments" element={<Equipments />} />
+                              <Route path="/accounts" element={<Accounts />} />
+                              <Route path="/standards" element={<Standards />} />
+                              <Route path="/installations" element={<Installations />} />
+                        </Route>
+                  </Routes>
+                  <Toastar openSnackbar={toastar.open} snackbarMessage={toastar.message} />
+            </div>
+      );
 };
 
 export default App;
