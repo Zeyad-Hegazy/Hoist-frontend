@@ -2,8 +2,10 @@
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "@mui/material";
+// import { useState } from "react";
 
-const ClinetHeader = ({ label, setAction }) => {
+const ClinetHeader = ({ label, setAction, openFullForm }) => {
       return (
             <div className="flex justify-between items-center custom-border">
                   <h1 className="text-[30px]">{label} Page</h1>
@@ -20,7 +22,7 @@ const ClinetHeader = ({ label, setAction }) => {
                               <FontAwesomeIcon icon={faPlus} />
                               <span className="ml-1">Add Branch</span>
                         </button>
-                        <button
+                        {/* <button
                               className="px-4 py-2 bg-blue-700 text-white rounded-lg"
                               // onClick={() => {
                               //       setAction({
@@ -28,6 +30,13 @@ const ClinetHeader = ({ label, setAction }) => {
                               //             visible: true,
                               //       });
                               // }}
+                        >
+                              <FontAwesomeIcon icon={faPlus} />
+                              <span className="ml-1">Add Client</span>
+                        </button> */}
+                        <button
+                              className="px-4 py-2 bg-blue-700 text-white rounded-lg"
+                              onClick={openFullForm}
                         >
                               <FontAwesomeIcon icon={faPlus} />
                               <span className="ml-1">Add Client</span>

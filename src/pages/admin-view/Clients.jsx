@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getAllClients, createOneClient, updateOneClient } from "./../../actions/clients";
 import TableComponent from "../../components/UI/Table";
 import ClientForm from "../../components/UI/client-form/ClientForm";
+import FullClientForm from "../../components/UI/client-form/FullClientForm";
 
 const coulmns = [
       {
@@ -51,7 +52,16 @@ const coulmns = [
       },
 ];
 
-const Standards = () => {
+const Clients = () => {
+      const [FullFormVisible, setFullFormVisible] = useState(false);
+
+      const handleClickOpenFull = () => {
+            setFullFormVisible(true);
+      };
+      const handleClickCloseFull = () => {
+            setFullFormVisible(false);
+      };
+
       const dispatch = useDispatch();
       const clients = useSelector((state) => state.clients);
       const selectedClient = useSelector((state) => state.select);
@@ -113,8 +123,12 @@ const Standards = () => {
                         label={"Clients"}
                         confirmHandler={createOneClient}
                         setAction={setFormVisibleAndAction}
+                        openFullForm={handleClickOpenFull}
                   />
                   {FormVisibleAndAction.visible && form && <div>{form}</div>}
+                  {FullFormVisible && (
+                        <FullClientForm state={FullFormVisible} closeModal={handleClickCloseFull} />
+                  )}
                   <main className="flex justify-center items-center">
                         {clients && (
                               <TableComponent
@@ -129,4 +143,4 @@ const Standards = () => {
       );
 };
 
-export default Standards;
+export default Clients;
