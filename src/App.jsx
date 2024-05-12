@@ -13,7 +13,7 @@ import Toastar from "./components/UI/Toastar";
 import Standards from "./pages/admin-view/Standards";
 import Installations from "./pages/admin-view/Installations";
 import Category from "./pages/admin-view/Category";
-
+import Type from "./pages/admin-view/Type";
 import { useSelector } from "react-redux";
 
 const App = () => {
@@ -35,6 +35,7 @@ const App = () => {
 					<Route path="/standards" element={<Standards />} />
 					<Route path="/installations" element={<Installations />} />
 					<Route path="/category" element={<Category />} />
+					<Route path="/types" element={<Type />} />
 				</Route>
 			</Routes>
 			<Toastar openSnackbar={toastar.open} snackbarMessage={toastar.message} />

@@ -102,6 +102,12 @@ const Layout = () => {
 									</Link>
 								</li>
 								<li className="py-2 px-4 my-6">
+									<Link to="/types">
+										<FontAwesomeIcon className="mr-2" icon={faSuitcase} />
+										Types
+									</Link>
+								</li>
+								<li className="py-2 px-4 my-6">
 									<Link to="/installations">
 										<FontAwesomeIcon className="mr-2" icon={faMapMarkerAlt} />
 										Installations

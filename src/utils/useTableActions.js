@@ -14,6 +14,8 @@ import {
 	getAllCategories,
 } from "../actions/category";
 
+import { getOneType, deleteOneType, getAllTypes } from "../actions/types";
+
 const useTableActions = (formName, openForm) => {
 	const dispatch = useDispatch();
 
@@ -147,6 +149,32 @@ const useTableActions = (formName, openForm) => {
 			getDeleteHandler = async (id) => {
 				await dispatch(deleteOneCategory(id));
 				dispatch(getAllCategories());
+			};
+
+			break;
+
+		case "type":
+			getViewHandler = (id) => {
+				dispatch(getOneType(id));
+
+				openForm({
+					action: "view",
+					visible: true,
+				});
+			};
+
+			getEditHandler = (id) => {
+				dispatch(getOneType(id));
+
+				openForm({
+					action: "edit",
+					visible: true,
+				});
+			};
+
+			getDeleteHandler = async (id) => {
+				await dispatch(deleteOneType(id));
+				dispatch(getAllTypes());
 			};
 
 			break;

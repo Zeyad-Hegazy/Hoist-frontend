@@ -7,6 +7,7 @@ import standards from "./standards";
 import installations from "./installations";
 import clients from "./clients";
 import category from "./category";
+import types from "./types";
 
 const rootReducer = combineReducers({
 	auth,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
 	installations,
 	clients,
 	category,
+	types,
 });
 
 export default rootReducer;

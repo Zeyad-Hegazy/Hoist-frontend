@@ -52,7 +52,7 @@ const CategoryForm = ({
 						<div className={`mb-4`}>
 							<TextField
 								fullWidth={false}
-								label={"Client Name"}
+								label={"Category Name"}
 								name={"name"}
 								type={"text"}
 								variant="outlined"

@@ -1,40 +1,40 @@
 /* eslint-disable react/prop-types */
+
 import {
 	TextField,
 	Button,
-	Select,
-	MenuItem,
 	FormControl,
 	InputLabel,
+	Select,
+	MenuItem,
 	FormHelperText,
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 
-import { schema } from "../../../utils/validation/installationVAlidator";
+import { schema } from "../../../utils/validation/typesValidator";
 import useForm from "../../../utils/useForm";
 import { useEffect, useState } from "react";
-import { getDDL } from "../../../api/clients";
+import { getDDL } from "../../../api/category";
 
-const InstallationForm = ({
+const TypeForm = ({
 	title,
 	closeHandler,
 	confirmHandler,
-	getAll,
 	selected,
 	formAction,
+	getAll,
 }) => {
 	const initialState = {
 		name: "",
-		client: "",
+		category: "",
 	};
+
 	const {
 		formData,
 		errors,
 		isFormValid,
-		imagePreview,
 		handleChange,
-		handleImageChange,
 		handleSubmit,
 		validateField,
 	} = useForm({
@@ -47,19 +47,19 @@ const InstallationForm = ({
 		getAll,
 	});
 
-	const [clientDDL, setClientDDL] = useState([]);
+	const [categoryDDL, setCategoryDDL] = useState([]);
 
 	useEffect(() => {
-		const fetchclientDDL = async () => {
+		const fetchCategoryDDL = async () => {
 			try {
 				const ddl = await getDDL();
-				setClientDDL(ddl.data.result);
+				setCategoryDDL(ddl.data.result);
 			} catch (error) {
 				console.error("Error fetching client list:", error);
 			}
 		};
 
-		fetchclientDDL();
+		fetchCategoryDDL();
 	}, []);
 
 	return (
@@ -78,7 +78,7 @@ const InstallationForm = ({
 						<div className={`mb-4`}>
 							<TextField
 								fullWidth={false}
-								label={"Installation Name"}
+								label={"Type Name"}
 								name={"name"}
 								type={"text"}
 								variant="outlined"
@@ -91,34 +91,34 @@ const InstallationForm = ({
 							/>
 						</div>
 
-						{/* Client */}
+						{/* Category */}
 						<div className={`mb-4`}>
 							<FormControl
 								fullWidth={false}
 								variant="outlined"
-								error={errors["client"] ? true : false}
+								error={errors["category"] ? true : false}
 							>
-								<InputLabel id="client-label">Client</InputLabel>
+								<InputLabel id="category-label">Category</InputLabel>
 								<Select
 									fullWidth={false}
-									labelId="client-label"
-									id="client"
-									name="client"
-									value={formData["client"]}
+									labelId="category-label"
+									id="category"
+									name="category"
+									value={formData["category"]}
 									onChange={handleChange}
 									onBlur={(e) => validateField(e.target.name, e.target.value)}
 									disabled={formAction === "view"}
-									label="Client"
+									label="Category"
 									className="w-[12rem]"
 								>
-									{clientDDL.map((client) => (
-										<MenuItem key={client._id} value={client._id}>
-											{client.name}
+									{categoryDDL.map((category) => (
+										<MenuItem key={category._id} value={category._id}>
+											{category.name}
 										</MenuItem>
 									))}
 								</Select>
-								{errors["client"] && (
-									<FormHelperText>{errors["client"]}</FormHelperText>
+								{errors["category"] && (
+									<FormHelperText>{errors["category"]}</FormHelperText>
 								)}
 							</FormControl>
 						</div>
@@ -141,4 +141,4 @@ const InstallationForm = ({
 	);
 };
 
-export default InstallationForm;
+export default TypeForm;
