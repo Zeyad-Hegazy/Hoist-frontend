@@ -22,6 +22,12 @@ import {
 	getAllDepartments,
 } from "../actions/departments";
 
+import {
+	getOneAccount,
+	deleteOneAccount,
+	getAllAccounts,
+} from "../actions/account";
+
 const useTableActions = (formName, openForm) => {
 	const dispatch = useDispatch();
 
@@ -207,6 +213,32 @@ const useTableActions = (formName, openForm) => {
 			getDeleteHandler = async (id) => {
 				await dispatch(deleteOneDepartment(id));
 				dispatch(getAllDepartments());
+			};
+
+			break;
+
+		case "accounts":
+			getViewHandler = (id) => {
+				dispatch(getOneAccount(id));
+
+				openForm({
+					action: "view",
+					visible: true,
+				});
+			};
+
+			getEditHandler = (id) => {
+				dispatch(getOneAccount(id));
+
+				openForm({
+					action: "edit",
+					visible: true,
+				});
+			};
+
+			getDeleteHandler = async (id) => {
+				await dispatch(deleteOneAccount(id));
+				dispatch(getAllAccounts());
 			};
 
 			break;
