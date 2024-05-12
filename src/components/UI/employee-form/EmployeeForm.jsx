@@ -117,21 +117,24 @@ const EmployeeForm = ({
 							/>
 						</div>
 						{/* Password */}
-						<div className={`mb-4`}>
-							<TextField
-								fullWidth={false}
-								label={"Password"}
-								name={"password"}
-								type={"password"}
-								variant="outlined"
-								value={formData["password"]}
-								onChange={handleChange}
-								onBlur={(e) => validateField(e.target.name, e.target.value)}
-								disabled={formAction === "view" || formAction === "edit"}
-								error={errors["password"] ? true : false}
-								helperText={errors["password"]}
-							/>
-						</div>
+						{formAction === "create" && (
+							<div className={`mb-4`}>
+								<TextField
+									fullWidth={false}
+									label={"Password"}
+									name={"password"}
+									type={"password"}
+									variant="outlined"
+									value={formData["password"]}
+									onChange={handleChange}
+									onBlur={(e) => validateField(e.target.name, e.target.value)}
+									disabled={formAction === "view" || formAction === "edit"}
+									error={errors["password"] ? true : false}
+									helperText={errors["password"]}
+								/>
+							</div>
+						)}
+
 						{/* Role */}
 						<div className={`mb-4 w-full`}>
 							<FormControl
