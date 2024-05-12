@@ -92,36 +92,38 @@ const TypeForm = ({
 						</div>
 
 						{/* Category */}
-						<div className={`mb-4`}>
-							<FormControl
-								fullWidth={false}
-								variant="outlined"
-								error={errors["category"] ? true : false}
-							>
-								<InputLabel id="category-label">Category</InputLabel>
-								<Select
+						{formAction !== "edit" && (
+							<div className={`mb-4`}>
+								<FormControl
 									fullWidth={false}
-									labelId="category-label"
-									id="category"
-									name="category"
-									value={formData["category"]}
-									onChange={handleChange}
-									onBlur={(e) => validateField(e.target.name, e.target.value)}
-									disabled={formAction === "view"}
-									label="Category"
-									className="w-[12rem]"
+									variant="outlined"
+									error={errors["category"] ? true : false}
 								>
-									{categoryDDL.map((category) => (
-										<MenuItem key={category._id} value={category._id}>
-											{category.name}
-										</MenuItem>
-									))}
-								</Select>
-								{errors["category"] && (
-									<FormHelperText>{errors["category"]}</FormHelperText>
-								)}
-							</FormControl>
-						</div>
+									<InputLabel id="category-label">Category</InputLabel>
+									<Select
+										fullWidth={false}
+										labelId="category-label"
+										id="category"
+										name="category"
+										value={formData["category"]}
+										onChange={handleChange}
+										onBlur={(e) => validateField(e.target.name, e.target.value)}
+										disabled={formAction === "view"}
+										label="Category"
+										className="w-[12rem]"
+									>
+										{categoryDDL.map((category) => (
+											<MenuItem key={category._id} value={category._id}>
+												{category.name}
+											</MenuItem>
+										))}
+									</Select>
+									{errors["category"] && (
+										<FormHelperText>{errors["category"]}</FormHelperText>
+									)}
+								</FormControl>
+							</div>
+						)}
 
 						{formAction !== "view" && (
 							<Button
