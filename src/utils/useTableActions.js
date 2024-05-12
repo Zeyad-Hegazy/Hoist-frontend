@@ -16,6 +16,12 @@ import {
 
 import { getOneType, deleteOneType, getAllTypes } from "../actions/types";
 
+import {
+	getOneDepartment,
+	deleteOneDepartment,
+	getAllDepartments,
+} from "../actions/departments";
+
 const useTableActions = (formName, openForm) => {
 	const dispatch = useDispatch();
 
@@ -175,6 +181,32 @@ const useTableActions = (formName, openForm) => {
 			getDeleteHandler = async (id) => {
 				await dispatch(deleteOneType(id));
 				dispatch(getAllTypes());
+			};
+
+			break;
+
+		case "departments":
+			getViewHandler = (id) => {
+				dispatch(getOneDepartment(id));
+
+				openForm({
+					action: "view",
+					visible: true,
+				});
+			};
+
+			getEditHandler = (id) => {
+				dispatch(getOneDepartment(id));
+
+				openForm({
+					action: "edit",
+					visible: true,
+				});
+			};
+
+			getDeleteHandler = async (id) => {
+				await dispatch(deleteOneDepartment(id));
+				dispatch(getAllDepartments());
 			};
 
 			break;

@@ -17,6 +17,7 @@ import {
 	faAngleDown,
 	faSuitcase,
 	faLayerGroup,
+	faBuilding,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { Link, useNavigate, Outlet } from "react-router-dom";
@@ -112,6 +113,12 @@ const Layout = () => {
 									<Link to="/installations">
 										<FontAwesomeIcon className="mr-2" icon={faMapMarkerAlt} />
 										Installations
+									</Link>
+								</li>
+								<li className="py-2 px-4 my-6">
+									<Link to="/departments">
+										<FontAwesomeIcon className="mr-2" icon={faBuilding} />
+										Departments
 									</Link>
 								</li>
 								<li className="py-2 px-4 my-6">
