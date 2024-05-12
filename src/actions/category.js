@@ -1,11 +1,11 @@
 import { GET, CREATE, DELETE, GET_ONE, UPDATE } from "../constants/crud";
-import * as api from "../api/clients";
+import * as api from "../api/category";
 import { openToastar } from "./toastar";
 
-export const getAllClients = () => async (dispatch) => {
+export const getAllCategories = () => async (dispatch) => {
 	try {
 		const data = await api.getall();
-		dispatch({ type: GET + "_clients", payload: data.data.result });
+		dispatch({ type: GET + "_category", payload: data.data.result });
 	} catch (error) {
 		dispatch(
 			openToastar({
@@ -16,7 +16,7 @@ export const getAllClients = () => async (dispatch) => {
 	}
 };
 
-export const getOneClient = (id) => async (dispatch) => {
+export const getOneCategory = (id) => async (dispatch) => {
 	try {
 		const data = await api.getone(id);
 		dispatch({ type: GET_ONE, payload: data.data.result });
@@ -30,10 +30,10 @@ export const getOneClient = (id) => async (dispatch) => {
 	}
 };
 
-export const createOneClient = (formData) => async (dispatch) => {
+export const createOneCategory = (formData) => async (dispatch) => {
 	try {
 		const data = await api.create(formData);
-		dispatch({ type: CREATE + "_clients", payload: data.data.result });
+		dispatch({ type: CREATE + "_category", payload: data.data.result });
 		dispatch(openToastar({ message: data.data.message, status: data.status }));
 	} catch (error) {
 		dispatch(
@@ -45,10 +45,10 @@ export const createOneClient = (formData) => async (dispatch) => {
 	}
 };
 
-export const deleteOneClient = (id) => async (dispatch) => {
+export const deleteOneCategory = (id) => async (dispatch) => {
 	try {
 		const data = await api.deleteone(id);
-		dispatch({ type: DELETE + "_clients", payload: id });
+		dispatch({ type: DELETE + "_category", payload: id });
 		dispatch(openToastar({ message: data.data.message }));
 	} catch (error) {
 		dispatch(
@@ -60,10 +60,10 @@ export const deleteOneClient = (id) => async (dispatch) => {
 	}
 };
 
-export const updateOneClient = (formData, id) => async (dispatch) => {
+export const updateOneCategory = (formData, id) => async (dispatch) => {
 	try {
 		const data = await api.updateone(formData, id);
-		dispatch({ type: UPDATE + "_clients", payload: id });
+		dispatch({ type: UPDATE + "_category", payload: id });
 		dispatch(openToastar({ message: data.data.message, status: data.status }));
 	} catch (error) {
 		dispatch(

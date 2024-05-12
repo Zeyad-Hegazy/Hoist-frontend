@@ -2,121 +2,157 @@ import { useDispatch } from "react-redux";
 import { getone, getall, deleteEmployee } from "../actions/employees";
 import { getOne, deleteOne, getAll } from "../actions/standards";
 import { getOneIns, deleteOneIns, getAllIns } from "../actions/installation";
-import { getOneClient, deleteOneClient, getAllClients } from "../actions/clients";
+import {
+	getOneClient,
+	deleteOneClient,
+	getAllClients,
+} from "../actions/clients";
+
+import {
+	getOneCategory,
+	deleteOneCategory,
+	getAllCategories,
+} from "../actions/category";
 
 const useTableActions = (formName, openForm) => {
-      const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-      let getViewHandler;
-      let getEditHandler;
-      let getDeleteHandler;
+	let getViewHandler;
+	let getEditHandler;
+	let getDeleteHandler;
 
-      switch (formName) {
-            case "employees":
-                  getViewHandler = (id) => {
-                        dispatch(getone(id));
+	switch (formName) {
+		case "employees":
+			getViewHandler = (id) => {
+				dispatch(getone(id));
 
-                        openForm({
-                              action: "view",
-                              visible: true,
-                        });
-                  };
+				openForm({
+					action: "view",
+					visible: true,
+				});
+			};
 
-                  getEditHandler = (id) => {
-                        dispatch(getone(id));
-                        openForm({
-                              action: "edit",
-                              visible: true,
-                        });
-                  };
+			getEditHandler = (id) => {
+				dispatch(getone(id));
+				openForm({
+					action: "edit",
+					visible: true,
+				});
+			};
 
-                  getDeleteHandler = async (id) => {
-                        await dispatch(deleteEmployee(id)); // Wait for delete operation to complete
-                        dispatch(getall()); // Dispatch getall action after delete
-                  };
+			getDeleteHandler = async (id) => {
+				await dispatch(deleteEmployee(id)); // Wait for delete operation to complete
+				dispatch(getall()); // Dispatch getall action after delete
+			};
 
-                  break;
+			break;
 
-            case "standards":
-                  getViewHandler = (id) => {
-                        dispatch(getOne(id));
+		case "standards":
+			getViewHandler = (id) => {
+				dispatch(getOne(id));
 
-                        openForm({
-                              action: "view",
-                              visible: true,
-                        });
-                  };
+				openForm({
+					action: "view",
+					visible: true,
+				});
+			};
 
-                  getEditHandler = (id) => {
-                        dispatch(getOne(id));
+			getEditHandler = (id) => {
+				dispatch(getOne(id));
 
-                        openForm({
-                              action: "edit",
-                              visible: true,
-                        });
-                  };
+				openForm({
+					action: "edit",
+					visible: true,
+				});
+			};
 
-                  getDeleteHandler = async (id) => {
-                        await dispatch(deleteOne(id));
-                        dispatch(getAll());
-                  };
+			getDeleteHandler = async (id) => {
+				await dispatch(deleteOne(id));
+				dispatch(getAll());
+			};
 
-                  break;
+			break;
 
-            case "installations":
-                  getViewHandler = (id) => {
-                        dispatch(getOneIns(id));
+		case "installations":
+			getViewHandler = (id) => {
+				dispatch(getOneIns(id));
 
-                        openForm({
-                              action: "view",
-                              visible: true,
-                        });
-                  };
+				openForm({
+					action: "view",
+					visible: true,
+				});
+			};
 
-                  getEditHandler = (id) => {
-                        dispatch(getOneIns(id));
+			getEditHandler = (id) => {
+				dispatch(getOneIns(id));
 
-                        openForm({
-                              action: "edit",
-                              visible: true,
-                        });
-                  };
+				openForm({
+					action: "edit",
+					visible: true,
+				});
+			};
 
-                  getDeleteHandler = async (id) => {
-                        await dispatch(deleteOneIns(id));
-                        dispatch(getAllIns());
-                  };
+			getDeleteHandler = async (id) => {
+				await dispatch(deleteOneIns(id));
+				dispatch(getAllIns());
+			};
 
-                  break;
+			break;
 
-            case "clients":
-                  getViewHandler = (id) => {
-                        dispatch(getOneClient(id));
+		case "clients":
+			getViewHandler = (id) => {
+				dispatch(getOneClient(id));
 
-                        openForm({
-                              action: "view",
-                              visible: true,
-                        });
-                  };
+				openForm({
+					action: "view",
+					visible: true,
+				});
+			};
 
-                  getEditHandler = (id) => {
-                        dispatch(getOneClient(id));
+			getEditHandler = (id) => {
+				dispatch(getOneClient(id));
 
-                        openForm({
-                              action: "edit",
-                              visible: true,
-                        });
-                  };
+				openForm({
+					action: "edit",
+					visible: true,
+				});
+			};
 
-                  getDeleteHandler = async (id) => {
-                        await dispatch(deleteOneClient(id));
-                        dispatch(getAllClients());
-                  };
+			getDeleteHandler = async (id) => {
+				await dispatch(deleteOneClient(id));
+				dispatch(getAllClients());
+			};
 
-                  break;
-      }
+			break;
 
-      return { getViewHandler, getEditHandler, getDeleteHandler };
+		case "category":
+			getViewHandler = (id) => {
+				dispatch(getOneCategory(id));
+
+				openForm({
+					action: "view",
+					visible: true,
+				});
+			};
+
+			getEditHandler = (id) => {
+				dispatch(getOneCategory(id));
+
+				openForm({
+					action: "edit",
+					visible: true,
+				});
+			};
+
+			getDeleteHandler = async (id) => {
+				await dispatch(deleteOneCategory(id));
+				dispatch(getAllCategories());
+			};
+
+			break;
+	}
+
+	return { getViewHandler, getEditHandler, getDeleteHandler };
 };
 
 export default useTableActions;

@@ -6,15 +6,17 @@ import select from "./selected";
 import standards from "./standards";
 import installations from "./installations";
 import clients from "./clients";
+import category from "./category";
 
 const rootReducer = combineReducers({
-      auth,
-      employees,
-      select,
-      toastar,
-      standards,
-      installations,
-      clients,
+	auth,
+	employees,
+	select,
+	toastar,
+	standards,
+	installations,
+	clients,
+	category,
 });
 
 export default rootReducer;
