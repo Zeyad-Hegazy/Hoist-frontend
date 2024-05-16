@@ -1,25 +1,44 @@
 .logout:hover {
-  background-color: rgba(104, 6, 6, 0.63) !important;
-  transition: all 0.2s ease-in-out;
+      background-color: rgba(187, 29, 29, 0.63) !important;
+      transition: all 0.2s ease-in-out;
 }
 @keyframes shake {
-  0% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-2px);
-  }
-  50% {
-    transform: translateX(2px);
-  }
-  75% {
-    transform: translateX(-1px);
-  }
-  100% {
-    transform: translateX(1px);
-  }
+      0% {
+            transform: translateX(0);
+      }
+      25% {
+            transform: translateX(-2px);
+      }
+      50% {
+            transform: translateX(2px);
+      }
+      75% {
+            transform: translateX(-1px);
+      }
+      100% {
+            transform: translateX(1px);
+      }
 }
 
 .shake {
-  animation: shake 0.5s infinite;
+      animation: shake 0.5s infinite;
+}
+
+.layout-links .li {
+      padding: 0.8rem;
+      width: 100%;
+      display: inline-block;
+}
+
+.layout-links .li:not(:last-child):hover {
+      transition: all 0.2s ease-in-out;
+      border-left: solid 4px #638fed;
+      padding-left: 1.2rem;
+      background-color: #213e7c;
+}
+.active {
+      transition: all 0.2s ease-in-out;
+      border-left: solid 4px #638fed;
+      padding-left: 1.2rem;
+      background-color: #213e7c;
 }
