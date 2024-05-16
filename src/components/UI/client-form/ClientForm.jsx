@@ -33,7 +33,7 @@ const ClientForm = ({
 		fax: "",
 		address: "",
 		password: "",
-		parentClient: "",
+		parentClient: null,
 		country: "",
 	};
 	const {

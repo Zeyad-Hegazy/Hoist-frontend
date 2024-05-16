@@ -10,6 +10,7 @@ import category from "./category";
 import types from "./types";
 import departments from "./departments";
 import accounts from "./accounts";
+import workorder from "./workorder";
 
 const rootReducer = combineReducers({
 	auth,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
 	types,
 	departments,
 	accounts,
+	workorder,
 });
 
 export default rootReducer;

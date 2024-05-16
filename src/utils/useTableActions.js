@@ -28,6 +28,12 @@ import {
 	getAllAccounts,
 } from "../actions/account";
 
+import {
+	getOneWorkOrder,
+	deleteOneWorkOrder,
+	getWorkOrders,
+} from "../actions/workorder";
+
 const useTableActions = (formName, openForm) => {
 	const dispatch = useDispatch();
 
@@ -239,6 +245,32 @@ const useTableActions = (formName, openForm) => {
 			getDeleteHandler = async (id) => {
 				await dispatch(deleteOneAccount(id));
 				dispatch(getAllAccounts());
+			};
+
+			break;
+
+		case "workorder":
+			getViewHandler = (id) => {
+				dispatch(getOneWorkOrder(id));
+
+				openForm({
+					action: "view",
+					visible: true,
+				});
+			};
+
+			getEditHandler = (id) => {
+				dispatch(getOneWorkOrder(id));
+
+				openForm({
+					action: "edit",
+					visible: true,
+				});
+			};
+
+			getDeleteHandler = async (id) => {
+				await dispatch(deleteOneWorkOrder(id));
+				dispatch(getWorkOrders());
 			};
 
 			break;
