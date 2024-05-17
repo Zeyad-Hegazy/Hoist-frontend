@@ -1,4 +1,4 @@
-import API from "./index"
+import API from "./index";
 
 export const getall = () => API.get("/admin/standard");
 export const create = (formData) => API.post("/admin/standard", formData);

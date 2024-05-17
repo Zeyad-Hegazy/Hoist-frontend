@@ -15,6 +15,7 @@ import Installations from "./pages/admin-view/Installations";
 import Category from "./pages/admin-view/Category";
 import Type from "./pages/admin-view/Type";
 import Department from "./pages/admin-view/Department";
+import EquipmentInfo from "./components/UI/equipment-form/EquipmentInfo";
 
 import { useSelector } from "react-redux";
 
@@ -33,6 +34,7 @@ const App = () => {
 					<Route path="/clients" element={<Clients />} />
 					<Route path="/client-not" element={<ClientNot />} />
 					<Route path="/equipments" element={<Equipments />} />
+					<Route path="equipments/info" element={<EquipmentInfo />} />
 					<Route path="/accounts" element={<Accounts />} />
 					<Route path="/standards" element={<Standards />} />
 					<Route path="/installations" element={<Installations />} />

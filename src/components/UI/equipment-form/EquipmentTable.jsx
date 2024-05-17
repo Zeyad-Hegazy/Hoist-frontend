@@ -8,15 +8,13 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useState } from "react";
-import useTableActions from "../../utils/useTableActions";
-import TableActions from "./TableActions";
+import EquipmentActions from "./EquipmentActions";
 import { TextField } from "@mui/material";
+import useEquipmentActions from "./../../../utils/useEquipmentActions";
 
-const TableComponent = ({ columns, rows, openForm, formName }) => {
-	const { getViewHandler, getEditHandler, getDeleteHandler } = useTableActions(
-		formName,
-		openForm
-	);
+const EquipmentTable = ({ columns, rows, openForm }) => {
+	const { getDeleteHandler, getEditHandler, getViewHandler } =
+		useEquipmentActions(openForm);
 
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -50,15 +48,31 @@ const TableComponent = ({ columns, rows, openForm, formName }) => {
 				<Table>
 					<TableHead>
 						<TableRow>
-							{columns.map((col) => (
-								<TableCell
-									key={col.id}
-									align={col.align}
-									style={{ minWidth: col.minWidth }}
-								>
-									{col.label}
-								</TableCell>
-							))}
+							<TableCell align={"center"} style={{ minWidth: "170px" }}>
+								Serial Number
+							</TableCell>
+							<TableCell align={"center"} style={{ minWidth: "170px" }}>
+								Department
+							</TableCell>
+							<TableCell align={"center"} style={{ minWidth: "170px" }}>
+								Installation
+							</TableCell>
+							<TableCell align={"center"} style={{ minWidth: "170px" }}>
+								Category
+							</TableCell>
+							<TableCell align={"center"} style={{ minWidth: "170px" }}>
+								Type
+							</TableCell>
+							<TableCell align={"center"} style={{ minWidth: "170px" }}>
+								Date Of Last Inspection
+							</TableCell>
+							<TableCell align={"center"} style={{ minWidth: "170px" }}>
+								Date Of Next Inspection
+							</TableCell>
+							<TableCell align={"center"} style={{ minWidth: "170px" }}>
+								Manufacturer
+							</TableCell>
+
 							<TableCell align={"center"}>Actions</TableCell>
 						</TableRow>
 					</TableHead>
@@ -68,13 +82,26 @@ const TableComponent = ({ columns, rows, openForm, formName }) => {
 							.map((row) => (
 								<TableRow hover key={row._id}>
 									{columns.map((col) => (
-										<TableCell key={col.id + row._id} align={col.align}>
+										<TableCell
+											key={col.id + row._id}
+											align={col.align}
+											style={{
+												textDecoration:
+													col.id === "serialNumber" ? "underline" : "inherit",
+												cursor:
+													col.id === "serialNumber" ? "pointer" : "inherit",
+											}}
+											onClick={() => {
+												if (col.id === "serialNumber") {
+													getViewHandler(row._id);
+												}
+											}}
+										>
 											{row[col.id]}
 										</TableCell>
 									))}
 									<TableCell>
-										<TableActions
-											getView={() => getViewHandler(row._id)}
+										<EquipmentActions
 											getEdit={() => getEditHandler(row._id)}
 											getDelete={() => getDeleteHandler(row._id)}
 											id={row._id}
@@ -108,4 +135,4 @@ const TableComponent = ({ columns, rows, openForm, formName }) => {
 	);
 };
 
-export default TableComponent;
+export default EquipmentTable;

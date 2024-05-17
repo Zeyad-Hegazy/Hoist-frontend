@@ -18,13 +18,13 @@ const coulmns = [
 	},
 	{
 		id: "departmentName",
-		label: "Department Name",
+		label: "Department",
 		minWidth: 170,
 		align: "center",
 	},
 	{
 		id: "installationName",
-		label: "Installation Name",
+		label: "Installation",
 		minWidth: 170,
 		align: "center",
 	},
@@ -53,6 +53,7 @@ const coulmns = [
 		align: "center",
 	},
 ];
+
 const WorkOrder = () => {
 	const dispatch = useDispatch();
 	const workOrders = useSelector((state) => state.workorder);
@@ -99,7 +100,7 @@ const WorkOrder = () => {
 	if (FormVisibleAndAction.action === "edit") {
 		form = (
 			<WorkOrderForm
-				title={"Edit Type"}
+				title={"Edit Work Order"}
 				closeHandler={toggleFormVisibility}
 				selected={selectedWorkOrder}
 				confirmHandler={updateOneWorkOrder}

@@ -11,6 +11,9 @@ import types from "./types";
 import departments from "./departments";
 import accounts from "./accounts";
 import workorder from "./workorder";
+import equipment from "./equipment";
+import equipmentInfo from "./equipmentInfo";
+import reports from "./reports";
 
 const rootReducer = combineReducers({
 	auth,
@@ -25,6 +28,9 @@ const rootReducer = combineReducers({
 	departments,
 	accounts,
 	workorder,
+	equipment,
+	equipmentInfo,
+	reports,
 });
 
 export default rootReducer;

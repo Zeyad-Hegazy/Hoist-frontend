@@ -4,7 +4,8 @@ import App from "./App.jsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "./store";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "./store";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -24,10 +25,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<Provider store={store}>
-				<ThemeProvider theme={darkTheme}>
-					<CssBaseline />
-					<App />
-				</ThemeProvider>
+				<PersistGate loading={null} persistor={persistor}>
+					<ThemeProvider theme={darkTheme}>
+						<CssBaseline />
+						<App />
+					</ThemeProvider>
+				</PersistGate>
 			</Provider>
 		</BrowserRouter>
 	</React.StrictMode>
