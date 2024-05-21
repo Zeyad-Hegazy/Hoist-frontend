@@ -7,7 +7,7 @@ import {
 	updateOneReport,
 } from "./../../actions/reports";
 
-import TableComponent from "./../../components/UI/Table";
+import ReportTable from "../../components/UI/report-form/ReportTable";
 
 import ReportHeader from "../../components/UI/report-form/ReportHeader";
 import ReportForm from "./../../components/UI/report-form/ReportForm";
@@ -92,11 +92,10 @@ const Reports = ({ equipmentId }) => {
 			)}
 			<main className="flex justify-center items-center">
 				{reports && (
-					<TableComponent
+					<ReportTable
 						columns={coulmns}
 						rows={reports}
-						// openForm={setFormVisibleAndAction}
-						formName="reports"
+						openForm={handleClickOpenFull}
 					/>
 				)}
 			</main>
