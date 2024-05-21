@@ -8,13 +8,8 @@ import Reports from "../../../pages/admin-view/Reports";
 
 const InfoCard = ({ title, value, className }) => {
 	return (
-		<div
-			className={
-				"flex flex-col gap-4 bg-gray-900  pr-24 pl-4 py-2 rounded-md " +
-				className
-			}
-		>
-			<div className="font-bold">{title}</div>
+		<div className={"flex gap-4 w-[30%] pl-4 py-2 rounded-md " + className}>
+			<div className="font-bold">{title}:</div>
 			<div style={{ color: value ? "inherit" : "rgb(185 28 28)" }}>
 				{value ? value : "None"}
 			</div>
@@ -39,6 +34,8 @@ const CustomTabPanel = ({ children, value, index, ...other }) => {
 const EquipmentInfo = () => {
 	const equipmentInfo = useSelector((state) => state.equipmentInfo)["0"];
 
+	console.log(equipmentInfo);
+
 	const [value, setValue] = useState(0);
 
 	const handleChange = (event, newValue) => {
@@ -57,18 +54,57 @@ const EquipmentInfo = () => {
 			</Tabs>
 			<CustomTabPanel value={value} index={0}>
 				<div className="flex flex-wrap gap-8 mt-4">
-					<InfoCard title={"Category"} value={equipmentInfo.categoryName} />
-					<InfoCard title={"Client"} value={equipmentInfo.clientName} />
-					<InfoCard title={"Country"} value={equipmentInfo.country} />
-					<InfoCard title={"Location"} value={equipmentInfo.location} />
-					<InfoCard title={"Department"} value={equipmentInfo.departmentName} />
 					<InfoCard
 						title={"Installation"}
 						value={equipmentInfo.installationName}
 					/>
 					<InfoCard
+						title={"Serial Number"}
+						value={equipmentInfo.serialNumber}
+					/>
+					<InfoCard title={"Department"} value={equipmentInfo.departmentName} />
+
+					<InfoCard title={"Category"} value={equipmentInfo.categoryName} />
+					<InfoCard title={"Client"} value={equipmentInfo.clientName} />
+					<InfoCard title={"Country"} value={equipmentInfo.country} />
+
+					<InfoCard title={"Standard"} value={equipmentInfo.standard[0].name} />
+
+					<InfoCard title={"Discription"} value={equipmentInfo.discription} />
+				</div>
+				<hr className="my-16" />
+
+				<div className="flex flex-wrap gap-8 ">
+					<InfoCard title={"Location"} value={equipmentInfo.location} />
+					<InfoCard
+						title={"Load Test Number"}
+						value={equipmentInfo.loadTestNumber}
+					/>
+					<InfoCard title={"SWL"} value={equipmentInfo.swl} />
+					<InfoCard
+						title={"Load Test Company"}
+						value={equipmentInfo.loadTestCompany}
+					/>
+					<InfoCard title={"Manufacturer"} value={equipmentInfo.manufacturer} />
+
+					<InfoCard
+						title={"Load Test Date"}
+						value={equipmentInfo.loadTestDate}
+					/>
+
+					<InfoCard
+						title={"Manufacturer Date"}
+						value={equipmentInfo.manufacturerDate}
+					/>
+
+					<InfoCard
 						title={"Date Of Last Inspection"}
 						value={equipmentInfo.dateOfLastInsp}
+					/>
+
+					<InfoCard
+						title={"Main Serial Number"}
+						value={equipmentInfo.mainSerialNumber}
 					/>
 					<InfoCard
 						title={"Date Of Next Inspection"}
@@ -82,33 +118,7 @@ const EquipmentInfo = () => {
 						title={"Last Inspector Number"}
 						value={equipmentInfo.lastInspectorNumber}
 					/>
-					<InfoCard
-						title={"Load Test Company"}
-						value={equipmentInfo.loadTestCompany}
-					/>
-					<InfoCard
-						title={"Load Test Date"}
-						value={equipmentInfo.loadTestDate}
-					/>
-					<InfoCard
-						title={"Load Test Number"}
-						value={equipmentInfo.loadTestNumber}
-					/>
-					<InfoCard
-						title={"Main Serial Number"}
-						value={equipmentInfo.mainSerialNumber}
-					/>
-					<InfoCard title={"Manufacturer"} value={equipmentInfo.manufacturer} />
-					<InfoCard
-						title={"Manufacturer Date"}
-						value={equipmentInfo.manufacturerDate}
-					/>
-					<InfoCard
-						title={"Serial Number"}
-						value={equipmentInfo.serialNumber}
-					/>
-					<InfoCard title={"Standard"} value={equipmentInfo.standard[0].name} />
-					<InfoCard title={"SWL"} value={equipmentInfo.swl} />
+					<InfoCard title={"Comment"} value={equipmentInfo.comment} />
 				</div>
 			</CustomTabPanel>
 			<CustomTabPanel value={value} index={1}>
