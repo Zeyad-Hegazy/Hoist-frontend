@@ -1,0 +1,9 @@
+.single-card {
+      border-left: 5px solid #4079f4;
+      border-right: 5px solid #4079f4;
+}
+.single-card:hover {
+      transition: all 0.2s ease-in-out;
+      /* transform: translateY(-12px); */
+      background-color: rgb(45, 45, 45);
+}
