@@ -118,6 +118,7 @@ const useForm = ({
 		handleChange,
 		handleImageChange,
 		handleSubmit,
+		setFormData,
 	};
 };
 

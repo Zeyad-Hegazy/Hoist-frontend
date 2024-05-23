@@ -11,18 +11,20 @@ import Slide from "@mui/material/Slide";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import {
+	FormGroup,
+	FormControlLabel,
 	FormControl,
 	FormHelperText,
 	InputLabel,
 	MenuItem,
 	Select,
 	TextField,
+	Switch,
 } from "@mui/material";
 
 import { PCLTR, PTCR, PVCR } from "../../../constants/report-types";
 
 import { getDDL as getWorkOrderDDL } from "../../../api/workorder";
-import { getall as getStandardDDL } from "../../../api/standards";
 
 import { schema } from "../../../utils/validation/reportValidator";
 
@@ -36,29 +38,25 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const ReportForm = ({
-	closeModal,
+	title,
+	closeHandler,
 	state,
 	equipmentId,
-
+	equipmentStandard,
 	confirmHandler,
 	selected,
 	formAction,
 	getAll,
 }) => {
-	const closeHandler = () => {
-		closeModal(false);
-	};
-
 	const initialState = {
 		equipment: equipmentId,
 		type: "",
-		examinationStandard: "",
+		// examinationStandard: equipmentStandard,
 		dateOfExamination: "",
 		dateOfNextExamination: "",
 		jobNumber: "",
 		proofLoadApplied: "",
 		foundDefectDangerToPerson: "",
-		// TODO
 		isImmediateDanger: false,
 		isPotentialDanger: false,
 		repairRenewalAlteration: "",
@@ -75,6 +73,7 @@ const ReportForm = ({
 		handleChange,
 		handleSubmit,
 		validateField,
+		setFormData,
 	} = useForm({
 		selected,
 		formAction,
@@ -86,9 +85,10 @@ const ReportForm = ({
 	});
 
 	const [workOrdersDDL, setWorkOrdersDDL] = React.useState([]);
-	const [standardDDL, setStandardDDL] = React.useState([]);
 
 	React.useEffect(() => {
+		console.log("formData", formData);
+
 		const fetchWorkOrdersDDL = async () => {
 			try {
 				const ddl = await getWorkOrderDDL();
@@ -97,19 +97,17 @@ const ReportForm = ({
 				console.error("Error fetching list:", error);
 			}
 		};
-		const fetchStandardDDL = async () => {
-			try {
-				const ddl = await getStandardDDL();
-				setStandardDDL(ddl.data.result);
-			} catch (error) {
-				console.error("Error fetching list:", error);
-			}
-		};
 
 		fetchWorkOrdersDDL();
-		fetchStandardDDL();
-	}, []);
+	}, [formData]);
 
+	const handleSwitchChange = (event) => {
+		const { name, checked } = event.target;
+		setFormData((prevState) => ({
+			...prevState,
+			[name]: checked,
+		}));
+	};
 	return (
 		<React.Fragment>
 			<Dialog
@@ -129,16 +127,16 @@ const ReportForm = ({
 							<FontAwesomeIcon icon={faClose} />
 						</IconButton>
 						<Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-							Add New Report
+							{title}
 						</Typography>
-						<Button autoFocus color="inherit" onClick={closeHandler}>
+						{/* <Button autoFocus color="inherit" onClick={closeHandler}>
 							Confirm
-						</Button>
+						</Button> */}
 					</Toolbar>
 				</AppBar>
 				<div className="m-4">
 					<div className="my-3">
-						<form className="w-full">
+						<form className="w-full" onSubmit={handleSubmit}>
 							{/* Type  */}
 							<div className={`mb-4`}>
 								<FormControl
@@ -170,6 +168,30 @@ const ReportForm = ({
 									)}
 								</FormControl>
 							</div>
+
+							{/* FIXED VALUE NOT EDITABLE */}
+							{/* Standard  */}
+							{/* <div className={`mb-4`}>
+								<FormControl fullWidth={true} variant="outlined">
+									<InputLabel id="examinationStandard-label">
+										Standard
+									</InputLabel>
+									<Select
+										fullWidth={true}
+										labelId="examinationStandard-label"
+										id="examinationStandard"
+										name="examinationStandard"
+										value={formData["examinationStandard"]}
+										disabled={true}
+										label="Standard"
+										className="w-full"
+									>
+										<MenuItem value={formData["examinationStandard"]}>
+											{formData["examinationStandard"]}
+										</MenuItem>
+									</Select>
+								</FormControl>
+							</div> */}
 
 							{/* Date Of Examination */}
 							<div className="mb-4">
@@ -255,8 +277,8 @@ const ReportForm = ({
 											</MenuItem>
 										))}
 									</Select>
-									{errors["type"] && (
-										<FormHelperText>{errors["type"]}</FormHelperText>
+									{errors["jobNumber"] && (
+										<FormHelperText>{errors["jobNumber"]}</FormHelperText>
 									)}
 								</FormControl>
 							</div>
@@ -289,9 +311,142 @@ const ReportForm = ({
 									value={formData["foundDefectDangerToPerson"]}
 									onChange={handleChange}
 									disabled={formAction === "view"}
-									helperText={"type None if has no Defect"}
+									helperText={"Leave it empty if has no defect"}
 								/>
 							</div>
+
+							<div className="flex w-[30%] justify-between">
+								{/* Is Immediate Danger */}
+								<div className={`mb-4 w-fit`}>
+									<FormGroup>
+										<FormControlLabel
+											control={
+												<Switch
+													checked={formData["isImmediateDanger"]}
+													onChange={handleSwitchChange}
+													name="isImmediateDanger"
+													color="primary"
+													disabled={formAction === "view"}
+												/>
+											}
+											label="Is Immediate Danger?"
+										/>
+									</FormGroup>
+								</div>
+
+								{/* Is Potential Danger */}
+								<div className={`mb-4 w-fit`}>
+									<FormGroup>
+										<FormControlLabel
+											control={
+												<Switch
+													checked={formData["isPotentialDanger"]}
+													onChange={handleSwitchChange}
+													name="isPotentialDanger"
+													color="primary"
+													disabled={formAction === "view"}
+												/>
+											}
+											label="Is Potential Danger?"
+										/>
+									</FormGroup>
+								</div>
+							</div>
+
+							{/* Repair Renewal Alteration */}
+							<div className={`mb-4`}>
+								<TextField
+									fullWidth={true}
+									label={"Repair Renewal Alteration"}
+									name={"repairRenewalAlteration"}
+									type={"text"}
+									variant="outlined"
+									value={formData["repairRenewalAlteration"]}
+									onChange={handleChange}
+									disabled={formAction === "view"}
+								/>
+							</div>
+
+							{/* Tests Carried Out */}
+							<div className={`mb-4`}>
+								<TextField
+									fullWidth={true}
+									label={"Tests Carried Out"}
+									name={"testsCarriedOut"}
+									type={"text"}
+									variant="outlined"
+									value={formData["testsCarriedOut"]}
+									onChange={handleChange}
+									disabled={formAction === "view"}
+								/>
+							</div>
+
+							<div className="flex w-[57%] justify-between">
+								{/* Is First Examination */}
+								<div className={`mb-4 w-fit`}>
+									<FormGroup>
+										<FormControlLabel
+											control={
+												<Switch
+													checked={formData["isFirstExamination"]}
+													onChange={handleSwitchChange}
+													name="isFirstExamination"
+													color="primary"
+													disabled={formAction === "view"}
+												/>
+											}
+											label="Is First Examination?"
+										/>
+									</FormGroup>
+								</div>
+
+								{/* Is Equipment Installed Correctly */}
+								<div className={`mb-4 w-fit`}>
+									<FormGroup>
+										<FormControlLabel
+											control={
+												<Switch
+													checked={formData["isEquipmentInstalledCorrectly"]}
+													onChange={handleSwitchChange}
+													name="isEquipmentInstalledCorrectly"
+													color="primary"
+													disabled={formAction === "view"}
+												/>
+											}
+											label="Is Equipment Installed Correctly?"
+										/>
+									</FormGroup>
+								</div>
+
+								{/* Is Equipment Safe To Operate */}
+								<div className={`mb-4 w-fit`}>
+									<FormGroup>
+										<FormControlLabel
+											control={
+												<Switch
+													checked={formData["isEquipmentSafeToOperate"]}
+													onChange={handleSwitchChange}
+													name="isEquipmentSafeToOperate"
+													color="primary"
+													disabled={formAction === "view"}
+												/>
+											}
+											label="Is Equipment Safe To Operate?"
+										/>
+									</FormGroup>
+								</div>
+							</div>
+
+							{formAction !== "view" && (
+								<Button
+									type="submit"
+									variant="contained"
+									color="primary"
+									className="w-full mt-2"
+								>
+									{formAction === "edit" ? "Edit" : "Add"}
+								</Button>
+							)}
 						</form>
 					</div>
 				</div>

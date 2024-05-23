@@ -58,23 +58,78 @@ const coulmns = [
 	},
 ];
 
-const Reports = ({ equipmentId }) => {
+const Reports = ({ equipmentId, equipmentStandard }) => {
 	const dispatch = useDispatch();
 	const reports = useSelector((state) => state.reports);
 	const selectedReport = useSelector((state) => state.select);
 
-	const [FullFormVisible, setFullFormVisible] = useState(false);
+	const [FullFormVisible, setFullFormVisible] = useState({
+		visible: false,
+		action: "create",
+	});
 
 	const handleClickOpenFull = () => {
-		setFullFormVisible(true);
+		setFullFormVisible((prevState) => {
+			return {
+				visible: true,
+				action: prevState.action,
+			};
+		});
 	};
 	const handleClickCloseFull = () => {
-		setFullFormVisible(false);
+		setFullFormVisible((prevState) => {
+			return {
+				visible: false,
+				action: prevState.action,
+			};
+		});
 	};
 
 	useEffect(() => {
 		dispatch(getAllReports(equipmentId));
 	}, [dispatch, equipmentId]);
+
+	let form = (
+		<ReportForm
+			title="Add New Report"
+			state={FullFormVisible.visible}
+			closeHandler={handleClickCloseFull}
+			equipmentId={equipmentId}
+			equipmentStandard={equipmentStandard}
+			formAction={"create"}
+			confirmHandler={createOneReport}
+		/>
+	);
+
+	if (FullFormVisible.action === "view") {
+		form = (
+			<ReportForm
+				title="View Report Details"
+				state={FullFormVisible.visible}
+				closeHandler={handleClickCloseFull}
+				selected={selectedReport}
+				equipmentId={equipmentId}
+				equipmentStandard={equipmentStandard}
+				formAction={"view"}
+				confirmHandler={createOneReport}
+			/>
+		);
+	}
+
+	if (FullFormVisible.action === "edit") {
+		form = (
+			<ReportForm
+				title="Edit Report"
+				state={FullFormVisible.visible}
+				closeHandler={handleClickCloseFull}
+				selected={selectedReport}
+				equipmentId={equipmentId}
+				equipmentStandard={equipmentStandard}
+				formAction={"edit"}
+				confirmHandler={updateOneReport}
+			/>
+		);
+	}
 
 	return (
 		<div>
@@ -83,19 +138,13 @@ const Reports = ({ equipmentId }) => {
 				confirmHandler={createOneReport}
 				openFullForm={handleClickOpenFull}
 			/>
-			{FullFormVisible && (
-				<ReportForm
-					state={FullFormVisible}
-					closeModal={handleClickCloseFull}
-					equipmentId={equipmentId}
-				/>
-			)}
+			{FullFormVisible.visible && form}
 			<main className="flex justify-center items-center">
 				{reports && (
 					<ReportTable
 						columns={coulmns}
 						rows={reports}
-						openForm={handleClickOpenFull}
+						openForm={setFullFormVisible}
 					/>
 				)}
 			</main>
