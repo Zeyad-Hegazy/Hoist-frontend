@@ -5,7 +5,7 @@ import {
 	getAllEquipments,
 	deleteOneEquipment,
 	getEquipmentInfo,
-} from "../actions/equipment";
+} from "../actions/admin/equipment";
 import { useNavigate } from "react-router-dom";
 
 const useEquipmentActions = (openForm) => {

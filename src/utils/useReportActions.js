@@ -4,7 +4,7 @@ import {
 	getOneReport,
 	getAllReports,
 	deleteOneReport,
-} from "../actions/reports";
+} from "../actions/admin/reports";
 
 const useReportActions = (openForm) => {
 	const dispatch = useDispatch();

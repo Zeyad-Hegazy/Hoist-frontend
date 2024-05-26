@@ -5,7 +5,7 @@ import {
 	getAllDepartments,
 	createOneDepartment,
 	updateOneDepartment,
-} from "./../../actions/departments";
+} from "../../actions/admin/departments";
 import TableComponent from "../../components/UI/Table";
 import DepartmentForm from "../../components/UI/department-form/DepartmentForm";
 

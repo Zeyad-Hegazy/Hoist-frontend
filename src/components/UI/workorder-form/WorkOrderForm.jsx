@@ -21,10 +21,10 @@ import { schema } from "../../../utils/validation/workorderValidator";
 import useForm from "../../../utils/useForm";
 import { useEffect, useState } from "react";
 
-import { getDDL } from "../../../api/clients";
-import { getDDL as getEmployeesDDL } from "../../../api/employees";
-import { getDDL as getDepartmentsDDL } from "../../../api/departments";
-import { getDDL as getInstallationDDL } from "../../../api/installation";
+import { getDDL } from "../../../api/admin/clients";
+import { getDDL as getEmployeesDDL } from "../../../api/admin/employees";
+import { getDDL as getDepartmentsDDL } from "../../../api/admin/departments";
+import { getDDL as getInstallationDDL } from "../../../api/admin/installation";
 
 const ClientForm = ({
 	title,

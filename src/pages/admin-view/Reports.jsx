@@ -5,7 +5,7 @@ import {
 	getAllReports,
 	createOneReport,
 	updateOneReport,
-} from "./../../actions/reports";
+} from "../../actions/admin/reports";
 
 import ReportTable from "../../components/UI/report-form/ReportTable";
 

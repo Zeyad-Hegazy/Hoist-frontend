@@ -1,38 +1,42 @@
 import { useDispatch } from "react-redux";
-import { getone, getall, deleteEmployee } from "../actions/employees";
-import { getOne, deleteOne, getAll } from "../actions/standards";
-import { getOneIns, deleteOneIns, getAllIns } from "../actions/installation";
+import { getone, getall, deleteEmployee } from "../actions/admin/employees";
+import { getOne, deleteOne, getAll } from "../actions/admin/standards";
+import {
+	getOneIns,
+	deleteOneIns,
+	getAllIns,
+} from "../actions/admin/installation";
 import {
 	getOneClient,
 	deleteOneClient,
 	getAllClients,
-} from "../actions/clients";
+} from "../actions/admin/clients";
 
 import {
 	getOneCategory,
 	deleteOneCategory,
 	getAllCategories,
-} from "../actions/category";
+} from "../actions/admin/category";
 
-import { getOneType, deleteOneType, getAllTypes } from "../actions/types";
+import { getOneType, deleteOneType, getAllTypes } from "../actions/admin/types";
 
 import {
 	getOneDepartment,
 	deleteOneDepartment,
 	getAllDepartments,
-} from "../actions/departments";
+} from "../actions/admin/departments";
 
 import {
 	getOneAccount,
 	deleteOneAccount,
 	getAllAccounts,
-} from "../actions/account";
+} from "../actions/admin/account";
 
 import {
 	getOneWorkOrder,
 	deleteOneWorkOrder,
 	getWorkOrders,
-} from "../actions/workorder";
+} from "../actions/admin/workorder";
 
 const useTableActions = (formName, openForm) => {
 	const dispatch = useDispatch();

@@ -12,7 +12,7 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { schema } from "../../../utils/validation/accountValidator";
 import useForm from "../../../utils/useForm";
 import { useEffect, useState } from "react";
-import { getDDL } from "../../../api/departments";
+import { getDDL } from "../../../api/admin/departments";
 
 const AccountForm = ({
 	title,

@@ -5,7 +5,7 @@ import {
 	getAllAccounts,
 	createOneAccount,
 	updateOneAccount,
-} from "./../../actions/account";
+} from "../../actions/admin/account";
 import TableComponent from "../../components/UI/Table";
 import AccountForm from "../../components/UI/account-form/AccountForm";
 

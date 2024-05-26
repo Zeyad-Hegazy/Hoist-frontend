@@ -16,7 +16,7 @@ import { schema } from "../../../utils/validation/clientValidator";
 import useForm from "../../../utils/useForm";
 import { useEffect, useState } from "react";
 
-import { getParentsDDL } from "../../../api/clients";
+import { getParentsDDL } from "../../../api/admin/clients";
 
 const ClientForm = ({
 	title,

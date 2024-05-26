@@ -7,11 +7,16 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch } from "react-redux";
-import { deleteEmployee } from "../../actions/employees";
-import { getall } from "./../../actions/employees";
+import { deleteEmployee } from "../../actions/admin/employees";
+import { getall } from "./../../actions/admin/employees";
 
-export default function DeleteDialog({ id, message, state, setStateClose, action }) {
-
+export default function DeleteDialog({
+	id,
+	message,
+	state,
+	setStateClose,
+	action,
+}) {
 	const handleClose = () => {
 		setStateClose();
 	};
@@ -19,7 +24,7 @@ export default function DeleteDialog({ id, message, state, setStateClose, action
 	const dispatch = useDispatch();
 
 	const handleDelete = async (id) => {
-		action()
+		action();
 		handleClose();
 	};
 

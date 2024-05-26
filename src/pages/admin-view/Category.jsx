@@ -5,7 +5,7 @@ import {
 	getAllCategories,
 	createOneCategory,
 	updateOneCategory,
-} from "./../../actions/category";
+} from "../../actions/admin/category";
 import TableComponent from "../../components/UI/Table";
 import CategoryForm from "../../components/UI/category-form/CategoryForm";
 

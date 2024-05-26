@@ -15,7 +15,7 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { schema } from "../../../utils/validation/typesValidator";
 import useForm from "../../../utils/useForm";
 import { useEffect, useState } from "react";
-import { getDDL } from "../../../api/category";
+import { getDDL } from "../../../api/admin/category";
 
 const TypeForm = ({
 	title,

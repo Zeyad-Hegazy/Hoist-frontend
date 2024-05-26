@@ -1,19 +1,19 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import auth from "./auth";
-import employees from "./employees";
+import employees from "./admin/employees";
 import toastar from "./toastar";
 import select from "./selected";
-import standards from "./standards";
-import installations from "./installations";
-import clients from "./clients";
-import category from "./category";
-import types from "./types";
-import departments from "./departments";
-import accounts from "./accounts";
-import workorder from "./workorder";
-import equipment from "./equipment";
-import equipmentInfo from "./equipmentInfo";
-import reports from "./reports";
+import standards from "./admin/standards";
+import installations from "./admin/installations";
+import clients from "./admin/clients";
+import category from "./admin/category";
+import types from "./admin/types";
+import departments from "./admin/departments";
+import accounts from "./admin/accounts";
+import workorder from "./admin/workorder";
+import equipment from "./admin/equipment";
+import equipmentInfo from "./admin/equipmentInfo";
+import reports from "./admin/reports";
 
 const rootReducer = combineReducers({
 	auth,

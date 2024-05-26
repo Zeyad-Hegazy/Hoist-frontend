@@ -5,7 +5,7 @@ import {
 	getAllTypes,
 	createOneType,
 	updateOneType,
-} from "./../../actions/types";
+} from "../../actions/admin/types";
 import TableComponent from "../../components/UI/Table";
 import TypeForm from "./../../components/UI/type-form/TypeForm";
 

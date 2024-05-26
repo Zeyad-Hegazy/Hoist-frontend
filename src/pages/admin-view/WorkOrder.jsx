@@ -5,7 +5,7 @@ import {
 	getWorkOrders,
 	createWorkOrder,
 	updateOneWorkOrder,
-} from "./../../actions/workorder";
+} from "../../actions/admin/workorder";
 import TableComponent from "../../components/UI/Table";
 import WorkOrderForm from "../../components/UI/workorder-form/WorkOrderForm";
 

@@ -5,7 +5,7 @@ import {
 	getAllEquipments,
 	createOneEquipment,
 	updateOneEquipment,
-} from "./../../actions/equipment";
+} from "../../actions/admin/equipment";
 import EquipmentTable from "../../components/UI/equipment-form/EquipmentTable";
 import EquipmentForm from "../../components/UI/equipment-form/EquipmentForm";
 

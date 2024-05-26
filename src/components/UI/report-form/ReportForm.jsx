@@ -24,7 +24,7 @@ import {
 
 import { PCLTR, PTCR, PVCR } from "../../../constants/report-types";
 
-import { getDDL as getWorkOrderDDL } from "../../../api/workorder";
+import { getDDL as getWorkOrderDDL } from "../../../api/admin/workorder";
 
 import { schema } from "../../../utils/validation/reportValidator";
 

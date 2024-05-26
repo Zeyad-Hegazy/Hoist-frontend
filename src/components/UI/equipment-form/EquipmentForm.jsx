@@ -22,12 +22,12 @@ import { schema } from "../../../utils/validation/equipmentValidator";
 import useForm from "../../../utils/useForm";
 import { useEffect, useState } from "react";
 
-import { getDDL } from "../../../api/clients";
-import { getDDL as getDepartmentsDDL } from "../../../api/departments";
-import { getDDL as getInstallationDDL } from "../../../api/installation";
-import { getDDL as getCategoryDDL } from "../../../api/category";
-import { getDDL as getTypeDDL } from "../../../api/types";
-import { getall as getStandardDDL } from "../../../api/standards";
+import { getDDL } from "../../../api/admin/clients";
+import { getDDL as getDepartmentsDDL } from "../../../api/admin/departments";
+import { getDDL as getInstallationDDL } from "../../../api/admin/installation";
+import { getDDL as getCategoryDDL } from "../../../api/admin/category";
+import { getDDL as getTypeDDL } from "../../../api/admin/types";
+import { getall as getStandardDDL } from "../../../api/admin/standards";
 
 const EquipmentForm = ({
 	title,
