@@ -11,6 +11,39 @@ import { useState } from "react";
 import EquipmentActions from "./EquipmentActions";
 import { TextField } from "@mui/material";
 import useEquipmentActions from "./../../../utils/useEquipmentActions";
+import { HIGH, LOW, MEDIUM } from "./../../../constants/defect-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faNoteSticky } from "@fortawesome/free-solid-svg-icons";
+
+const DefectLevelCell = ({ level }) => {
+	const getBackgroundColor = (level) => {
+		switch (level) {
+			case LOW:
+				return "green";
+			case MEDIUM:
+				return "yellow";
+			case HIGH:
+				return "red";
+			default:
+				return "transparent";
+		}
+	};
+
+	const style = {
+		backgroundColor: getBackgroundColor(level),
+		paddingInline: "15px",
+		paddingBlock: "10px",
+		borderRadius: "5px",
+		display: "inline-block",
+		fontSize: "1.5rem",
+	};
+
+	return (
+		<div style={style}>
+			<FontAwesomeIcon icon={faNoteSticky} />
+		</div>
+	);
+};
 
 const EquipmentTable = ({ columns, rows, openForm }) => {
 	const { getDeleteHandler, getEditHandler, getViewHandler } =
@@ -49,30 +82,29 @@ const EquipmentTable = ({ columns, rows, openForm }) => {
 					<TableHead>
 						<TableRow>
 							<TableCell align={"center"} style={{ minWidth: "170px" }}>
+								Defect Level
+							</TableCell>
+							<TableCell align={"center"} style={{ minWidth: "170px" }}>
 								Serial Number
-							</TableCell>
-							<TableCell align={"center"} style={{ minWidth: "170px" }}>
-								Department
-							</TableCell>
-							<TableCell align={"center"} style={{ minWidth: "170px" }}>
-								Installation
 							</TableCell>
 							<TableCell align={"center"} style={{ minWidth: "170px" }}>
 								Category
 							</TableCell>
 							<TableCell align={"center"} style={{ minWidth: "170px" }}>
+								Location
+							</TableCell>
+							<TableCell align={"center"} style={{ minWidth: "170px" }}>
+								SWL
+							</TableCell>
+							<TableCell align={"center"} style={{ minWidth: "170px" }}>
+								L.T Number
+							</TableCell>
+							<TableCell align={"center"} style={{ minWidth: "170px" }}>
+								L.T Company
+							</TableCell>
+							<TableCell align={"center"} style={{ minWidth: "170px" }}>
 								Type
 							</TableCell>
-							<TableCell align={"center"} style={{ minWidth: "170px" }}>
-								Date Of Last Inspection
-							</TableCell>
-							<TableCell align={"center"} style={{ minWidth: "170px" }}>
-								Date Of Next Inspection
-							</TableCell>
-							<TableCell align={"center"} style={{ minWidth: "170px" }}>
-								Manufacturer
-							</TableCell>
-
 							<TableCell align={"center"}>Actions</TableCell>
 						</TableRow>
 					</TableHead>
@@ -90,6 +122,8 @@ const EquipmentTable = ({ columns, rows, openForm }) => {
 													col.id === "serialNumber" ? "underline" : "inherit",
 												cursor:
 													col.id === "serialNumber" ? "pointer" : "inherit",
+												color:
+													col.id === "serialNumber" ? "#07789B" : "inherit",
 											}}
 											onClick={() => {
 												if (col.id === "serialNumber") {
@@ -97,7 +131,11 @@ const EquipmentTable = ({ columns, rows, openForm }) => {
 												}
 											}}
 										>
-											{row[col.id]}
+											{col.id === "defectLevel" ? (
+												<DefectLevelCell level={row[col.id]} />
+											) : (
+												row[col.id]
+											)}
 										</TableCell>
 									))}
 									<TableCell>

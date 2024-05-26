@@ -11,20 +11,14 @@ import EquipmentForm from "../../components/UI/equipment-form/EquipmentForm";
 
 const coulmns = [
 	{
+		id: "defectLevel",
+		label: "Defect Level",
+		minWidth: 170,
+		align: "center",
+	},
+	{
 		id: "serialNumber",
 		label: "Serial Number",
-		minWidth: 170,
-		align: "center",
-	},
-	{
-		id: "departmentName",
-		label: "Department",
-		minWidth: 170,
-		align: "center",
-	},
-	{
-		id: "installationName",
-		label: "Installation",
 		minWidth: 170,
 		align: "center",
 	},
@@ -35,26 +29,32 @@ const coulmns = [
 		align: "center",
 	},
 	{
+		id: "location",
+		label: "Location",
+		minWidth: 170,
+		align: "center",
+	},
+	{
+		id: "swl",
+		label: "SWL",
+		minWidth: 170,
+		align: "center",
+	},
+	{
+		id: "loadTestNumber",
+		label: "L.T Number",
+		minWidth: 170,
+		align: "center",
+	},
+	{
+		id: "loadTestCompany",
+		label: "L.T Company",
+		minWidth: 170,
+		align: "center",
+	},
+	{
 		id: "typeName",
 		label: "Type",
-		minWidth: 170,
-		align: "center",
-	},
-	{
-		id: "dateOfLastInsp",
-		label: "Date Of Last Inspection",
-		minWidth: 170,
-		align: "center",
-	},
-	{
-		id: "dateOfNextInsp",
-		label: "Date Of Next Inspection",
-		minWidth: 170,
-		align: "center",
-	},
-	{
-		id: "manufacturer",
-		label: "Manufacturer",
 		minWidth: 170,
 		align: "center",
 	},

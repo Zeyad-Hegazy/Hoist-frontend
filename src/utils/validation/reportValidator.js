@@ -21,6 +21,13 @@ export const schema = Yup.object().shape({
 				return true;
 			}
 		),
-
-	proofLoadApplied: Yup.string().required("Proof Load Applied in required"),
+	proofLoadApplied: Yup.string().optional().nullable(),
+	foundDefectDangerToPerson: Yup.string().optional().nullable(),
+	isImmediateDanger: Yup.boolean().optional().nullable(),
+	isPotentialDanger: Yup.boolean().optional().nullable(),
+	repairRenewalAlteration: Yup.string().optional().nullable(),
+	testsCarriedOut: Yup.string().optional().nullable(),
+	isFirstExamination: Yup.boolean().optional().nullable(),
+	isEquipmentInstalledCorrectly: Yup.boolean().optional().nullable(),
+	isEquipmentSafeToOperate: Yup.boolean().optional().nullable(),
 });

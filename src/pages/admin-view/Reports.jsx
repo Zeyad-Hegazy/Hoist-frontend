@@ -95,7 +95,6 @@ const Reports = ({ equipmentId, equipmentStandard }) => {
 			state={FullFormVisible.visible}
 			closeHandler={handleClickCloseFull}
 			equipmentId={equipmentId}
-			equipmentStandard={equipmentStandard}
 			formAction={"create"}
 			confirmHandler={createOneReport}
 		/>
@@ -109,7 +108,6 @@ const Reports = ({ equipmentId, equipmentStandard }) => {
 				closeHandler={handleClickCloseFull}
 				selected={selectedReport}
 				equipmentId={equipmentId}
-				equipmentStandard={equipmentStandard}
 				formAction={"view"}
 				confirmHandler={createOneReport}
 			/>
@@ -124,7 +122,6 @@ const Reports = ({ equipmentId, equipmentStandard }) => {
 				closeHandler={handleClickCloseFull}
 				selected={selectedReport}
 				equipmentId={equipmentId}
-				equipmentStandard={equipmentStandard}
 				formAction={"edit"}
 				confirmHandler={updateOneReport}
 			/>
