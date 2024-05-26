@@ -6,8 +6,8 @@ export default (
 ) => {
 	switch (action.type) {
 		case AUTH:
-			localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
-			return { ...state, profile: action?.data };
+			localStorage.setItem("profile", JSON.stringify({ ...action?.payload }));
+			return { ...state, profile: action?.payload };
 		case LOGOUT:
 			localStorage.clear();
 			return { ...state, profile: null };

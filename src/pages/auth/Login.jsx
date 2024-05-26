@@ -30,12 +30,14 @@ const Login = () => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		dispatch(login(formData));
+		const loginSuccess = await dispatch(login(formData));
 
-		navigate("/dashboard");
+		if (loginSuccess) {
+			navigate("/dashboard");
+		}
 	};
 
 	return (

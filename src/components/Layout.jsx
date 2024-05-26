@@ -26,7 +26,7 @@ import "./Layout.css";
 import { useState } from "react";
 
 const Layout = () => {
-	const userName = useSelector((state) => state.auth.profile.result.user);
+	const userName = useSelector((state) => state.auth.profile.user);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 

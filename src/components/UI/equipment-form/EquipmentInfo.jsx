@@ -34,8 +34,6 @@ const CustomTabPanel = ({ children, value, index, ...other }) => {
 const EquipmentInfo = () => {
 	const equipmentInfo = useSelector((state) => state.equipmentInfo)["0"];
 
-	console.log(equipmentInfo);
-
 	const [value, setValue] = useState(0);
 
 	const handleChange = (event, newValue) => {
