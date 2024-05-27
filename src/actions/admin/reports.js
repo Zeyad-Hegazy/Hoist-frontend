@@ -74,3 +74,32 @@ export const updateOneReport = (formData, id) => async (dispatch) => {
 		);
 	}
 };
+
+export const getNonApprovedReports = () => async (dispatch) => {
+	try {
+		const data = await api.getNotAuthReports();
+		dispatch({ type: GET + "_reports_auth", payload: data.data.result });
+	} catch (error) {
+		dispatch(
+			openToastar({
+				message: error.response.data.message,
+				status: error.response.status,
+			})
+		);
+	}
+};
+
+export const approveReport = (id) => async (dispatch) => {
+	try {
+		const data = await api.approvereport(id);
+		dispatch({ type: UPDATE + "_reports_auth", payload: data.data.result });
+		dispatch(openToastar({ message: data.data.message }));
+	} catch (error) {
+		dispatch(
+			openToastar({
+				message: error.response.data.message,
+				status: error.response.status,
+			})
+		);
+	}
+};

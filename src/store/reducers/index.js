@@ -14,6 +14,7 @@ import workorder from "./admin/workorder";
 import equipment from "./admin/equipment";
 import equipmentInfo from "./admin/equipmentInfo";
 import reports from "./admin/reports";
+import approvedReports from "./admin/approvedReports";
 
 const rootReducer = combineReducers({
 	auth,
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
 	equipment,
 	equipmentInfo,
 	reports,
+	approvedReports,
 });
 
 export default rootReducer;

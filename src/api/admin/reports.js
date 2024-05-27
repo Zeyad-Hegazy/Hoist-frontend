@@ -10,3 +10,6 @@ export const completeReport = (id) => API.patch("/admin/report/complete/" + id);
 
 export const addDefect = (formData, id) =>
 	API.post("/admin/report/defect/" + id, formData);
+
+export const getNotAuthReports = () => API.get("/admin/report/approval");
+export const approvereport = (id) => API.patch("/admin/report/approval/" + id);

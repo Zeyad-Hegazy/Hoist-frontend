@@ -9,17 +9,20 @@ const Header = ({ label, setAction }) => {
 	return (
 		<div className="flex justify-between items-center custom-border">
 			<h1 className="text-[30px]">{label} Page</h1>
-			<button
-				className="px-4 py-2 bg-blue-700 text-white rounded-lg"
-				onClick={() => {
-					setAction({
-						action: "create",
-						visible: true,
-					});
-				}}
-			>
-				<FontAwesomeIcon icon={faPlus} /> <span className="ml-1">Add New</span>
-			</button>
+			{setAction && (
+				<button
+					className="px-4 py-2 bg-blue-700 text-white rounded-lg"
+					onClick={() => {
+						setAction({
+							action: "create",
+							visible: true,
+						});
+					}}
+				>
+					<FontAwesomeIcon icon={faPlus} />{" "}
+					<span className="ml-1">Add New</span>
+				</button>
+			)}
 		</div>
 	);
 };
