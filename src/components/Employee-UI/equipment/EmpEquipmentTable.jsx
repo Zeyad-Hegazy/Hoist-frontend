@@ -8,18 +8,17 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useState } from "react";
-import EquipmentActions from "./EquipmentActions";
+import EquipmentActions from "../../UI/equipment-form/EquipmentActions";
 import { TextField } from "@mui/material";
-import useEquipmentActions from "./../../../utils/useEquipmentActions";
 import { HIGH, LOW, MEDIUM } from "./../../../constants/defect-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNoteSticky } from "@fortawesome/free-solid-svg-icons";
+import useEmpEquipmentActions from "./../../../utils/useEmpEquipmentAction";
 
 export const DefectLevelCell = ({ level }) => {
 	const getBackgroundColor = (level) => {
 		switch (level) {
 			case LOW:
-			case null:
 				return "#228B22";
 			case MEDIUM:
 				return "#FDDA0D";
@@ -46,9 +45,9 @@ export const DefectLevelCell = ({ level }) => {
 	);
 };
 
-const EquipmentTable = ({ columns, rows, openForm }) => {
+const EmpEquipmentTable = ({ columns, rows, openForm }) => {
 	const { getDeleteHandler, getEditHandler, getViewHandler } =
-		useEquipmentActions(openForm);
+		useEmpEquipmentActions(openForm);
 
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -174,4 +173,4 @@ const EquipmentTable = ({ columns, rows, openForm }) => {
 	);
 };
 
-export default EquipmentTable;
+export default EmpEquipmentTable;

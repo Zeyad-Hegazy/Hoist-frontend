@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import AdminLayout from "./components/Layout";
 import EmployeeLayout from "./components/EmployeeLayout";
 import Dashboard from "./pages/admin-view/Dashboard";
@@ -29,6 +29,8 @@ import {
 	SUPERVISOR,
 	INSPECTOR,
 } from "./constants/user-roles";
+import EmpEquipments from "./pages/employee-view/EmpEquipments";
+import EmpEquipmentInfo from "./components/Employee-UI/equipment/EmpEquipmentinfo";
 
 const App = () => {
 	const toastar = useSelector((state) => state.toastar);
@@ -125,7 +127,24 @@ const App = () => {
 							/>
 						}
 					/>
-					{/* Add other employee-specific routes similarly */}
+					<Route
+						path="equipments"
+						element={
+							<PrivateRoute
+								element={<EmpEquipments />}
+								roles={[EMPLOYEE, TECHNICIAN, SUPERVISOR, INSPECTOR]}
+							/>
+						}
+					/>
+					<Route
+						path="equipments/info"
+						element={
+							<PrivateRoute
+								element={<EmpEquipmentInfo />}
+								roles={[EMPLOYEE, TECHNICIAN, SUPERVISOR, INSPECTOR]}
+							/>
+						}
+					/>
 				</Route>
 			</Routes>
 			<Toastar openSnackbar={toastar.open} snackbarMessage={toastar.message} />
