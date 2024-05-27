@@ -19,11 +19,11 @@ const DefectLevelCell = ({ level }) => {
 	const getBackgroundColor = (level) => {
 		switch (level) {
 			case LOW:
-				return "green";
+				return "#228B22";
 			case MEDIUM:
-				return "yellow";
+				return "#FDDA0D";
 			case HIGH:
-				return "red";
+				return "#D10000";
 			default:
 				return "transparent";
 		}

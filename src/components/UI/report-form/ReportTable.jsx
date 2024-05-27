@@ -17,8 +17,8 @@ const StatusCell = ({ status }) => {
 		switch (status) {
 			case "Uncompleted":
 				return "#D10000";
-			case "completed":
-				return "#00D100";
+			case "Completed":
+				return "#228B22";
 			default:
 				return "transparent";
 		}

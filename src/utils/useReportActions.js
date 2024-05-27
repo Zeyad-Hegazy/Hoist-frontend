@@ -10,7 +10,6 @@ const useReportActions = (openForm) => {
 	const dispatch = useDispatch();
 
 	const getViewHandler = (id) => {
-		console.log("report id", id);
 		dispatch(getOneReport(id));
 		openForm({
 			action: "view",

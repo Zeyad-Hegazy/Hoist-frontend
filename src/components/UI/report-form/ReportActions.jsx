@@ -2,6 +2,7 @@
 import {
 	faEdit,
 	faEye,
+	faClose,
 	faTrash,
 	faCheck,
 } from "@fortawesome/free-solid-svg-icons";
@@ -9,14 +10,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DeleteDialog from "../DeleteDialog";
 import { useState } from "react";
 
-import { completeReport } from "../../../api/admin/reports";
+import { addDefect, completeReport } from "../../../api/admin/reports";
 import { getAllReports } from "../../../actions/admin/reports";
 
 import { useDispatch, useSelector } from "react-redux";
 import { openToastar } from "../../../actions/toastar";
+import DefectForm from "./DefectForm";
 
 const ReportActions = ({ getView, getEdit, getDelete, id }) => {
 	const [openDialogId, setOpenDialogId] = useState(null);
+	const [openDefectForm, setOpenDefectForm] = useState(false);
 	const equipmentId = useSelector((state) => state.equipmentInfo)[0];
 
 	const dispatch = useDispatch();
@@ -39,6 +42,12 @@ const ReportActions = ({ getView, getEdit, getDelete, id }) => {
 				}}
 			>
 				<FontAwesomeIcon icon={faCheck} />
+			</p>
+			<p
+				className="flex justify-center items-center p-4 w-2 h-2 rounded-full bg-yellow-500 text-white cursor-pointer"
+				onClick={() => setOpenDefectForm(true)}
+			>
+				<FontAwesomeIcon icon={faClose} />
 			</p>
 			<p
 				className="flex justify-center items-center p-4 w-2 h-2 rounded-full bg-blue-600 text-white cursor-pointer"
@@ -67,6 +76,18 @@ const ReportActions = ({ getView, getEdit, getDelete, id }) => {
 				message={"Are You Sure To Delete ?"}
 				action={getDelete}
 			/>
+
+			{openDefectForm && (
+				<DefectForm
+					closeHandler={setOpenDefectForm}
+					getAll={getAllReports}
+					title={"Add Defect"}
+					formAction={"create"}
+					selected={null}
+					reportId={id}
+					equipmentId={equipmentId._id}
+				/>
+			)}
 		</div>
 	);
 };
