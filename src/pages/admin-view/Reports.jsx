@@ -58,10 +58,14 @@ const coulmns = [
 	},
 ];
 
-const Reports = ({ equipmentId, equipmentStandard }) => {
+const Reports = ({ equipmentId }) => {
 	const dispatch = useDispatch();
 	const reports = useSelector((state) => state.reports);
 	const selectedReport = useSelector((state) => state.select);
+
+	const disabledAddReports = reports.some(
+		(report) => report.status === "Uncompleted"
+	);
 
 	const [FullFormVisible, setFullFormVisible] = useState({
 		visible: false,
@@ -134,6 +138,7 @@ const Reports = ({ equipmentId, equipmentStandard }) => {
 				label={"Reports"}
 				confirmHandler={createOneReport}
 				openFullForm={handleClickOpenFull}
+				disabledAddReports={disabledAddReports}
 			/>
 			{FullFormVisible.visible && form}
 			<main className="flex justify-center items-center">

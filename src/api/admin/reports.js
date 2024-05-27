@@ -6,3 +6,4 @@ export const deleteone = (id) => API.delete("/admin/report/" + id);
 export const getone = (id) => API.get("/admin/report/" + id);
 export const updateone = (formData, id) =>
 	API.patch("/admin/report/" + id, formData);
+export const completeReport = (id) => API.patch("/admin/report/complete/" + id);

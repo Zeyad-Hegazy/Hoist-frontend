@@ -12,6 +12,29 @@ import { TextField } from "@mui/material";
 import useReportActions from "./../../../utils/useReportActions";
 import ReportActions from "./ReportActions";
 
+const StatusCell = ({ status }) => {
+	const getBackgroundColor = (status) => {
+		switch (status) {
+			case "Uncompleted":
+				return "#D10000";
+			case "completed":
+				return "#00D100";
+			default:
+				return "transparent";
+		}
+	};
+
+	const style = {
+		backgroundColor: getBackgroundColor(status),
+		paddingInline: "15px",
+		paddingBlock: "10px",
+		borderRadius: "5px",
+		display: "inline-block",
+	};
+
+	return <span style={style}>{status}</span>;
+};
+
 const ReportTable = ({ columns, rows, openForm }) => {
 	const { getViewHandler, getEditHandler, getDeleteHandler } =
 		useReportActions(openForm);
@@ -67,7 +90,11 @@ const ReportTable = ({ columns, rows, openForm }) => {
 								<TableRow hover key={row._id}>
 									{columns.map((col) => (
 										<TableCell key={col.id + row._id} align={col.align}>
-											{row[col.id]}
+											{col.id === "status" ? (
+												<StatusCell status={row[col.id]} />
+											) : (
+												row[col.id]
+											)}
 										</TableCell>
 									))}
 									<TableCell>

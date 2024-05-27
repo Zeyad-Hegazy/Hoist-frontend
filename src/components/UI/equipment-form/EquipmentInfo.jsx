@@ -122,10 +122,7 @@ const EquipmentInfo = () => {
 			<CustomTabPanel value={value} index={1}>
 				{/* Reports page here */}
 				<div className="mt-4">
-					<Reports
-						equipmentId={equipmentInfo._id}
-						equipmentStandard={equipmentInfo.standard[0].name}
-					/>
+					<Reports equipmentId={equipmentInfo._id} />
 				</div>
 			</CustomTabPanel>
 		</>
