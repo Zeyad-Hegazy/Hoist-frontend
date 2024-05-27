@@ -1,5 +1,6 @@
-import { Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
+import { Routes, Route, Navigate } from "react-router-dom";
+import AdminLayout from "./components/Layout";
+import EmployeeLayout from "./components/EmployeeLayout";
 import Dashboard from "./pages/admin-view/Dashboard";
 import WorkOrder from "./pages/admin-view/WorkOrder";
 import Employees from "./pages/admin-view/Employees";
@@ -16,8 +17,18 @@ import Category from "./pages/admin-view/Category";
 import Type from "./pages/admin-view/Type";
 import Department from "./pages/admin-view/Department";
 import EquipmentInfo from "./components/UI/equipment-form/EquipmentInfo";
+import PrivateRoute from "./components/PrivateRoute";
+import UnAuthorized from "./pages/UnAuthorized";
 
 import { useSelector } from "react-redux";
+
+import {
+	ADMIN,
+	EMPLOYEE,
+	TECHNICIAN,
+	SUPERVISOR,
+	INSPECTOR,
+} from "./constants/user-roles";
 
 const App = () => {
 	const toastar = useSelector((state) => state.toastar);
@@ -26,21 +37,95 @@ const App = () => {
 		<div>
 			<Routes>
 				<Route path="/login" element={<Login />} />
-				<Route path="/" element={<Layout />}>
-					<Route path="/dashboard" element={<Dashboard />} />
-					<Route path="/workorder" element={<WorkOrder />} />
-					<Route path="/employees" element={<Employees />} />
-					<Route path="/auth" element={<Auth />} />
-					<Route path="/clients" element={<Clients />} />
-					<Route path="/client-not" element={<ClientNot />} />
-					<Route path="/equipments" element={<Equipments />} />
-					<Route path="equipments/info" element={<EquipmentInfo />} />
-					<Route path="/accounts" element={<Accounts />} />
-					<Route path="/standards" element={<Standards />} />
-					<Route path="/installations" element={<Installations />} />
-					<Route path="/category" element={<Category />} />
-					<Route path="/types" element={<Type />} />
-					<Route path="/departments" element={<Department />} />
+				<Route path="/unauthorized" element={<UnAuthorized />} />
+
+				{/* Admin Routes */}
+				<Route
+					path="/admin"
+					element={<PrivateRoute element={<AdminLayout />} roles={[ADMIN]} />}
+				>
+					<Route
+						path="dashboard"
+						element={<PrivateRoute element={<Dashboard />} roles={[ADMIN]} />}
+					/>
+					<Route
+						path="workorder"
+						element={<PrivateRoute element={<WorkOrder />} roles={[ADMIN]} />}
+					/>
+					<Route
+						path="employees"
+						element={<PrivateRoute element={<Employees />} roles={[ADMIN]} />}
+					/>
+					<Route
+						path="auth"
+						element={<PrivateRoute element={<Auth />} roles={[ADMIN]} />}
+					/>
+					<Route
+						path="clients"
+						element={<PrivateRoute element={<Clients />} roles={[ADMIN]} />}
+					/>
+					<Route
+						path="client-not"
+						element={<PrivateRoute element={<ClientNot />} roles={[ADMIN]} />}
+					/>
+					<Route
+						path="equipments"
+						element={<PrivateRoute element={<Equipments />} roles={[ADMIN]} />}
+					/>
+					<Route
+						path="equipments/info"
+						element={
+							<PrivateRoute element={<EquipmentInfo />} roles={[ADMIN]} />
+						}
+					/>
+					<Route
+						path="accounts"
+						element={<PrivateRoute element={<Accounts />} roles={[ADMIN]} />}
+					/>
+					<Route
+						path="standards"
+						element={<PrivateRoute element={<Standards />} roles={[ADMIN]} />}
+					/>
+					<Route
+						path="installations"
+						element={
+							<PrivateRoute element={<Installations />} roles={[ADMIN]} />
+						}
+					/>
+					<Route
+						path="category"
+						element={<PrivateRoute element={<Category />} roles={[ADMIN]} />}
+					/>
+					<Route
+						path="types"
+						element={<PrivateRoute element={<Type />} roles={[ADMIN]} />}
+					/>
+					<Route
+						path="departments"
+						element={<PrivateRoute element={<Department />} roles={[ADMIN]} />}
+					/>
+				</Route>
+
+				{/* Employee Routes */}
+				<Route
+					path="/employee"
+					element={
+						<PrivateRoute
+							element={<EmployeeLayout />}
+							roles={[EMPLOYEE, TECHNICIAN, SUPERVISOR, INSPECTOR]}
+						/>
+					}
+				>
+					<Route
+						path="dashboard"
+						element={
+							<PrivateRoute
+								element={<Dashboard />}
+								roles={[EMPLOYEE, TECHNICIAN, SUPERVISOR, INSPECTOR]}
+							/>
+						}
+					/>
+					{/* Add other employee-specific routes similarly */}
 				</Route>
 			</Routes>
 			<Toastar openSnackbar={toastar.open} snackbarMessage={toastar.message} />

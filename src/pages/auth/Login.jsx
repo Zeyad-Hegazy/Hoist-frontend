@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "./../../actions/auth";
 import Input from "../../components/UI/Input";
@@ -9,6 +9,7 @@ import logoPattern from "../../assets/images/logo-pattern.png";
 import "./Login.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { ADMIN } from "../../constants/user-roles";
 
 const initialState = {
 	email: "",
@@ -19,6 +20,7 @@ const Login = () => {
 	const [showPassword, setShowPassword] = useState(false);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const auth = useSelector((state) => state.auth);
 
 	// const user = useSelector((state) => state.auth.profile);
 
@@ -33,12 +35,18 @@ const Login = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const loginSuccess = await dispatch(login(formData));
-
-		if (loginSuccess) {
-			navigate("/dashboard");
-		}
+		dispatch(login(formData));
 	};
+
+	useEffect(() => {
+		if (auth.isLoggedIn) {
+			if (auth.profile.user.role === ADMIN) {
+				navigate("/admin/dashboard");
+			} else {
+				navigate("/employee/dashboard");
+			}
+		}
+	}, [auth, navigate]);
 
 	return (
 		<div className="w-[100vw]  h-[100vh] flex justify-center items-center bg-gradient-to-r from-gray-800  to-gray-900 text-black">
