@@ -28,9 +28,14 @@ import {
 	TECHNICIAN,
 	SUPERVISOR,
 	INSPECTOR,
+	CLIENT,
 } from "./constants/user-roles";
 import EmpEquipments from "./pages/employee-view/EmpEquipments";
 import EmpEquipmentInfo from "./components/Employee-UI/equipment/EmpEquipmentinfo";
+
+import ClientLayout from "./components/ClientLayout";
+import ClientAccounts from "./pages/client-view/ClientAccounts";
+import ClientEquipments from "./pages/client-view/ClientEquipment";
 
 const App = () => {
 	const toastar = useSelector((state) => state.toastar);
@@ -143,6 +148,29 @@ const App = () => {
 								element={<EmpEquipmentInfo />}
 								roles={[EMPLOYEE, TECHNICIAN, SUPERVISOR, INSPECTOR]}
 							/>
+						}
+					/>
+				</Route>
+
+				{/* Client Routes */}
+				<Route
+					path="/client"
+					element={<PrivateRoute element={<ClientLayout />} roles={CLIENT} />}
+				>
+					<Route
+						path="dashboard"
+						element={<PrivateRoute element={<Dashboard />} roles={[CLIENT]} />}
+					/>
+					<Route
+						path="accounts"
+						element={
+							<PrivateRoute element={<ClientAccounts />} roles={[CLIENT]} />
+						}
+					/>
+					<Route
+						path="equipments"
+						element={
+							<PrivateRoute element={<ClientEquipments />} roles={[CLIENT]} />
 						}
 					/>
 				</Route>

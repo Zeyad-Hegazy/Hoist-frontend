@@ -9,7 +9,14 @@ import logoPattern from "../../assets/images/logo-pattern.png";
 import "./Login.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { ADMIN } from "../../constants/user-roles";
+import {
+	ADMIN,
+	CLIENT,
+	EMPLOYEE,
+	INSPECTOR,
+	SUPERVISOR,
+	TECHNICIAN,
+} from "../../constants/user-roles";
 
 const initialState = {
 	email: "",
@@ -42,8 +49,14 @@ const Login = () => {
 		if (auth.isLoggedIn) {
 			if (auth.profile.user.role === ADMIN) {
 				navigate("/admin/dashboard");
-			} else {
+			} else if (
+				[EMPLOYEE, SUPERVISOR, INSPECTOR, TECHNICIAN].includes(
+					auth.profile.user.role
+				)
+			) {
 				navigate("/employee/dashboard");
+			} else if (auth.profile.user.role === CLIENT) {
+				navigate("/client/dashboard");
 			}
 		}
 	}, [auth, navigate]);
