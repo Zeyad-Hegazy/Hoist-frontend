@@ -2,7 +2,7 @@ import Header from "../../components/Header";
 import { getAllReports } from "../../actions/client/defects";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import ClientDefectTable from "../../components/Client-UI/defects/DefectsTable";
+import ClientReportTable from "../../components/Client-UI/defects/ClientReportsTable";
 
 const coulmns = [
 	{
@@ -80,7 +80,7 @@ const DefectedReports = () => {
 		<div>
 			<Header label={"Reports"} setAction={null} />
 			<main className="flex justify-center items-center">
-				{reports && <ClientDefectTable columns={coulmns} rows={reports} />}
+				{reports && <ClientReportTable columns={coulmns} rows={reports} />}
 			</main>
 		</div>
 	);

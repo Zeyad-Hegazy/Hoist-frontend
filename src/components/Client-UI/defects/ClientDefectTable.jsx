@@ -10,15 +10,18 @@ import TableRow from "@mui/material/TableRow";
 import { useState } from "react";
 import { TextField } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { DefectLevelCell } from "../../UI/equipment-form/EquipmentTable";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { HIGH, LOW, MEDIUM } from "../../../constants/defect-types";
 
-export const ResponseCell = ({ bool }) => {
-	const getBackgroundColor = (bool) => {
-		switch (bool) {
-			case true:
+export const PriorityCell = ({ level }) => {
+	const getBackgroundColor = (level) => {
+		switch (level) {
+			case LOW:
+			case null:
 				return "#228B22";
-			case false:
+			case MEDIUM:
+				return "#FDDA0D";
+			case HIGH:
 				return "#D10000";
 			default:
 				return "transparent";
@@ -26,7 +29,7 @@ export const ResponseCell = ({ bool }) => {
 	};
 
 	const style = {
-		backgroundColor: getBackgroundColor(bool),
+		backgroundColor: getBackgroundColor(level),
 		paddingInline: "10px",
 		paddingBlock: "5px",
 		borderRadius: "5px",
@@ -34,10 +37,10 @@ export const ResponseCell = ({ bool }) => {
 		fontSize: "1rem",
 	};
 
-	return <div style={style}>{bool ? "Yes" : "No"}</div>;
+	return <div style={style}>{level}</div>;
 };
 
-const ClientDefectTable = ({ columns, rows }) => {
+const ClientDefectTable = ({ columns, rows, openForm, setDefectId }) => {
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
 	const [searchTerm, setSearchTerm] = useState("");
@@ -91,18 +94,22 @@ const ClientDefectTable = ({ columns, rows }) => {
 								<TableRow hover key={row._id}>
 									{columns.map((col) => (
 										<TableCell key={col.id + row._id} align={col.align}>
-											{col.id === "defectLevel" ? (
-												<DefectLevelCell level={row[col.id]} />
-											) : col.id === "isClientRespond" ||
-											  col.id === "isInspectorRespond" ? (
-												<ResponseCell bool={row[col.id]} />
+											{col.id === "priority" ? (
+												<PriorityCell level={row[col.id]} />
 											) : (
 												row[col.id]
 											)}
 										</TableCell>
 									))}
-									<TableCell align={"center"}>
-										<FontAwesomeIcon icon={faArrowRight} />
+									<TableCell
+										align={"center"}
+										style={{ cursor: "pointer" }}
+										onClick={() => {
+											setDefectId(row._id);
+											openForm(true);
+										}}
+									>
+										<FontAwesomeIcon icon={faPlus} />
 									</TableCell>
 								</TableRow>
 							))}
