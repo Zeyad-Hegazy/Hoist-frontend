@@ -36,6 +36,7 @@ import EmpEquipmentInfo from "./components/Employee-UI/equipment/EmpEquipmentinf
 import ClientLayout from "./components/ClientLayout";
 import ClientAccounts from "./pages/client-view/ClientAccounts";
 import ClientEquipments from "./pages/client-view/ClientEquipment";
+import DefectedReports from "./pages/client-view/DefectedReports";
 
 const App = () => {
 	const toastar = useSelector((state) => state.toastar);
@@ -171,6 +172,12 @@ const App = () => {
 						path="equipments"
 						element={
 							<PrivateRoute element={<ClientEquipments />} roles={[CLIENT]} />
+						}
+					/>
+					<Route
+						path="reports"
+						element={
+							<PrivateRoute element={<DefectedReports />} roles={[CLIENT]} />
 						}
 					/>
 				</Route>
