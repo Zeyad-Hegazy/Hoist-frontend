@@ -12,13 +12,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-	FIXED,
-	IGNORED,
-	QUARANTINED,
-} from "./../../../constants/repsond-action";
+import { ACCEPTED, REJECTED } from "./../../../constants/repsond-action";
 
-const ClientDefectForm = ({
+const AdminDefectForm = ({
 	closeHandler,
 	confirmHandler,
 	getAll,
@@ -26,9 +22,8 @@ const ClientDefectForm = ({
 	defectId,
 }) => {
 	const initialState = {
-		clientName: "",
-		comment: "",
-		action: "",
+		inspectorComment: "",
+		inspectorResponse: "",
 	};
 
 	const dispatch = useDispatch();
@@ -66,47 +61,33 @@ const ClientDefectForm = ({
 						onSubmit={handleSubmit}
 						className="flex justify-between items-start flex-wrap"
 					>
-						{/* Client Name */}
-						<div className={`mb-4`}>
-							<TextField
-								fullWidth={false}
-								label={"Client Name"}
-								name={"clientName"}
-								type={"text"}
-								variant="outlined"
-								value={formData["clientName"]}
-								onChange={handleChange}
-							/>
-						</div>
-
 						{/* Comment */}
 						<div className={`mb-4`}>
 							<TextField
 								fullWidth={false}
 								label={"Comment"}
-								name={"comment"}
+								name={"inspectorComment"}
 								type={"text"}
 								variant="outlined"
-								value={formData["comment"]}
+								value={formData["inspectorComment"]}
 								onChange={handleChange}
 							/>
 						</div>
 
-						{/* Action */}
-						<div className={`mb-4 w-full`}>
+						{/* Response */}
+						<div className={`mb-4 w-[12rem]`}>
 							<FormControl fullWidth variant="outlined">
-								<InputLabel id="action-label">Action</InputLabel>
+								<InputLabel id="inspectorResponse-label">Response</InputLabel>
 								<Select
-									labelId="action-label"
-									id="action"
-									name="action"
-									value={formData["action"]}
+									labelId="inspectorResponse-label"
+									id="inspectorResponse"
+									name="inspectorResponse"
+									value={formData["inspectorResponse"]}
 									onChange={handleChange}
-									label="Action"
+									label="Response"
 								>
-									<MenuItem value={QUARANTINED}>Quarantined</MenuItem>
-									<MenuItem value={FIXED}>Fixed</MenuItem>
-									<MenuItem value={IGNORED}>Ignored</MenuItem>
+									<MenuItem value={ACCEPTED}>Accepted</MenuItem>
+									<MenuItem value={REJECTED}>Rejected</MenuItem>
 								</Select>
 							</FormControl>
 						</div>
@@ -126,4 +107,4 @@ const ClientDefectForm = ({
 	);
 };
 
-export default ClientDefectForm;
+export default AdminDefectForm;

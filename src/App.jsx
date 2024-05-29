@@ -38,6 +38,7 @@ import ClientAccounts from "./pages/client-view/ClientAccounts";
 import ClientEquipments from "./pages/client-view/ClientEquipment";
 import DefectedReports from "./pages/client-view/DefectedReports";
 import Defects from "./pages/client-view/Defects";
+import AdminDefects from "./pages/admin-view/AdminDefects";
 
 const App = () => {
 	const toastar = useSelector((state) => state.toastar);
@@ -76,6 +77,12 @@ const App = () => {
 					<Route
 						path="client-not"
 						element={<PrivateRoute element={<ClientNot />} roles={[ADMIN]} />}
+					/>
+					<Route
+						path="client-not/defects/:reportId"
+						element={
+							<PrivateRoute element={<AdminDefects />} roles={[ADMIN]} />
+						}
 					/>
 					<Route
 						path="equipments"
