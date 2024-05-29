@@ -101,15 +101,20 @@ const ClientDefectTable = ({ columns, rows, openForm, setDefectId }) => {
 											)}
 										</TableCell>
 									))}
-									<TableCell
-										align={"center"}
-										style={{ cursor: "pointer" }}
-										onClick={() => {
-											setDefectId(row._id);
-											openForm(true);
-										}}
-									>
-										<FontAwesomeIcon icon={faPlus} />
+									<TableCell align={"center"}>
+										<button
+											disabled={row.status !== null}
+											onClick={() => {
+												setDefectId(row._id);
+												openForm(true);
+											}}
+										>
+											{row.status === null ? (
+												<FontAwesomeIcon icon={faPlus} />
+											) : (
+												"Responded"
+											)}
+										</button>
 									</TableCell>
 								</TableRow>
 							))}

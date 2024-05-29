@@ -12,6 +12,8 @@ import {
 import storage from "redux-persist/lib/storage";
 import rootReducer from "./reducers";
 
+import checkTokenExpirationMiddleware from "../middlewares/checkTokenExpiration";
+
 const persistConfig = {
 	key: "root",
 	storage,
@@ -27,7 +29,7 @@ const store = configureStore({
 			serializableCheck: {
 				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
 			},
-		}),
+		}).concat(checkTokenExpirationMiddleware),
 });
 
 const persistor = persistStore(store);
