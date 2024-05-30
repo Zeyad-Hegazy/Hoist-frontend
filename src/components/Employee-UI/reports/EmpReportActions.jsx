@@ -10,16 +10,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DeleteDialog from "../../UI/DeleteDialog";
 import { useState } from "react";
 
-import { completeReport } from "../../../api/employee/reports";
+import { addDefect, completeReport } from "../../../api/employee/reports";
 import { openToastar } from "../../../actions/toastar";
 
 import { getAllReports } from "../../../actions/employee/reports";
 
 import { useDispatch, useSelector } from "react-redux";
 
+import DefectForm from "../../UI/report-form/DefectForm";
+
 const EmpReportActions = ({ getView, getEdit, getDelete, id }) => {
 	const [openDialogId, setOpenDialogId] = useState(null);
-	// const [openDefectForm, setOpenDefectForm] = useState(false);
+	const [openDefectForm, setOpenDefectForm] = useState(false);
 	const equipmentId = useSelector((state) => state.equipmentInfo)[0];
 
 	const dispatch = useDispatch();
@@ -43,12 +45,12 @@ const EmpReportActions = ({ getView, getEdit, getDelete, id }) => {
 			>
 				<FontAwesomeIcon icon={faCheck} />
 			</p>
-			{/* <p
+			<p
 				className="flex justify-center items-center p-4 w-2 h-2 rounded-full bg-yellow-500 text-white cursor-pointer"
 				onClick={() => setOpenDefectForm(true)}
 			>
 				<FontAwesomeIcon icon={faClose} />
-			</p> */}
+			</p>
 			<p
 				className="flex justify-center items-center p-4 w-2 h-2 rounded-full bg-blue-600 text-white cursor-pointer"
 				onClick={getView}
@@ -77,9 +79,10 @@ const EmpReportActions = ({ getView, getEdit, getDelete, id }) => {
 				action={getDelete}
 			/>
 
-			{/* {openDefectForm && (
+			{openDefectForm && (
 				<DefectForm
 					closeHandler={setOpenDefectForm}
+					addHandler={addDefect}
 					getAll={getAllReports}
 					title={"Add Defect"}
 					formAction={"create"}
@@ -87,7 +90,7 @@ const EmpReportActions = ({ getView, getEdit, getDelete, id }) => {
 					reportId={id}
 					equipmentId={equipmentId._id}
 				/>
-			)} */}
+			)}
 		</div>
 	);
 };

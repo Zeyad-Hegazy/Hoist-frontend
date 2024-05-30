@@ -21,12 +21,11 @@ import convertToBase64, { isValidBase64 } from "../../../utils/convertToBase64";
 import { useDispatch } from "react-redux";
 import { openToastar } from "../../../actions/toastar";
 
-import { addDefect } from "../../../api/admin/reports";
-
 const DefectForm = ({
 	title,
 	closeHandler,
 	confirmHandler,
+	addHandler,
 	formAction,
 	getAll,
 	selected,
@@ -79,7 +78,7 @@ const DefectForm = ({
 
 	const createDefect = async (e) => {
 		e.preventDefault();
-		const response = await addDefect(formData, reportId);
+		const response = await addHandler(formData, reportId);
 		dispatch(openToastar({ message: response.data.message }));
 		await dispatch(getAll(equipmentId));
 		closeHandler(false);

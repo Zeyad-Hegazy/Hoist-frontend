@@ -80,6 +80,7 @@ const ReportActions = ({ getView, getEdit, getDelete, id }) => {
 			{openDefectForm && (
 				<DefectForm
 					closeHandler={setOpenDefectForm}
+					addHandler={addDefect}
 					getAll={getAllReports}
 					title={"Add Defect"}
 					formAction={"create"}
