@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DeleteDialog from "../DeleteDialog";
 import { useState } from "react";
 
-const EquipmentActions = ({ getEdit, getDelete, id }) => {
+const EquipmentActions = ({ getEdit, getDelete, getSubEquipemtns, id }) => {
 	const [openDialogId, setOpenDialogId] = useState(null);
 
 	const handleClickOpen = (id) => {
@@ -16,6 +16,12 @@ const EquipmentActions = ({ getEdit, getDelete, id }) => {
 	};
 	return (
 		<div className="flex justify-center items-center gap-3">
+			<p
+				className="flex justify-center items-center p-4 w-2 h-2 rounded-full bg-green-500 text-white cursor-pointer"
+				onClick={getSubEquipemtns}
+			>
+				<FontAwesomeIcon icon={faEdit} />
+			</p>
 			<p
 				className="flex justify-center items-center p-4 w-2 h-2 rounded-full bg-yellow-500 text-white cursor-pointer"
 				onClick={getEdit}

@@ -46,9 +46,9 @@ export const DefectLevelCell = ({ level }) => {
 	);
 };
 
-const EquipmentTable = ({ columns, rows, openForm }) => {
-	const { getDeleteHandler, getEditHandler, getViewHandler } =
-		useEquipmentActions(openForm);
+const EquipmentTable = ({ columns, rows, openForm, openSubEquipments }) => {
+	const { getDeleteHandler, getEditHandler, getViewHandler, getSubEquipemtns } =
+		useEquipmentActions(openForm, openSubEquipments);
 
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -143,6 +143,7 @@ const EquipmentTable = ({ columns, rows, openForm }) => {
 										<EquipmentActions
 											getEdit={() => getEditHandler(row._id)}
 											getDelete={() => getDeleteHandler(row._id)}
+											getSubEquipemtns={() => getSubEquipemtns(row._id)}
 											id={row._id}
 										/>
 									</TableCell>

@@ -88,3 +88,18 @@ export const getEquipmentInfo = (id) => async (dispatch) => {
 		);
 	}
 };
+
+export const addSubEquipment = (formData, id) => async (dispatch) => {
+	try {
+		const data = await api.addSub(formData, id);
+		dispatch({ type: UPDATE + "_equipment", payload: id });
+		dispatch(openToastar({ message: data.data.message, status: data.status }));
+	} catch (error) {
+		dispatch(
+			openToastar({
+				message: error.response.data.message,
+				status: error.response.status,
+			})
+		);
+	}
+};

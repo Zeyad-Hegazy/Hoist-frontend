@@ -8,7 +8,7 @@ import {
 } from "../actions/admin/equipment";
 import { useNavigate } from "react-router-dom";
 
-const useEquipmentActions = (openForm) => {
+const useEquipmentActions = (openForm, openSubEquipments) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -32,7 +32,12 @@ const useEquipmentActions = (openForm) => {
 		dispatch(getAllEquipments());
 	};
 
-	return { getViewHandler, getEditHandler, getDeleteHandler };
+	const getSubEquipemtns = (id) => {
+		dispatch(getOneEquipment(id));
+		openSubEquipments(true);
+	};
+
+	return { getViewHandler, getEditHandler, getDeleteHandler, getSubEquipemtns };
 };
 
 export default useEquipmentActions;

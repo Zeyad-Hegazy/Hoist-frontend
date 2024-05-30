@@ -8,12 +8,46 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useState } from "react";
+import EquipmentActions from "./EquipmentActions";
 import { TextField } from "@mui/material";
+import useEquipmentActions from "./../../../utils/useEquipmentActions";
+import { HIGH, LOW, MEDIUM } from "./../../../constants/defect-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { PriorityCell } from "../../Client-UI/defects/ClientDefectTable";
+import { faNoteSticky } from "@fortawesome/free-solid-svg-icons";
+import SubEquipmentActions from "./SubEquipmentActions";
 
-const EmployeeDefectTable = ({ columns, rows, openForm, setDefectId }) => {
+export const DefectLevelCell = ({ level }) => {
+	const getBackgroundColor = (level) => {
+		switch (level) {
+			case LOW:
+			case null:
+				return "#228B22";
+			case MEDIUM:
+				return "#FDDA0D";
+			case HIGH:
+				return "#D10000";
+			default:
+				return "transparent";
+		}
+	};
+
+	const style = {
+		backgroundColor: getBackgroundColor(level),
+		paddingInline: "15px",
+		paddingBlock: "10px",
+		borderRadius: "5px",
+		display: "inline-block",
+		fontSize: "1.5rem",
+	};
+
+	return (
+		<div style={style}>
+			<FontAwesomeIcon icon={faNoteSticky} />
+		</div>
+	);
+};
+
+const SubEquipmentTable = ({ columns, rows, mainId, closeHandler }) => {
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
 	const [searchTerm, setSearchTerm] = useState("");
@@ -67,27 +101,19 @@ const EmployeeDefectTable = ({ columns, rows, openForm, setDefectId }) => {
 								<TableRow hover key={row._id}>
 									{columns.map((col) => (
 										<TableCell key={col.id + row._id} align={col.align}>
-											{col.id === "priority" ? (
-												<PriorityCell level={row[col.id]} />
+											{col.id === "defectLevel" ? (
+												<DefectLevelCell level={row[col.id]} />
 											) : (
 												row[col.id]
 											)}
 										</TableCell>
 									))}
-									<TableCell align={"center"}>
-										<button
-											disabled={row.inspectorResponse !== null}
-											onClick={() => {
-												setDefectId(row._id);
-												openForm(true);
-											}}
-										>
-											{row.inspectorResponse === null ? (
-												<FontAwesomeIcon icon={faPlus} />
-											) : (
-												"Responded"
-											)}
-										</button>
+									<TableCell>
+										<SubEquipmentActions
+											subEquipmentId={row._id}
+											mainEquipmentId={mainId}
+											closeHandler={closeHandler}
+										/>
 									</TableCell>
 								</TableRow>
 							))}
@@ -103,8 +129,18 @@ const EmployeeDefectTable = ({ columns, rows, openForm, setDefectId }) => {
 				onPageChange={handleChangePage}
 				onRowsPerPageChange={handleChangeRowsPerPage}
 			/>
+			{/* <Pagination
+                        count={Math.ceil(rows.length / rowsPerPage)}
+                        page={page}
+                        onChange={handleChangePage}
+                        rowsPerPageOptions={[10, 25, 100]}
+                        rowsPerPage={rowsPerPage}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        size="large"
+                  /> */}
 		</Paper>
 	);
 };
 
-export default EmployeeDefectTable;
+export default SubEquipmentTable;

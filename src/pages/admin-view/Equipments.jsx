@@ -8,6 +8,7 @@ import {
 } from "../../actions/admin/equipment";
 import EquipmentTable from "../../components/UI/equipment-form/EquipmentTable";
 import EquipmentForm from "../../components/UI/equipment-form/EquipmentForm";
+import SubEquipments from "./SubEquipments";
 
 const coulmns = [
 	{
@@ -70,6 +71,8 @@ const Equipments = () => {
 		visible: false,
 	});
 
+	const [subEquipmentsVisible, setSubEquipmentsVisible] = useState(false);
+
 	useEffect(() => {
 		dispatch(getAllEquipments());
 	}, [dispatch]);
@@ -124,12 +127,16 @@ const Equipments = () => {
 				setAction={setFormVisibleAndAction}
 			/>
 			{FormVisibleAndAction.visible && form && <div>{form}</div>}
+			{subEquipmentsVisible && (
+				<SubEquipments closeHandler={setSubEquipmentsVisible} />
+			)}
 			<main className="flex justify-center items-center">
 				{equipments && (
 					<EquipmentTable
 						columns={coulmns}
 						rows={equipments}
 						openForm={setFormVisibleAndAction}
+						openSubEquipments={setSubEquipmentsVisible}
 					/>
 				)}
 			</main>
