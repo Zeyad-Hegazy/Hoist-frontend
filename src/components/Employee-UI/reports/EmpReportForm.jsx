@@ -320,7 +320,10 @@ const EmpReportForm = ({
 												onChange={handleSwitchChange}
 												name="isImmediateDanger"
 												color="primary"
-												disabled={formAction === "view"}
+												disabled={
+													formAction === "view" ||
+													!formData["foundDefectDangerToPerson"]
+												}
 											/>
 										}
 										label="Is Immediate Danger?"
@@ -338,7 +341,10 @@ const EmpReportForm = ({
 												onChange={handleSwitchChange}
 												name="isPotentialDanger"
 												color="primary"
-												disabled={formAction === "view"}
+												disabled={
+													formAction === "view" ||
+													!formData["foundDefectDangerToPerson"]
+												}
 											/>
 										}
 										label="Is Potential Danger?"
