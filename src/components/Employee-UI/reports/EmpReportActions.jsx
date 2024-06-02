@@ -89,6 +89,7 @@ const EmpReportActions = ({ getView, getEdit, getDelete, id }) => {
 					selected={null}
 					reportId={id}
 					equipmentId={equipmentId._id}
+					defectLevel={equipmentId.defectLevel}
 				/>
 			)}
 		</div>

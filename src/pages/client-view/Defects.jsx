@@ -42,6 +42,7 @@ const Defects = () => {
 	const { reportId } = useParams();
 	const [formVisible, setFormVisible] = useState(false);
 	const [defectId, setDefectId] = useState(null);
+	const [defectLevel, setDefectLevel] = useState(null);
 
 	const dispatch = useDispatch();
 
@@ -62,6 +63,7 @@ const Defects = () => {
 						getAll={getOneReport}
 						reportId={reportId}
 						defectId={defectId}
+						defectLevel={defectLevel}
 					/>
 				)}
 				{defects.defect && (
@@ -70,6 +72,7 @@ const Defects = () => {
 						rows={defects.defect}
 						openForm={setFormVisible}
 						setDefectId={setDefectId}
+						setDefectLevel={setDefectLevel}
 					/>
 				)}
 			</main>

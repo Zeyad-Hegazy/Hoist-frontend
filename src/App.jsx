@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import AdminLayout from "./components/Layout";
 import EmployeeLayout from "./components/EmployeeLayout";
@@ -16,12 +17,9 @@ import Installations from "./pages/admin-view/Installations";
 import Category from "./pages/admin-view/Category";
 import Type from "./pages/admin-view/Type";
 import Department from "./pages/admin-view/Department";
-import EquipmentInfo from "./components/UI/equipment-form/EquipmentInfo";
 import PrivateRoute from "./components/PrivateRoute";
 import UnAuthorized from "./pages/UnAuthorized";
-
 import { useSelector } from "react-redux";
-
 import {
 	ADMIN,
 	EMPLOYEE,
@@ -31,8 +29,6 @@ import {
 	CLIENT,
 } from "./constants/user-roles";
 import EmpEquipments from "./pages/employee-view/EmpEquipments";
-import EmpEquipmentInfo from "./components/Employee-UI/equipment/EmpEquipmentinfo";
-
 import ClientLayout from "./components/ClientLayout";
 import ClientAccounts from "./pages/client-view/ClientAccounts";
 import ClientEquipments from "./pages/client-view/ClientEquipment";
@@ -41,6 +37,13 @@ import Defects from "./pages/client-view/Defects";
 import AdminDefects from "./pages/admin-view/AdminDefects";
 import EmployeeClientNot from "./pages/employee-view/EmployeeClientNot";
 import EmployeeDefects from "./pages/employee-view/EmployeeDefects";
+
+const EquipmentInfo = lazy(() =>
+	import("./components/UI/equipment-form/EquipmentInfo")
+);
+const EmpEquipmentInfo = lazy(() =>
+	import("./components/Employee-UI/equipment/EmpEquipmentinfo")
+);
 
 const App = () => {
 	const toastar = useSelector((state) => state.toastar);
@@ -93,7 +96,9 @@ const App = () => {
 					<Route
 						path="equipments/info"
 						element={
-							<PrivateRoute element={<EquipmentInfo />} roles={[ADMIN]} />
+							<Suspense fallback={<div>Loading...</div>}>
+								<PrivateRoute element={<EquipmentInfo />} roles={[ADMIN]} />
+							</Suspense>
 						}
 					/>
 					<Route
@@ -155,13 +160,14 @@ const App = () => {
 					<Route
 						path="equipments/info"
 						element={
-							<PrivateRoute
-								element={<EmpEquipmentInfo />}
-								roles={[EMPLOYEE, TECHNICIAN, SUPERVISOR, INSPECTOR]}
-							/>
+							<Suspense fallback={<div>Loading...</div>}>
+								<PrivateRoute
+									element={<EmpEquipmentInfo />}
+									roles={[EMPLOYEE, TECHNICIAN, SUPERVISOR, INSPECTOR]}
+								/>
+							</Suspense>
 						}
 					/>
-
 					<Route
 						path="client-not"
 						element={
@@ -209,7 +215,6 @@ const App = () => {
 							<PrivateRoute element={<DefectedReports />} roles={[CLIENT]} />
 						}
 					/>
-
 					<Route
 						path="reports/defects/:reportId"
 						element={<PrivateRoute element={<Defects />} roles={[CLIENT]} />}

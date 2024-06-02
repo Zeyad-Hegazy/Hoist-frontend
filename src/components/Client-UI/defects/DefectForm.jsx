@@ -10,13 +10,14 @@ import {
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
 	FIXED,
 	IGNORED,
 	QUARANTINED,
 } from "./../../../constants/repsond-action";
+import { HIGH, LOW, MEDIUM } from "../../../constants/defect-types";
 
 const ClientDefectForm = ({
 	closeHandler,
@@ -24,6 +25,7 @@ const ClientDefectForm = ({
 	getAll,
 	reportId,
 	defectId,
+	defectLevel,
 }) => {
 	const initialState = {
 		clientName: "",
@@ -34,6 +36,24 @@ const ClientDefectForm = ({
 	const dispatch = useDispatch();
 
 	const [formData, setFormData] = useState(initialState);
+
+	const [actions, setActions] = useState([QUARANTINED, FIXED, IGNORED]);
+
+	useEffect(() => {
+		switch (defectLevel) {
+			case LOW:
+				setActions([FIXED, IGNORED]);
+				break;
+			case MEDIUM:
+				setActions([FIXED, QUARANTINED]);
+				break;
+			case HIGH:
+				setActions([QUARANTINED]);
+				break;
+			default:
+				setActions([QUARANTINED, FIXED, IGNORED]);
+		}
+	}, [defectLevel]);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -104,9 +124,15 @@ const ClientDefectForm = ({
 									onChange={handleChange}
 									label="Action"
 								>
-									<MenuItem value={QUARANTINED}>Quarantined</MenuItem>
-									<MenuItem value={FIXED}>Fixed</MenuItem>
-									<MenuItem value={IGNORED}>Ignored</MenuItem>
+									{actions.map((action) => (
+										<MenuItem
+											key={action}
+											value={action}
+											className="capitalize"
+										>
+											{action}
+										</MenuItem>
+									))}
 								</Select>
 							</FormControl>
 						</div>

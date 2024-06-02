@@ -40,7 +40,13 @@ export const PriorityCell = ({ level }) => {
 	return <div style={style}>{level}</div>;
 };
 
-const ClientDefectTable = ({ columns, rows, openForm, setDefectId }) => {
+const ClientDefectTable = ({
+	columns,
+	rows,
+	openForm,
+	setDefectId,
+	setDefectLevel,
+}) => {
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
 	const [searchTerm, setSearchTerm] = useState("");
@@ -107,6 +113,7 @@ const ClientDefectTable = ({ columns, rows, openForm, setDefectId }) => {
 											onClick={() => {
 												setDefectId(row._id);
 												openForm(true);
+												setDefectLevel(row.priority);
 											}}
 										>
 											{row.status === null ? (

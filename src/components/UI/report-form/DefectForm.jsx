@@ -20,6 +20,7 @@ import { useState } from "react";
 import convertToBase64, { isValidBase64 } from "../../../utils/convertToBase64";
 import { useDispatch } from "react-redux";
 import { openToastar } from "../../../actions/toastar";
+import { useEffect } from "react";
 
 const DefectForm = ({
 	title,
@@ -31,6 +32,7 @@ const DefectForm = ({
 	selected,
 	reportId,
 	equipmentId,
+	defectLevel,
 }) => {
 	const initialState = {
 		name: "",
@@ -59,6 +61,24 @@ const DefectForm = ({
 		schema,
 		getAll,
 	});
+
+	const [defectLevels, setDefectLevels] = useState([HIGH, MEDIUM, LOW]);
+
+	useEffect(() => {
+		switch (defectLevel) {
+			case LOW:
+				setDefectLevels([HIGH, MEDIUM, LOW]);
+				break;
+			case MEDIUM:
+				setDefectLevels([MEDIUM, HIGH]);
+				break;
+			case HIGH:
+				setDefectLevels([HIGH]);
+				break;
+			default:
+				setDefectLevels([HIGH, MEDIUM, LOW]);
+		}
+	}, [defectLevel]);
 
 	const handleImageChange = async (e) => {
 		const file = e.target.files[0];
@@ -136,7 +156,7 @@ const DefectForm = ({
 									label="Priority"
 									className="w-[12rem]"
 								>
-									{[HIGH, MEDIUM, LOW].map((priority) => (
+									{defectLevels.map((priority) => (
 										<MenuItem key={priority} value={priority}>
 											{priority}
 										</MenuItem>
