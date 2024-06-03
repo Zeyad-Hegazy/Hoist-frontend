@@ -8,17 +8,17 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useState } from "react";
-import EquipmentActions from "../../UI/equipment-form/EquipmentActions";
 import { TextField } from "@mui/material";
 import { HIGH, LOW, MEDIUM } from "./../../../constants/defect-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNoteSticky } from "@fortawesome/free-solid-svg-icons";
-import useEmpEquipmentActions from "./../../../utils/useEmpEquipmentAction";
+import EmpSubEquipmentActions from "./EmpSubEquipmentActions";
 
 export const DefectLevelCell = ({ level }) => {
 	const getBackgroundColor = (level) => {
 		switch (level) {
 			case LOW:
+			case null:
 				return "#228B22";
 			case MEDIUM:
 				return "#FDDA0D";
@@ -45,10 +45,7 @@ export const DefectLevelCell = ({ level }) => {
 	);
 };
 
-const EmpEquipmentTable = ({ columns, rows, openForm, openSubEquipments }) => {
-	const { getDeleteHandler, getEditHandler, getViewHandler, getSubEquipemtns } =
-		useEmpEquipmentActions(openForm, openSubEquipments);
-
+const EmpSubEquipmentTable = ({ columns, rows, mainId, closeHandler }) => {
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
 	const [searchTerm, setSearchTerm] = useState("");
@@ -81,31 +78,18 @@ const EmpEquipmentTable = ({ columns, rows, openForm, openSubEquipments }) => {
 				<Table>
 					<TableHead>
 						<TableRow>
-							<TableCell align={"center"} style={{ minWidth: "170px" }}>
-								Defect Level
+							{columns.map((col) => (
+								<TableCell
+									key={col.id}
+									align={col.align}
+									style={{ minWidth: col.minWidth }}
+								>
+									{col.label}
+								</TableCell>
+							))}
+							<TableCell align="center" style={{ minWidth: 170 }}>
+								Actions
 							</TableCell>
-							<TableCell align={"center"} style={{ minWidth: "170px" }}>
-								Serial Number
-							</TableCell>
-							<TableCell align={"center"} style={{ minWidth: "170px" }}>
-								Category
-							</TableCell>
-							<TableCell align={"center"} style={{ minWidth: "170px" }}>
-								Location
-							</TableCell>
-							<TableCell align={"center"} style={{ minWidth: "170px" }}>
-								SWL
-							</TableCell>
-							<TableCell align={"center"} style={{ minWidth: "170px" }}>
-								L.T Number
-							</TableCell>
-							<TableCell align={"center"} style={{ minWidth: "170px" }}>
-								L.T Company
-							</TableCell>
-							<TableCell align={"center"} style={{ minWidth: "170px" }}>
-								Type
-							</TableCell>
-							<TableCell align={"center"}>Actions</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -114,23 +98,7 @@ const EmpEquipmentTable = ({ columns, rows, openForm, openSubEquipments }) => {
 							.map((row) => (
 								<TableRow hover key={row._id}>
 									{columns.map((col) => (
-										<TableCell
-											key={col.id + row._id}
-											align={col.align}
-											style={{
-												textDecoration:
-													col.id === "serialNumber" ? "underline" : "inherit",
-												cursor:
-													col.id === "serialNumber" ? "pointer" : "inherit",
-												color:
-													col.id === "serialNumber" ? "#07789B" : "inherit",
-											}}
-											onClick={() => {
-												if (col.id === "serialNumber") {
-													getViewHandler(row._id);
-												}
-											}}
-										>
+										<TableCell key={col.id + row._id} align={col.align}>
 											{col.id === "defectLevel" ? (
 												<DefectLevelCell level={row[col.id]} />
 											) : (
@@ -139,11 +107,10 @@ const EmpEquipmentTable = ({ columns, rows, openForm, openSubEquipments }) => {
 										</TableCell>
 									))}
 									<TableCell>
-										<EquipmentActions
-											getEdit={() => getEditHandler(row._id)}
-											getDelete={() => getDeleteHandler(row._id)}
-											getSubEquipemtns={() => getSubEquipemtns(row._id)}
-											id={row._id}
+										<EmpSubEquipmentActions
+											subEquipmentId={row._id}
+											mainEquipmentId={mainId}
+											closeHandler={closeHandler}
 										/>
 									</TableCell>
 								</TableRow>
@@ -174,4 +141,4 @@ const EmpEquipmentTable = ({ columns, rows, openForm, openSubEquipments }) => {
 	);
 };
 
-export default EmpEquipmentTable;
+export default EmpSubEquipmentTable;

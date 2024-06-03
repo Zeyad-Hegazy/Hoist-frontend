@@ -8,6 +8,7 @@ import {
 } from "../../actions/employee/equipment";
 import EmpEquipmentForm from "../../components/Employee-UI/equipment/EmpEquipmentFomr";
 import EmpEquipmentTable from "../../components/Employee-UI/equipment/EmpEquipmentTable";
+import EmpSubEquipments from "./EmpSubEquipments";
 
 const coulmns = [
 	{
@@ -70,6 +71,8 @@ const EmpEquipments = () => {
 		visible: false,
 	});
 
+	const [subEquipmentsVisible, setSubEquipmentsVisible] = useState(false);
+
 	useEffect(() => {
 		dispatch(getAllEquipments());
 	}, [dispatch]);
@@ -124,12 +127,16 @@ const EmpEquipments = () => {
 				setAction={setFormVisibleAndAction}
 			/>
 			{FormVisibleAndAction.visible && form && <div>{form}</div>}
+			{subEquipmentsVisible && (
+				<EmpSubEquipments closeHandler={setSubEquipmentsVisible} />
+			)}
 			<main className="flex justify-center items-center">
 				{equipments && (
 					<EmpEquipmentTable
 						columns={coulmns}
 						rows={equipments}
 						openForm={setFormVisibleAndAction}
+						openSubEquipments={setSubEquipmentsVisible}
 					/>
 				)}
 			</main>

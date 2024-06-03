@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTools, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DeleteDialog from "../DeleteDialog";
 import { useState } from "react";
@@ -20,7 +20,7 @@ const EquipmentActions = ({ getEdit, getDelete, getSubEquipemtns, id }) => {
 				className="flex justify-center items-center p-4 w-2 h-2 rounded-full bg-green-500 text-white cursor-pointer"
 				onClick={getSubEquipemtns}
 			>
-				<FontAwesomeIcon icon={faEdit} />
+				<FontAwesomeIcon icon={faTools} />
 			</p>
 			<p
 				className="flex justify-center items-center p-4 w-2 h-2 rounded-full bg-yellow-500 text-white cursor-pointer"

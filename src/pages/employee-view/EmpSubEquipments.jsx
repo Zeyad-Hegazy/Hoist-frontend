@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/Header";
-import { getAllEquipments } from "./../../actions/admin/equipment";
+import { getAllEquipments } from "./../../actions/employee/equipment";
 import { useEffect } from "react";
-import SubEquipmentTable from "./../../components/UI/equipment-form/SubEquipmentTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+import EmpSubEquipmentTable from "../../components/Employee-UI/equipment/EmpSubEquipmentTable";
 
 const coulmns = [
 	{
@@ -46,10 +46,12 @@ const coulmns = [
 	},
 ];
 
-const SubEquipments = ({ closeHandler }) => {
+const EmpSubEquipments = ({ closeHandler }) => {
 	const equipments = useSelector((state) => state.equipment);
 	const equipment = useSelector((state) => state.select);
 	const dispatch = useDispatch();
+
+	console.log(equipments);
 
 	useEffect(() => {
 		if (equipments.length === 0) {
@@ -72,7 +74,7 @@ const SubEquipments = ({ closeHandler }) => {
 						<Header label={"Sub Equipments"} setAction={null} />
 						<main className="flex justify-center items-center">
 							{equipments && (
-								<SubEquipmentTable
+								<EmpSubEquipmentTable
 									columns={coulmns}
 									rows={equipments}
 									mainId={equipment?._id}
@@ -87,4 +89,4 @@ const SubEquipments = ({ closeHandler }) => {
 	);
 };
 
-export default SubEquipments;
+export default EmpSubEquipments;

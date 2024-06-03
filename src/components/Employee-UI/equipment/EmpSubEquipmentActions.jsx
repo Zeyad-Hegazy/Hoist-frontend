@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	addSubEquipment,
 	getAllEquipments,
-} from "../../../actions/admin/equipment";
+} from "../../../actions/employee/equipment";
 import { useDispatch } from "react-redux";
 
-const SubEquipmentActions = ({
+const EmpSubEquipmentActions = ({
 	mainEquipmentId,
 	subEquipmentId,
 	closeHandler,
@@ -35,4 +35,4 @@ const SubEquipmentActions = ({
 	);
 };
 
-export default SubEquipmentActions;
+export default EmpSubEquipmentActions;
