@@ -1,5 +1,5 @@
 import { Suspense, lazy } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import AdminLayout from "./components/Layout";
 import EmployeeLayout from "./components/EmployeeLayout";
 import Dashboard from "./pages/admin-view/Dashboard";
@@ -44,6 +44,20 @@ const EquipmentInfo = lazy(() =>
 const EmpEquipmentInfo = lazy(() =>
 	import("./components/Employee-UI/equipment/EmpEquipmentinfo")
 );
+const Home = () => {
+	const navigate = useNavigate();
+	return (
+		<main className="h-[100vh] flex flex-col justify-center items-center gap-4">
+			<h1 className="text-4xl">Home</h1>
+			<button
+				className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+				onClick={() => navigate("/login")}
+			>
+				Login
+			</button>{" "}
+		</main>
+	);
+};
 
 const App = () => {
 	const toastar = useSelector((state) => state.toastar);
@@ -51,6 +65,7 @@ const App = () => {
 	return (
 		<div>
 			<Routes>
+				<Route path="/" element={<Home />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/unauthorized" element={<UnAuthorized />} />
 
