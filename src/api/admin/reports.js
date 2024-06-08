@@ -13,3 +13,6 @@ export const addDefect = (formData, id) =>
 
 export const getNotAuthReports = () => API.get("/admin/report/approval");
 export const approvereport = (id) => API.patch("/admin/report/approval/" + id);
+
+export const getSubReports = (id) =>
+	API.get("/admin/report/" + id + "/sub-report");

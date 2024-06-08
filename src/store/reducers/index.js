@@ -17,6 +17,7 @@ import reports from "./admin/reports";
 import approvedReports from "./admin/approvedReports";
 import defectedReports from "./client/defects";
 import clientNotification from "./admin/clientNotification";
+import subReports from "./admin/subReports";
 
 const rootReducer = combineReducers({
 	auth,
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
 	approvedReports,
 	defectedReports,
 	clientNotification,
+	subReports,
 });
 
 export default rootReducer;

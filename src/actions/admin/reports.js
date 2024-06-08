@@ -103,3 +103,17 @@ export const approveReport = (id) => async (dispatch) => {
 		);
 	}
 };
+
+export const getSubReports = (id) => async (dispatch) => {
+	try {
+		const data = await api.getSubReports(id);
+		dispatch({ type: GET + "_sub_reports", payload: data.data.result });
+	} catch (error) {
+		dispatch(
+			openToastar({
+				message: error.response.data.message,
+				status: error.response.status,
+			})
+		);
+	}
+};

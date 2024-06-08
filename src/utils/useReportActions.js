@@ -4,10 +4,13 @@ import {
 	getOneReport,
 	getAllReports,
 	deleteOneReport,
+	getSubReports as getSUBS,
 } from "../actions/admin/reports";
+import { useNavigate } from "react-router-dom";
 
 const useReportActions = (openForm) => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const getViewHandler = (id) => {
 		dispatch(getOneReport(id));
@@ -30,7 +33,13 @@ const useReportActions = (openForm) => {
 		dispatch(getAllReports());
 	};
 
-	return { getViewHandler, getEditHandler, getDeleteHandler };
+	const getSubReports = (id) => {
+		dispatch(getOneReport(id));
+		dispatch(getSUBS(id));
+		navigate("sub-reports");
+	};
+
+	return { getViewHandler, getEditHandler, getDeleteHandler, getSubReports };
 };
 
 export default useReportActions;

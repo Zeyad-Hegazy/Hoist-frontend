@@ -1,8 +1,8 @@
 import axios from "axios";
 
-import { productionHost } from "../constants/host";
+import { productionHost, developmentHost } from "../constants/host";
 
-const API = axios.create({ baseURL: `${productionHost}/api/v1` });
+const API = axios.create({ baseURL: `${developmentHost}/api/v1` });
 
 API.interceptors.request.use((req) => {
 	if (localStorage.getItem("profile")) {

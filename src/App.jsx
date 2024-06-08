@@ -38,6 +38,8 @@ import AdminDefects from "./pages/admin-view/AdminDefects";
 import EmployeeClientNot from "./pages/employee-view/EmployeeClientNot";
 import EmployeeDefects from "./pages/employee-view/EmployeeDefects";
 
+import SubReports from "./pages/admin-view/SubReports";
+
 const EquipmentInfo = lazy(() =>
 	import("./components/UI/equipment-form/EquipmentInfo")
 );
@@ -115,6 +117,10 @@ const App = () => {
 								<PrivateRoute element={<EquipmentInfo />} roles={[ADMIN]} />
 							</Suspense>
 						}
+					/>
+					<Route
+						path="equipments/info/sub-reports"
+						element={<PrivateRoute element={<SubReports />} roles={[ADMIN]} />}
 					/>
 					<Route
 						path="accounts"
