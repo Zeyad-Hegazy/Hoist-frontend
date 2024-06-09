@@ -4,9 +4,11 @@ import DefectForm from "../../components/UI/report-form/DefectForm";
 import { addDefect } from "../../api/admin/reports";
 import { getAllReports } from "../../actions/admin/reports";
 import { useSelector } from "react-redux";
+import SelectReportType from "../../components/UI/Sub-reports/SelectReportType";
 
 const SubReports = () => {
 	const [openDefectForm, setOpenDefectForm] = useState(false);
+	const [openSelect, setOpenSelect] = useState(false);
 	const report = useSelector((state) => state.select);
 	const equipment = useSelector((state) => state.equipmentInfo)[0];
 
@@ -15,6 +17,7 @@ const SubReports = () => {
 			<SubReportHeader
 				openDefectForm={setOpenDefectForm}
 				reportId={report._id}
+				openSubReportForm={setOpenSelect}
 			/>
 			{/* {FullFormVisible.visible && form} */}
 			{openDefectForm && (
@@ -30,7 +33,7 @@ const SubReports = () => {
 					defectLevel={equipment.defectLevel}
 				/>
 			)}
-			{/* Open SubReport Form Here */}
+			{openSelect && <SelectReportType closeHandler={setOpenSelect} />}
 			<main className="flex justify-center items-center">
 				{/* Sub Reports Table here  */}
 			</main>
