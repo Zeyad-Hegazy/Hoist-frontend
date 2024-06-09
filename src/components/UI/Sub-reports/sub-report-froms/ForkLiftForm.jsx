@@ -367,6 +367,7 @@ const ForkLiftForm = ({ handleSubmit }) => {
 				color="primary"
 				onClick={() => handleSubmit(formData)}
 				className="w-full mt-2"
+				style={{ marginTop: "1rem" }}
 			>
 				Add
 			</Button>

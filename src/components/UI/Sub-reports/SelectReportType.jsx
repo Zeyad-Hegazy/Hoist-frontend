@@ -25,6 +25,7 @@ const SelectReportType = ({ closeHandler }) => {
 	};
 
 	const handleSubmit = (formData) => {
+		console.log("Report Type: ", reportType);
 		console.log("Form Data Submitted: ", formData);
 	};
 
