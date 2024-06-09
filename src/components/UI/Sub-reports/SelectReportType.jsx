@@ -15,6 +15,7 @@ import * as subs from "../../../constants/sub-report-types";
 import ArticulatingForm from "./sub-report-froms/ArticulatingForm";
 import OverHeadForm from "./sub-report-froms/OverHeadForm";
 import ForkLiftForm from "./sub-report-froms/ForkLiftForm";
+import OffshoreForm from "./sub-report-froms/OffshoreForm";
 
 const SelectReportType = ({ closeHandler }) => {
 	const [reportType, setReportType] = useState("Select Report Type");
@@ -35,6 +36,8 @@ const SelectReportType = ({ closeHandler }) => {
 				return <OverHeadForm handleSubmit={handleSubmit} />;
 			case subs.FORKLIFT_TRUCK_CHECKLIST:
 				return <ForkLiftForm handleSubmit={handleSubmit} />;
+			case subs.OFFSHORE_CRANE:
+				return <OffshoreForm handleSubmit={handleSubmit} />;
 			default:
 				return null;
 		}
@@ -71,6 +74,9 @@ const SelectReportType = ({ closeHandler }) => {
 								</MenuItem>
 								<MenuItem value={subs.FORKLIFT_TRUCK_CHECKLIST}>
 									{subs.FORKLIFT_TRUCK_CHECKLIST.split("_").join(" ")}
+								</MenuItem>
+								<MenuItem value={subs.OFFSHORE_CRANE}>
+									{subs.OFFSHORE_CRANE.split("_").join(" ")}
 								</MenuItem>
 							</Select>
 						</FormControl>
