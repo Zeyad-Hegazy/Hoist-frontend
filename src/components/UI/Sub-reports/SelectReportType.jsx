@@ -17,6 +17,7 @@ import OverHeadForm from "./sub-report-froms/OverHeadForm";
 import ForkLiftForm from "./sub-report-froms/ForkLiftForm";
 import OffshoreForm from "./sub-report-froms/OffshoreForm";
 import MagneticForm from "./sub-report-froms/MagneticForm";
+import TelescopicForm from "./sub-report-froms/TelescopicForm";
 
 const SelectReportType = ({ closeHandler }) => {
 	const [reportType, setReportType] = useState("Select Report Type");
@@ -42,6 +43,8 @@ const SelectReportType = ({ closeHandler }) => {
 				return <OffshoreForm handleSubmit={handleSubmit} />;
 			case subs.MAGNETIC_PARTICLE:
 				return <MagneticForm handleSubmit={handleSubmit} />;
+			case subs.TELESCOPIC_BOOM_CRANE:
+				return <TelescopicForm handleSubmit={handleSubmit} />;
 			default:
 				return null;
 		}
@@ -84,6 +87,9 @@ const SelectReportType = ({ closeHandler }) => {
 								</MenuItem>
 								<MenuItem value={subs.MAGNETIC_PARTICLE}>
 									{subs.MAGNETIC_PARTICLE.split("_").join(" ")}
+								</MenuItem>
+								<MenuItem value={subs.TELESCOPIC_BOOM_CRANE}>
+									{subs.TELESCOPIC_BOOM_CRANE.split("_").join(" ")}
 								</MenuItem>
 							</Select>
 						</FormControl>
