@@ -9,6 +9,7 @@ import {
 	Select,
 } from "@mui/material";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import * as subs from "../../../constants/sub-report-types";
 
@@ -19,32 +20,41 @@ import OffshoreForm from "./sub-report-froms/OffshoreForm";
 import MagneticForm from "./sub-report-froms/MagneticForm";
 import TelescopicForm from "./sub-report-froms/TelescopicForm";
 
-const SelectReportType = ({ closeHandler }) => {
+const SelectReportType = ({
+	closeHandler,
+	submitHandler,
+	getAllHandler,
+	reportId,
+}) => {
+	const dispatch = useDispatch();
 	const [reportType, setReportType] = useState("Select Report Type");
 
 	const handleChange = (event) => {
 		setReportType(event.target.value);
 	};
 
-	const handleSubmit = (formData) => {
+	const handleSubmit = async (formData) => {
 		console.log("Report Type: ", reportType);
 		console.log("Form Data Submitted: ", formData);
+		await dispatch(submitHandler(formData, reportId, reportType));
+		await dispatch(getAllHandler(reportId));
+		closeHandler(false);
 	};
 
 	const renderForm = () => {
 		switch (reportType) {
 			case subs.ARTICULATING_BOOM_CRANE:
 				return <ArticulatingForm handleSubmit={handleSubmit} />;
-			case subs.OVERHEAD_CRANE:
-				return <OverHeadForm handleSubmit={handleSubmit} />;
-			case subs.FORKLIFT_TRUCK_CHECKLIST:
-				return <ForkLiftForm handleSubmit={handleSubmit} />;
-			case subs.OFFSHORE_CRANE:
-				return <OffshoreForm handleSubmit={handleSubmit} />;
-			case subs.MAGNETIC_PARTICLE:
-				return <MagneticForm handleSubmit={handleSubmit} />;
-			case subs.TELESCOPIC_BOOM_CRANE:
-				return <TelescopicForm handleSubmit={handleSubmit} />;
+			// case subs.OVERHEAD_CRANE:
+			// 	return <OverHeadForm handleSubmit={handleSubmit} />;
+			// case subs.FORKLIFT_TRUCK_CHECKLIST:
+			// 	return <ForkLiftForm handleSubmit={handleSubmit} />;
+			// case subs.OFFSHORE_CRANE:
+			// 	return <OffshoreForm handleSubmit={handleSubmit} />;
+			// case subs.MAGNETIC_PARTICLE:
+			// 	return <MagneticForm handleSubmit={handleSubmit} />;
+			// case subs.TELESCOPIC_BOOM_CRANE:
+			// 	return <TelescopicForm handleSubmit={handleSubmit} />;
 			default:
 				return null;
 		}
@@ -76,12 +86,12 @@ const SelectReportType = ({ closeHandler }) => {
 								<MenuItem value={subs.ARTICULATING_BOOM_CRANE}>
 									{subs.ARTICULATING_BOOM_CRANE.split("_").join(" ")}
 								</MenuItem>
-								<MenuItem value={subs.OVERHEAD_CRANE}>
+								{/* <MenuItem value={subs.OVERHEAD_CRANE}>
 									{subs.OVERHEAD_CRANE.split("_").join(" ")}
-								</MenuItem>
-								<MenuItem value={subs.FORKLIFT_TRUCK_CHECKLIST}>
-									{subs.FORKLIFT_TRUCK_CHECKLIST.split("_").join(" ")}
-								</MenuItem>
+									</MenuItem>
+									<MenuItem value={subs.FORKLIFT_TRUCK_CHECKLIST}>
+										{subs.FORKLIFT_TRUCK_CHECKLIST.split("_").join(" ")}
+									</MenuItem>
 								<MenuItem value={subs.OFFSHORE_CRANE}>
 									{subs.OFFSHORE_CRANE.split("_").join(" ")}
 								</MenuItem>
@@ -90,7 +100,7 @@ const SelectReportType = ({ closeHandler }) => {
 								</MenuItem>
 								<MenuItem value={subs.TELESCOPIC_BOOM_CRANE}>
 									{subs.TELESCOPIC_BOOM_CRANE.split("_").join(" ")}
-								</MenuItem>
+								</MenuItem> */}
 							</Select>
 						</FormControl>
 						{renderForm()}

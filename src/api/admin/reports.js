@@ -16,3 +16,6 @@ export const approvereport = (id) => API.patch("/admin/report/approval/" + id);
 
 export const getSubReports = (id) =>
 	API.get("/admin/report/" + id + "/sub-report");
+
+export const addSubReport = (formData, id, type) =>
+	API.post("/admin/report/sub-report/" + type + "/" + id, formData);

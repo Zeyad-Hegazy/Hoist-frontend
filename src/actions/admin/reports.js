@@ -117,3 +117,18 @@ export const getSubReports = (id) => async (dispatch) => {
 		);
 	}
 };
+
+export const createSubReport = (formData, id, type) => async (dispatch) => {
+	try {
+		const data = await api.addSubReport(formData, id, type);
+		dispatch({ type: CREATE + "_sub_reports", payload: data.data.result });
+		dispatch(openToastar({ message: data.data.message, status: data.status }));
+	} catch (error) {
+		dispatch(
+			openToastar({
+				message: error.response.data.message,
+				status: error.response.status,
+			})
+		);
+	}
+};
