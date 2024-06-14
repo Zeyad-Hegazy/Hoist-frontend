@@ -77,7 +77,7 @@ const MagneticForm = ({ handleSubmit }) => {
 	};
 
 	const renderAccordion = (section, title) => (
-		<Accordion key={title}>
+		<Accordion key={title + section}>
 			<AccordionSummary expandIcon={<IconExpand />}>
 				<Typography>{title.replace(/([A-Z])/g, " $1")}</Typography>
 			</AccordionSummary>
@@ -105,7 +105,7 @@ const MagneticForm = ({ handleSubmit }) => {
 	return (
 		<Container>
 			{Object.entries(formData).map(([section, data]) => (
-				<React.Fragment key={section}>
+				<React.Fragment key={section + data}>
 					{typeof data === "object" && data !== null ? (
 						renderAccordion(data, section)
 					) : (

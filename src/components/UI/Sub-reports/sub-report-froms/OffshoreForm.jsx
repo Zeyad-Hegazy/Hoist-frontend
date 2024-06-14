@@ -172,7 +172,7 @@ const OffshoreForm = ({ handleSubmit }) => {
 
 	const renderRadioGroup = (part, field, label) => (
 		<Box
-			key={field}
+			key={field + part}
 			sx={{ display: "flex", alignItems: "center", margin: "8px 0" }}
 		>
 			<Typography sx={{ width: "200px" }}>{label}</Typography>
@@ -193,7 +193,7 @@ const OffshoreForm = ({ handleSubmit }) => {
 	const renderSection = (part, section) => (
 		<>
 			{Object.entries(section).map(([field, data]) => (
-				<Box key={field} sx={{ marginBottom: 2 }}>
+				<Box key={field + part} sx={{ marginBottom: 2 }}>
 					{renderRadioGroup(part, field, field.replace(/([A-Z])/g, " $1"))}
 					{renderTextField(part, field, "Comment")}
 				</Box>
@@ -226,7 +226,7 @@ const OffshoreForm = ({ handleSubmit }) => {
 			{Object.entries(formData).map(
 				([part, section]) =>
 					part.startsWith("part") && (
-						<Accordion key={part}>
+						<Accordion key={part + section}>
 							<AccordionSummary expandIcon={<IconExpand />}>
 								<Typography>{part.replace(/([A-Z])/g, " $1")}</Typography>
 							</AccordionSummary>
