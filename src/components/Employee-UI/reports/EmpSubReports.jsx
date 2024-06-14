@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import SubReportHeader from "../../components/UI/Sub-reports/SubReportHeader";
-import DefectForm from "../../components/UI/report-form/DefectForm";
-import { addDefect, completeReport } from "../../api/admin/reports";
+import SubReportHeader from "../../UI/Sub-reports/SubReportHeader";
+import DefectForm from "../../UI/report-form/DefectForm";
+import { addDefect, completeReport } from "../../../api/employee/reports";
 import {
 	getAllReports,
 	getSubReports,
 	createSubReport,
-} from "../../actions/admin/reports";
+} from "../../../actions/employee/reports";
 import { useDispatch, useSelector } from "react-redux";
-import SelectReportType from "../../components/UI/Sub-reports/SelectReportType";
+import SelectReportType from "../../UI/Sub-reports/SelectReportType";
 
-import SubReportTable from "../../components/UI/Sub-reports/SubReportsTable";
+import SubReportTable from "../../UI/Sub-reports/SubReportsTable";
 
 const columns = [
 	{
@@ -39,7 +39,7 @@ const columns = [
 	},
 ];
 
-const SubReports = () => {
+const EmpSubReports = () => {
 	const dispatch = useDispatch();
 	const [openDefectForm, setOpenDefectForm] = useState(false);
 	const [openSelect, setOpenSelect] = useState(false);
@@ -88,4 +88,4 @@ const SubReports = () => {
 	);
 };
 
-export default SubReports;
+export default EmpSubReports;

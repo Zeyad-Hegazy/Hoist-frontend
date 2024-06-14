@@ -5,10 +5,14 @@ import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import "../../Header.css"; // Import the CSS file
 import { openToastar } from "../../../actions/toastar";
-import { completeReport } from "../../../api/admin/reports";
 import { useDispatch } from "react-redux";
 
-const SubReportHeader = ({ openDefectForm, openSubReportForm, reportId }) => {
+const SubReportHeader = ({
+	openDefectForm,
+	openSubReportForm,
+	reportId,
+	completeReport,
+}) => {
 	const dispatch = useDispatch();
 
 	return (

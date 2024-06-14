@@ -50,18 +50,20 @@ const ReportActions = ({ getView, getEdit, getDelete, getSubReports, id }) => {
 			>
 				<FontAwesomeIcon icon={faClose} />
 			</p>
-			<p
-				className="flex justify-center items-center p-4 w-2 h-2 rounded-full bg-blue-600 text-white cursor-pointer"
-				onClick={getView}
-			>
-				<FontAwesomeIcon icon={faEye} />
-			</p> */}
+			*/}
 
 			<p
 				className="flex justify-center items-center p-4 w-2 h-2 rounded-full bg-yellow-500 text-white cursor-pointer"
 				onClick={getSubReports}
 			>
 				<FontAwesomeIcon icon={faClipboardList} />
+			</p>
+
+			<p
+				className="flex justify-center items-center p-4 w-2 h-2 rounded-full bg-blue-600 text-white cursor-pointer"
+				onClick={getView}
+			>
+				<FontAwesomeIcon icon={faEye} />
 			</p>
 
 			<p

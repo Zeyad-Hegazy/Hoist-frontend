@@ -36,7 +36,7 @@ const StatusCell = ({ status }) => {
 };
 
 const EmpReportTable = ({ columns, rows, openForm }) => {
-	const { getViewHandler, getEditHandler, getDeleteHandler } =
+	const { getViewHandler, getEditHandler, getDeleteHandler, getSubReports } =
 		useEmpReportActions(openForm);
 
 	const [page, setPage] = useState(0);
@@ -102,6 +102,7 @@ const EmpReportTable = ({ columns, rows, openForm }) => {
 											getView={() => getViewHandler(row._id)}
 											getEdit={() => getEditHandler(row._id)}
 											getDelete={() => getDeleteHandler(row._id)}
+											getSubReports={() => getSubReports(row._id)}
 											id={row._id}
 										/>
 									</TableCell>

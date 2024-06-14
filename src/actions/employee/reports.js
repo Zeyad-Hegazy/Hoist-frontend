@@ -74,3 +74,32 @@ export const updateOneReport = (formData, id) => async (dispatch) => {
 		);
 	}
 };
+
+export const getSubReports = (id) => async (dispatch) => {
+	try {
+		const data = await api.getSubReports(id);
+		dispatch({ type: GET + "_sub_reports", payload: data.data.result });
+	} catch (error) {
+		dispatch(
+			openToastar({
+				message: error.response.data.message,
+				status: error.response.status,
+			})
+		);
+	}
+};
+
+export const createSubReport = (formData, id, type) => async (dispatch) => {
+	try {
+		const data = await api.addSubReport(formData, id, type);
+		dispatch({ type: CREATE + "_sub_reports", payload: data.data.result });
+		dispatch(openToastar({ message: data.data.message, status: data.status }));
+	} catch (error) {
+		dispatch(
+			openToastar({
+				message: error.response.data.message,
+				status: error.response.status,
+			})
+		);
+	}
+};

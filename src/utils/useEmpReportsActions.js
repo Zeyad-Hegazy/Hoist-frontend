@@ -1,12 +1,15 @@
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import {
 	getOneReport,
 	getAllReports,
 	deleteOneReport,
+	getSubReports as getSUBS,
 } from "../actions/employee/reports";
 
 const useEmpReportActions = (openForm) => {
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const getViewHandler = (id) => {
@@ -30,7 +33,13 @@ const useEmpReportActions = (openForm) => {
 		dispatch(getAllReports());
 	};
 
-	return { getViewHandler, getEditHandler, getDeleteHandler };
+	const getSubReports = (id) => {
+		dispatch(getOneReport(id));
+		dispatch(getSUBS(id));
+		navigate("sub-reports");
+	};
+
+	return { getViewHandler, getEditHandler, getDeleteHandler, getSubReports };
 };
 
 export default useEmpReportActions;

@@ -11,3 +11,9 @@ export const completeReport = (id) =>
 
 export const addDefect = (formData, id) =>
 	API.post("/employee/report/defect/" + id, formData);
+
+export const getSubReports = (id) =>
+	API.get("/employee/report/" + id + "/sub-report");
+
+export const addSubReport = (formData, id, type) =>
+	API.post("/employee/report/sub-report/" + type + "/" + id, formData);
