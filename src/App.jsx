@@ -112,7 +112,7 @@ const App = () => {
 						element={<PrivateRoute element={<Equipments />} roles={[ADMIN]} />}
 					/>
 					<Route
-						path="equipments/info"
+						path="equipments/info/:equipmentId"
 						element={
 							<Suspense fallback={<div>Loading...</div>}>
 								<PrivateRoute element={<EquipmentInfo />} roles={[ADMIN]} />
@@ -120,7 +120,7 @@ const App = () => {
 						}
 					/>
 					<Route
-						path="equipments/info/sub-reports"
+						path="equipments/info/:equipmentId/sub-reports"
 						element={<PrivateRoute element={<SubReports />} roles={[ADMIN]} />}
 					/>
 					<Route

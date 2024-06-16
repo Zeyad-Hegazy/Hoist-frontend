@@ -33,9 +33,9 @@ const useEmpReportActions = (openForm) => {
 		dispatch(getAllReports());
 	};
 
-	const getSubReports = (id) => {
-		dispatch(getOneReport(id));
-		dispatch(getSUBS(id));
+	const getSubReports = async (id) => {
+		await dispatch(getOneReport(id));
+		// dispatch(getSUBS(id));
 		navigate("sub-reports");
 	};
 

@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Reports from "../../../pages/admin-view/Reports";
+import { getEquipmentInfo } from "../../../actions/admin/equipment";
+import { useParams } from "react-router-dom";
 
 const InfoCard = ({ title, value, className }) => {
 	return (
@@ -34,11 +36,20 @@ const CustomTabPanel = ({ children, value, index, ...other }) => {
 const EquipmentInfo = () => {
 	const equipmentInfo = useSelector((state) => state.equipmentInfo)["0"];
 
+	const { equipmentId } = useParams();
+
 	const [value, setValue] = useState(0);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		console.log(equipmentId);
+		dispatch(getEquipmentInfo(equipmentId));
+	}, [dispatch, equipmentId]);
 
 	return (
 		<>

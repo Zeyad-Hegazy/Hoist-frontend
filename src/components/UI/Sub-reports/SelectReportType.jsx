@@ -36,8 +36,8 @@ const SelectReportType = ({
 	const handleSubmit = async (formData) => {
 		console.log("Report Type: ", reportType);
 		console.log("Form Data Submitted: ", formData);
-		await dispatch(submitHandler(formData, reportId, reportType));
-		await dispatch(getAllHandler(reportId));
+		// await dispatch(submitHandler(formData, reportId, reportType));
+		// await dispatch(getAllHandler(reportId));
 		closeHandler(false);
 	};
 
@@ -45,16 +45,16 @@ const SelectReportType = ({
 		switch (reportType) {
 			case subs.ARTICULATING_BOOM_CRANE:
 				return <ArticulatingForm handleSubmit={handleSubmit} />;
-			case subs.OVERHEAD_CRANE:
-				return <OverHeadForm handleSubmit={handleSubmit} />;
-			case subs.FORKLIFT_TRUCK_CHECKLIST:
-				return <ForkLiftForm handleSubmit={handleSubmit} />;
-			case subs.OFFSHORE_CRANE:
-				return <OffshoreForm handleSubmit={handleSubmit} />;
-			case subs.MAGNETIC_PARTICLE:
-				return <MagneticForm handleSubmit={handleSubmit} />;
-			case subs.TELESCOPIC_BOOM_CRANE:
-				return <TelescopicForm handleSubmit={handleSubmit} />;
+			// case subs.OVERHEAD_CRANE:
+			// 	return <OverHeadForm handleSubmit={handleSubmit} />;
+			// case subs.FORKLIFT_TRUCK_CHECKLIST:
+			// 	return <ForkLiftForm handleSubmit={handleSubmit} />;
+			// case subs.OFFSHORE_CRANE:
+			// 	return <OffshoreForm handleSubmit={handleSubmit} />;
+			// case subs.MAGNETIC_PARTICLE:
+			// 	return <MagneticForm handleSubmit={handleSubmit} />;
+			// case subs.TELESCOPIC_BOOM_CRANE:
+			// 	return <TelescopicForm handleSubmit={handleSubmit} />;
 			default:
 				return null;
 		}
@@ -86,7 +86,7 @@ const SelectReportType = ({
 								<MenuItem value={subs.ARTICULATING_BOOM_CRANE}>
 									{subs.ARTICULATING_BOOM_CRANE.split("_").join(" ")}
 								</MenuItem>
-								<MenuItem value={subs.OVERHEAD_CRANE}>
+								{/* <MenuItem value={subs.OVERHEAD_CRANE}>
 									{subs.OVERHEAD_CRANE.split("_").join(" ")}
 								</MenuItem>
 								<MenuItem value={subs.FORKLIFT_TRUCK_CHECKLIST}>
@@ -101,6 +101,7 @@ const SelectReportType = ({
 								<MenuItem value={subs.TELESCOPIC_BOOM_CRANE}>
 									{subs.TELESCOPIC_BOOM_CRANE.split("_").join(" ")}
 								</MenuItem>
+								*/}
 							</Select>
 						</FormControl>
 						{renderForm()}

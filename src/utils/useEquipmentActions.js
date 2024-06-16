@@ -16,7 +16,7 @@ const useEquipmentActions = (openForm, openSubEquipments) => {
 		dispatch(getOneEquipment(id));
 		dispatch(getEquipmentInfo(id));
 
-		navigate("info");
+		navigate("info/" + id);
 	};
 
 	const getEditHandler = (id) => {
