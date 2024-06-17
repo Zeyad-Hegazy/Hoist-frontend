@@ -47,6 +47,7 @@ const EquipmentInfo = lazy(() =>
 const EmpEquipmentInfo = lazy(() =>
 	import("./components/Employee-UI/equipment/EmpEquipmentinfo")
 );
+
 const Home = () => {
 	const navigate = useNavigate();
 	return (

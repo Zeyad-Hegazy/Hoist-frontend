@@ -36,8 +36,8 @@ const SelectReportType = ({
 	const handleSubmit = async (formData) => {
 		console.log("Report Type: ", reportType);
 		console.log("Form Data Submitted: ", formData);
-		// await dispatch(submitHandler(formData, reportId, reportType));
-		// await dispatch(getAllHandler(reportId));
+		await dispatch(submitHandler(formData, reportId, reportType));
+		await dispatch(getAllHandler(reportId));
 		closeHandler(false);
 	};
 

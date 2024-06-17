@@ -22,43 +22,34 @@ const EquipmentsDetails = ({ updateFormData }) => {
 	const formDataRef = useRef({
 		loadTestReason: "",
 		staticLoadTest: {
-			testWeight: "",
-			radius: "",
-			height: "",
-			duration: "",
+			testWeight: 0,
+			radius: 0,
+			height: 0,
+			duration: 0,
 			applianceWeightPosition: "",
 		},
 		dynamicLoadTest: {
-			testWeight: "",
-			radius: "",
-			height: "",
-			duration: "",
+			testWeight: 0,
+			radius: 0,
+			height: 0,
+			duration: 0,
 			applianceWeightPosition: "",
 		},
 		otherLoadTest: {
-			testWeight: "",
-			radius: "",
-			height: "",
-			duration: "",
+			testWeight: 0,
+			radius: 0,
+			height: 0,
+			duration: 0,
 			applianceWeightPosition: "",
 		},
 	});
 
 	const [loadSupportDownDuringTest, setLoadSupportDownDuringTest] =
-		useState("");
+		useState(null);
 	const [
 		residualBlendingOutAfterLoadRemoving,
 		setResidualBlendingOutAfterLoadRemoving,
-	] = useState("");
-
-	// const handleInputChange = (section, field, value) => {
-	// 	formDataRef.current[section][field] = value;
-	// 	updateFormData("equipmentsDetails", {
-	// 		...formDataRef.current,
-	// 		loadSupportDownDuringTest,
-	// 		residualBlendingOutAfterLoadRemoving,
-	// 	});
-	// };
+	] = useState(null);
 
 	useEffect(() => {
 		updateFormData("equipmentsDetails", {
@@ -99,12 +90,10 @@ const EquipmentsDetails = ({ updateFormData }) => {
 									label={key.replace(/([A-Z])/g, " $1")}
 									fullWidth
 									margin="normal"
-									// defaultValue={value}
-									// onChange={(e) => handleInputChange(test, key, e.target.value)}
-									defaultValue={formDataRef.current[test].key}
 									onChange={(e) => {
-										console.log(key, formDataRef.current[test].key);
-										formDataRef.current[test].key = e.target.value;
+										if (typeof value === "string")
+											formDataRef.current[test][key] = e.target.value;
+										else formDataRef.current[test][key] = +e.target.value;
 									}}
 								/>
 							))}
@@ -118,10 +107,12 @@ const EquipmentsDetails = ({ updateFormData }) => {
 					<RadioGroup
 						row
 						value={loadSupportDownDuringTest}
-						onChange={(e) => setLoadSupportDownDuringTest(e.target.value)}
+						onChange={(e) =>
+							setLoadSupportDownDuringTest(JSON.parse(e.target.value))
+						}
 					>
-						<FormControlLabel value="true" control={<Radio />} label="Yes" />
-						<FormControlLabel value="false" control={<Radio />} label="No" />
+						<FormControlLabel value={true} control={<Radio />} label="Yes" />
+						<FormControlLabel value={false} control={<Radio />} label="No" />
 					</RadioGroup>
 				</Box>
 				<Box sx={{ display: "flex", alignItems: "center", margin: "8px 0" }}>
@@ -132,11 +123,13 @@ const EquipmentsDetails = ({ updateFormData }) => {
 						row
 						value={residualBlendingOutAfterLoadRemoving}
 						onChange={(e) =>
-							setResidualBlendingOutAfterLoadRemoving(e.target.value)
+							setResidualBlendingOutAfterLoadRemoving(
+								JSON.parse(e.target.value)
+							)
 						}
 					>
-						<FormControlLabel value="true" control={<Radio />} label="Yes" />
-						<FormControlLabel value="false" control={<Radio />} label="No" />
+						<FormControlLabel value={true} control={<Radio />} label="Yes" />
+						<FormControlLabel value={false} control={<Radio />} label="No" />
 					</RadioGroup>
 				</Box>
 			</AccordionDetails>

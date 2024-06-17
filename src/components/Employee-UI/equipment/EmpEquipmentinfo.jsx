@@ -51,73 +51,89 @@ const EmpEquipmentInfo = () => {
 				<Tab label="Reports" />
 			</Tabs>
 			<CustomTabPanel value={value} index={0}>
-				<div className="flex flex-wrap gap-8 mt-4">
-					<InfoCard
-						title={"Installation"}
-						value={equipmentInfo.installationName}
-					/>
-					<InfoCard
-						title={"Serial Number"}
-						value={equipmentInfo.serialNumber}
-					/>
-					<InfoCard title={"Department"} value={equipmentInfo.departmentName} />
+				{equipmentInfo && (
+					<>
+						<div className="flex flex-wrap gap-8 mt-4">
+							<InfoCard
+								title={"Installation"}
+								value={equipmentInfo.installationName}
+							/>
+							<InfoCard
+								title={"Serial Number"}
+								value={equipmentInfo.serialNumber}
+							/>
+							<InfoCard
+								title={"Department"}
+								value={equipmentInfo.departmentName}
+							/>
 
-					<InfoCard title={"Category"} value={equipmentInfo.categoryName} />
-					<InfoCard title={"Client"} value={equipmentInfo.clientName} />
-					<InfoCard title={"Country"} value={equipmentInfo.country} />
+							<InfoCard title={"Category"} value={equipmentInfo.categoryName} />
+							<InfoCard title={"Client"} value={equipmentInfo.clientName} />
+							<InfoCard title={"Country"} value={equipmentInfo.country} />
 
-					<InfoCard title={"Standard"} value={equipmentInfo.standard[0].name} />
+							<InfoCard
+								title={"Standard"}
+								value={equipmentInfo.standard[0].name}
+							/>
 
-					<InfoCard title={"Discription"} value={equipmentInfo.discription} />
-				</div>
-				<hr className="my-16" />
+							<InfoCard
+								title={"Discription"}
+								value={equipmentInfo.discription}
+							/>
+						</div>
+						<hr className="my-16" />
 
-				<div className="flex flex-wrap gap-8 ">
-					<InfoCard title={"Location"} value={equipmentInfo.location} />
-					<InfoCard
-						title={"Load Test Number"}
-						value={equipmentInfo.loadTestNumber}
-					/>
-					<InfoCard title={"SWL"} value={equipmentInfo.swl} />
-					<InfoCard
-						title={"Load Test Company"}
-						value={equipmentInfo.loadTestCompany}
-					/>
-					<InfoCard title={"Manufacturer"} value={equipmentInfo.manufacturer} />
+						<div className="flex flex-wrap gap-8 ">
+							<InfoCard title={"Location"} value={equipmentInfo.location} />
+							<InfoCard
+								title={"Load Test Number"}
+								value={equipmentInfo.loadTestNumber}
+							/>
+							<InfoCard title={"SWL"} value={equipmentInfo.swl} />
+							<InfoCard
+								title={"Load Test Company"}
+								value={equipmentInfo.loadTestCompany}
+							/>
+							<InfoCard
+								title={"Manufacturer"}
+								value={equipmentInfo.manufacturer}
+							/>
 
-					<InfoCard
-						title={"Load Test Date"}
-						value={equipmentInfo.loadTestDate}
-					/>
+							<InfoCard
+								title={"Load Test Date"}
+								value={equipmentInfo.loadTestDate}
+							/>
 
-					<InfoCard
-						title={"Manufacturer Date"}
-						value={equipmentInfo.manufacturerDate}
-					/>
+							<InfoCard
+								title={"Manufacturer Date"}
+								value={equipmentInfo.manufacturerDate}
+							/>
 
-					<InfoCard
-						title={"Date Of Last Inspection"}
-						value={equipmentInfo.dateOfLastInsp}
-					/>
+							<InfoCard
+								title={"Date Of Last Inspection"}
+								value={equipmentInfo.dateOfLastInsp}
+							/>
 
-					<InfoCard
-						title={"Main Serial Number"}
-						value={equipmentInfo.mainSerialNumber}
-					/>
-					<InfoCard
-						title={"Date Of Next Inspection"}
-						value={equipmentInfo.dateOfNextInsp}
-					/>
-					<InfoCard
-						title={"Last Inspector"}
-						value={equipmentInfo.lastInspectorName}
-					/>
-					<InfoCard
-						title={"Last Inspector Number"}
-						value={equipmentInfo.lastInspectorNumber}
-					/>
-					<InfoCard title={"Comment"} value={equipmentInfo.comment} />
-				</div>
+							<InfoCard
+								title={"Main Serial Number"}
+								value={equipmentInfo.mainSerialNumber}
+							/>
+							<InfoCard
+								title={"Date Of Next Inspection"}
+								value={equipmentInfo.dateOfNextInsp}
+							/>
+							<InfoCard
+								title={"Last Inspector"}
+								value={equipmentInfo.lastInspectorName}
+							/>
+							<InfoCard
+								title={"Last Inspector Number"}
+								value={equipmentInfo.lastInspectorNumber}
+							/>
+							<InfoCard title={"Comment"} value={equipmentInfo.comment} />
+						</div>
+					</>
+				)}
 			</CustomTabPanel>
 			<CustomTabPanel value={value} index={1}>
 				{/* Reports page here */}

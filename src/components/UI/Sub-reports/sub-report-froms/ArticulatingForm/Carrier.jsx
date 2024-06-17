@@ -20,9 +20,9 @@ const IconExpand = () => {
 
 const Carrier = ({ updateFormData }) => {
 	const textRef = useRef({
-		numberOfAxles: "",
-		numberOfSteered: "",
-		numberOfPowered: "",
+		numberOfAxles: 0,
+		numberOfSteered: 0,
+		numberOfPowered: 0,
 	});
 
 	const [formData, setFormData] = useState({
@@ -39,8 +39,8 @@ const Carrier = ({ updateFormData }) => {
 			backupAlarm: "",
 		},
 		outriggers: {
-			numberOfFrontSide: "",
-			numberOfRearSide: "",
+			numberOfFrontSide: 0,
+			numberOfRearSide: 0,
 			structure: "",
 			cylinders: "",
 			floatPads: "",
@@ -53,9 +53,9 @@ const Carrier = ({ updateFormData }) => {
 	useEffect(() => {
 		updateFormData("carrier", {
 			...formData,
-			numberOfAxles: textRef.current.numberOfAxles,
-			numberOfSteered: textRef.current.numberOfSteered,
-			numberOfPowered: textRef.current.numberOfPowered,
+			numberOfAxles: +textRef.current.numberOfAxles,
+			numberOfSteered: +textRef.current.numberOfSteered,
+			numberOfPowered: +textRef.current.numberOfPowered,
 		});
 	}, [updateFormData, formData, textRef]);
 
@@ -79,50 +79,73 @@ const Carrier = ({ updateFormData }) => {
 								</AccordionSummary>
 								<AccordionDetails>
 									<>
-										{Object.entries(formData[key]).map(([field, value]) => (
-											<Box
-												key={field}
-												sx={{
-													display: "flex",
-													alignItems: "center",
-													margin: "8px 0",
-												}}
-											>
-												<Typography sx={{ width: "200px" }}>
-													{field.replace(/([A-Z])/g, " $1")}
-												</Typography>
-												<RadioGroup
-													row
-													value={value}
-													onChange={(e) =>
-														setFormData((prevState) => ({
-															...prevState,
-															[key]: {
-																...prevState[key],
-																[field]: e.target.value,
-															},
-														}))
-													}
-												>
-													<FormControlLabel
-														value="Pass"
-														control={<Radio />}
-														label="Pass"
+										{Object.entries(formData[key]).map(([field, value]) => {
+											if (typeof value === "string") {
+												return (
+													<Box
+														key={field}
+														sx={{
+															display: "flex",
+															alignItems: "center",
+															margin: "8px 0",
+														}}
+													>
+														<Typography sx={{ width: "200px" }}>
+															{field.replace(/([A-Z])/g, " $1")}
+														</Typography>
+														<RadioGroup
+															row
+															value={value}
+															onChange={(e) =>
+																setFormData((prevState) => ({
+																	...prevState,
+																	[key]: {
+																		...prevState[key],
+																		[field]: e.target.value,
+																	},
+																}))
+															}
+														>
+															<FormControlLabel
+																value="Pass"
+																control={<Radio />}
+																label="Pass"
+															/>
+															<FormControlLabel
+																value="Fail"
+																control={<Radio />}
+																label="Fail"
+															/>
+															<FormControlLabel
+																value="N/A"
+																control={<Radio />}
+																label="N/A"
+															/>
+														</RadioGroup>
+													</Box>
+												);
+											} else {
+												return (
+													<TextField
+														key={field + value}
+														label={field.replace(/([A-Z])/g, " $1")}
+														fullWidth
+														margin="normal"
+														value={+value}
+														onChange={(e) =>
+															setFormData((prevState) => ({
+																...prevState,
+																[key]: {
+																	...prevState[key],
+																	[field]: +e.target.value,
+																},
+															}))
+														}
 													/>
-													<FormControlLabel
-														value="Fail"
-														control={<Radio />}
-														label="Fail"
-													/>
-													<FormControlLabel
-														value="N/A"
-														control={<Radio />}
-														label="N/A"
-													/>
-												</RadioGroup>
-											</Box>
-										))}
-									</>{" "}
+												);
+											}
+										})}
+									</>
 								</AccordionDetails>
 							</Accordion>
 						);
@@ -133,8 +156,7 @@ const Carrier = ({ updateFormData }) => {
 							label={key.replace(/([A-Z])/g, " $1")}
 							fullWidth
 							margin="normal"
-							defaultValue={textRef.current[key]}
-							onChange={(e) => (textRef.current[key] = e.target.value)}
+							onChange={(e) => (textRef.current[key] = +e.target.value)}
 						/>
 					);
 				})}

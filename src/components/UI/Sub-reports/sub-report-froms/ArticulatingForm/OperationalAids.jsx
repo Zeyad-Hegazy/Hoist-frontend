@@ -12,14 +12,14 @@ import {
 
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const IconExpand = () => {
 	return <FontAwesomeIcon icon={faArrowDown} />;
 };
 
 const OperationalAids = ({ updateFormData }) => {
-	const textRef = useRef({
+	const [formData, setFormData] = useState({
 		momentLimiter: "",
 		boomAngleIndicator: "",
 		boomLengthIndicator: "",
@@ -27,8 +27,8 @@ const OperationalAids = ({ updateFormData }) => {
 	});
 
 	useEffect(() => {
-		updateFormData("operationalAids", textRef.current);
-	}, [updateFormData, textRef]);
+		updateFormData("operationalAids", formData);
+	}, [updateFormData, formData]);
 
 	return (
 		<Accordion>
@@ -36,16 +36,42 @@ const OperationalAids = ({ updateFormData }) => {
 				<Typography>Operational Aids</Typography>
 			</AccordionSummary>
 			<AccordionDetails>
-				{Object.entries(textRef.current).map(([key, value]) => {
+				{Object.entries(formData).map(([key, value]) => {
 					return (
-						<TextField
+						<Box
 							key={key}
-							label={key.replace(/([A-Z])/g, " $1")}
-							fullWidth
-							margin="normal"
-							defaultValue={textRef.current[key]}
-							onChange={(e) => (textRef.current[key] = e.target.value)}
-						/>
+							sx={{
+								display: "flex",
+								alignItems: "center",
+								margin: "8px 0",
+							}}
+						>
+							<Typography sx={{ width: "200px" }}>
+								{key.replace(/([A-Z])/g, " $1")}
+							</Typography>
+							<RadioGroup
+								row
+								value={value}
+								onChange={(e) =>
+									setFormData((prevState) => ({
+										...prevState,
+										[key]: e.target.value,
+									}))
+								}
+							>
+								<FormControlLabel
+									value="Pass"
+									control={<Radio />}
+									label="Pass"
+								/>
+								<FormControlLabel
+									value="Fail"
+									control={<Radio />}
+									label="Fail"
+								/>
+								<FormControlLabel value="N/A" control={<Radio />} label="N/A" />
+							</RadioGroup>
+						</Box>
 					);
 				})}
 			</AccordionDetails>

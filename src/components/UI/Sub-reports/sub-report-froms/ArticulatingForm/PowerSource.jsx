@@ -20,26 +20,24 @@ const IconExpand = () => {
 
 const PowerSource = ({ updateFormData }) => {
 	const textRef = useRef({
+		manufacturer: "",
+		type: "",
+	});
+
+	const [formData, setFormData] = useState({
 		performance: "",
 		exhaustSystemGuards: "",
 		beltsHoses: "",
 		guardsCoversRotatRecipParts: "",
 	});
 
-	const [formData, setFormData] = useState({
-		engineMotor: {
-			manufacturer: "",
-			type: "",
-		},
-	});
-
 	useEffect(() => {
 		updateFormData("powerSource", {
 			...formData,
-			performance: textRef.current.performance,
-			exhaustSystemGuards: textRef.current.exhaustSystemGuards,
-			beltsHoses: textRef.current.beltsHoses,
-			guardsCoversRotatRecipParts: textRef.current.guardsCoversRotatRecipParts,
+			engineMotor: {
+				manufacturer: textRef.current.manufacturer,
+				type: textRef.current.type,
+			},
 		});
 	}, [updateFormData, formData]);
 
@@ -51,79 +49,64 @@ const PowerSource = ({ updateFormData }) => {
 			<AccordionDetails>
 				{Object.entries({
 					...formData,
-					performance: textRef.current.performance,
-					exhaustSystemGuards: textRef.current.exhaustSystemGuards,
-					beltsHoses: textRef.current.beltsHoses,
-					guardsCoversRotatRecipParts:
-						textRef.current.guardsCoversRotatRecipParts,
 				}).map(([key, value]) => {
-					if (typeof value === "object" && !Array.isArray(value)) {
+					if (typeof value === "string") {
 						return (
-							<Accordion key={key}>
-								<AccordionSummary expandIcon={<IconExpand />}>
-									<Typography>{key.replace(/([A-Z])/g, " $1")}</Typography>
-								</AccordionSummary>
-								<AccordionDetails>
-									<>
-										{Object.entries(formData[key]).map(([field, value]) => (
-											<Box
-												key={field}
-												sx={{
-													display: "flex",
-													alignItems: "center",
-													margin: "8px 0",
-												}}
-											>
-												<Typography sx={{ width: "200px" }}>
-													{field.replace(/([A-Z])/g, " $1")}
-												</Typography>
-												<RadioGroup
-													row
-													value={value}
-													onChange={(e) =>
-														setFormData((prevState) => ({
-															...prevState,
-															[key]: {
-																...prevState[key],
-																[field]: e.target.value,
-															},
-														}))
-													}
-												>
-													<FormControlLabel
-														value="Pass"
-														control={<Radio />}
-														label="Pass"
-													/>
-													<FormControlLabel
-														value="Fail"
-														control={<Radio />}
-														label="Fail"
-													/>
-													<FormControlLabel
-														value="N/A"
-														control={<Radio />}
-														label="N/A"
-													/>
-												</RadioGroup>
-											</Box>
-										))}
-									</>{" "}
-								</AccordionDetails>
-							</Accordion>
+							<Box
+								key={key}
+								sx={{
+									display: "flex",
+									alignItems: "center",
+									margin: "8px 0",
+								}}
+							>
+								<Typography sx={{ width: "200px" }}>
+									{key.replace(/([A-Z])/g, " $1")}
+								</Typography>
+								<RadioGroup
+									row
+									value={value}
+									onChange={(e) =>
+										setFormData((prevState) => ({
+											...prevState,
+											[key]: e.target.value,
+										}))
+									}
+								>
+									<FormControlLabel
+										value="Pass"
+										control={<Radio />}
+										label="Pass"
+									/>
+									<FormControlLabel
+										value="Fail"
+										control={<Radio />}
+										label="Fail"
+									/>
+									<FormControlLabel
+										value="N/A"
+										control={<Radio />}
+										label="N/A"
+									/>
+								</RadioGroup>
+							</Box>
 						);
 					}
-					return (
-						<TextField
-							key={key}
-							label={key.replace(/([A-Z])/g, " $1")}
-							fullWidth
-							margin="normal"
-							defaultValue={textRef.current[key]}
-							onChange={(e) => (textRef.current[key] = e.target.value)}
-						/>
-					);
 				})}
+				<TextField
+					label={"Manufacturer"}
+					fullWidth
+					margin="normal"
+					defaultValue={textRef.current["manufacturer"]}
+					onChange={(e) => (textRef.current["manufacturer"] = e.target.value)}
+				/>
+				<TextField
+					label={"Type"}
+					fullWidth
+					margin="normal"
+					defaultValue={textRef.current["type"]}
+					onChange={(e) => (textRef.current["type"] = e.target.value)}
+				/>
 			</AccordionDetails>
 		</Accordion>
 	);
