@@ -6,6 +6,9 @@ import {
 	deleteOneReport,
 	getSubReports as getSUBS,
 } from "../actions/admin/reports";
+
+import { downloadPDF } from "../api/admin/reports";
+
 import { useNavigate } from "react-router-dom";
 
 const useReportActions = (openForm) => {
@@ -39,7 +42,16 @@ const useReportActions = (openForm) => {
 		navigate("sub-reports");
 	};
 
-	return { getViewHandler, getEditHandler, getDeleteHandler, getSubReports };
+	// const downloadPdf = (id) => {
+	// 	downloadPDF(id);
+	// };
+
+	return {
+		getViewHandler,
+		getEditHandler,
+		getDeleteHandler,
+		getSubReports,
+	};
 };
 
 export default useReportActions;
