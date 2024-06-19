@@ -459,6 +459,7 @@ const EquipmentForm = ({
 											},
 										})
 									}
+									format="DD MMM YYYY"
 									renderInput={(params) => (
 										<TextField
 											{...params}
