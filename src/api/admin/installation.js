@@ -7,3 +7,6 @@ export const getone = (id) => API.get("/admin/installation/" + id);
 export const getDDL = () => API.get("/admin/installation/DDL");
 export const updateone = (formData, id) =>
 	API.patch("/admin/installation/" + id, formData);
+
+export const getByClient = (id) =>
+	API.get("/admin/installation/" + id + "/client");

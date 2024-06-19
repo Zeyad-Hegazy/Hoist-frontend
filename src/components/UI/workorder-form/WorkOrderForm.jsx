@@ -23,8 +23,8 @@ import { useEffect, useState } from "react";
 
 import { getDDL } from "../../../api/admin/clients";
 import { getDDL as getEmployeesDDL } from "../../../api/admin/employees";
-import { getDDL as getDepartmentsDDL } from "../../../api/admin/departments";
-import { getDDL as getInstallationDDL } from "../../../api/admin/installation";
+import { getByClient as getDepartmentsDDL } from "../../../api/admin/departments";
+import { getByClient as getInstallationDDL } from "../../../api/admin/installation";
 
 const ClientForm = ({
 	title,
@@ -88,7 +88,7 @@ const ClientForm = ({
 
 		const fetchDepartmentsDDL = async () => {
 			try {
-				const ddl = await getDepartmentsDDL();
+				const ddl = await getDepartmentsDDL(formData.client);
 				setDepartmentsDDL(ddl.data.result);
 			} catch (error) {
 				console.error("Error fetching client list:", error);
@@ -97,7 +97,7 @@ const ClientForm = ({
 
 		const fetchInstallaitonDDL = async () => {
 			try {
-				const ddl = await getInstallationDDL();
+				const ddl = await getInstallationDDL(formData.client);
 				setInstallationDDL(ddl.data.result);
 			} catch (error) {
 				console.error("Error fetching client list:", error);
@@ -106,9 +106,9 @@ const ClientForm = ({
 
 		fetchEmployeesDDL();
 		fetchclientDDL();
-		fetchDepartmentsDDL();
-		fetchInstallaitonDDL();
-	}, []);
+		formData.client && fetchDepartmentsDDL();
+		formData.client && fetchInstallaitonDDL();
+	}, [formData.client]);
 
 	return (
 		<div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-10">
@@ -202,7 +202,7 @@ const ClientForm = ({
 									value={formData["department"]}
 									onChange={handleChange}
 									onBlur={(e) => validateField(e.target.name, e.target.value)}
-									disabled={formAction === "view"}
+									disabled={formAction === "view" || !formData.client}
 									label="Department"
 									className="w-[12rem]"
 								>
@@ -234,7 +234,7 @@ const ClientForm = ({
 									value={formData["installation"]}
 									onChange={handleChange}
 									onBlur={(e) => validateField(e.target.name, e.target.value)}
-									disabled={formAction === "view"}
+									disabled={formAction === "view" || !formData.client}
 									label="Installation"
 									className="w-[12rem]"
 								>
