@@ -40,6 +40,7 @@ import EmployeeDefects from "./pages/employee-view/EmployeeDefects";
 
 import SubReports from "./pages/admin-view/SubReports";
 import EmpSubReports from "./components/Employee-UI/reports/EmpSubReports";
+import Email from "./pages/admin-view/Email";
 
 const EquipmentInfo = lazy(() =>
 	import("./components/UI/equipment-form/EquipmentInfo")
@@ -149,6 +150,10 @@ const App = () => {
 					<Route
 						path="departments"
 						element={<PrivateRoute element={<Department />} roles={[ADMIN]} />}
+					/>
+					<Route
+						path="email"
+						element={<PrivateRoute element={<Email />} roles={[ADMIN]} />}
 					/>
 				</Route>
 

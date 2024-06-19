@@ -17,6 +17,7 @@ import {
 	faSuitcase,
 	faLayerGroup,
 	faBuilding,
+	faNoteSticky,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { useNavigate, Outlet, NavLink } from "react-router-dom";
@@ -107,6 +108,9 @@ const AdminLayout = () => {
 								</NavLink>
 								<NavLink className="li mt-7" to="standards">
 									<FontAwesomeIcon className="mr-2" icon={faCogs} /> Standards
+								</NavLink>
+								<NavLink className="li mt-7" to="email">
+									<FontAwesomeIcon className="mr-2" icon={faNoteSticky} /> Email
 								</NavLink>
 							</ul>
 						)}
