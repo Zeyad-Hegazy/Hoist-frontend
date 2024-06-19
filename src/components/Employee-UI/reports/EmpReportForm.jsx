@@ -201,6 +201,7 @@ const EmpReportForm = ({
 											},
 										})
 									}
+									format="DD MMM YYYY"
 									renderInput={(params) => (
 										<TextField
 											{...params}
@@ -230,6 +231,7 @@ const EmpReportForm = ({
 											},
 										})
 									}
+									format="DD MMM YYYY"
 									renderInput={(params) => (
 										<TextField
 											{...params}

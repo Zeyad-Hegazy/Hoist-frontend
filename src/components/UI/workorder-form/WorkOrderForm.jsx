@@ -295,6 +295,7 @@ const ClientForm = ({
 											target: { name: "startDate", value: startDate },
 										})
 									}
+									format="DD MMM YYYY"
 									readOnly={formAction === "view"}
 									renderInput={(params) => (
 										<TextField
@@ -320,6 +321,8 @@ const ClientForm = ({
 											target: { name: "endDate", value: endDate },
 										})
 									}
+									format="DD MMM YYYY"
+									readOnly={formAction === "view"}
 									renderInput={(params) => (
 										<TextField
 											{...params}
