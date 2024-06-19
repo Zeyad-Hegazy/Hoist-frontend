@@ -23,10 +23,10 @@ import useForm from "../../../utils/useForm";
 import { useEffect, useState } from "react";
 
 import { getDDL } from "../../../api/employee/clients";
-import { getDDL as getDepartmentsDDL } from "../../../api/employee/departments";
-import { getDDL as getInstallationDDL } from "../../../api/employee/installation";
+import { getByClient as getDepartmentsDDL } from "../../../api/employee/departments";
+import { getByClient as getInstallationDDL } from "../../../api/employee/installation";
 import { getDDL as getCategoryDDL } from "../../../api/employee/category";
-import { getDDL as getTypeDDL } from "../../../api/employee/types";
+import { getByCategory as getTypeDDL } from "../../../api/employee/types";
 import { getDDL as getStandardDDL } from "../../../api/employee/standards";
 
 const EmpEquipmentForm = ({
@@ -89,7 +89,7 @@ const EmpEquipmentForm = ({
 
 		const fetchDepartmentsDDL = async () => {
 			try {
-				const ddl = await getDepartmentsDDL();
+				const ddl = await getDepartmentsDDL(formData.client);
 				setDepartmentsDDL(ddl.data.result);
 			} catch (error) {
 				console.error("Error fetching client list:", error);
@@ -98,7 +98,7 @@ const EmpEquipmentForm = ({
 
 		const fetchInstallaitonDDL = async () => {
 			try {
-				const ddl = await getInstallationDDL();
+				const ddl = await getInstallationDDL(formData.client);
 				setInstallationDDL(ddl.data.result);
 			} catch (error) {
 				console.error("Error fetching client list:", error);
@@ -116,7 +116,7 @@ const EmpEquipmentForm = ({
 
 		const fetchTypeDDL = async () => {
 			try {
-				const ddl = await getTypeDDL();
+				const ddl = await getTypeDDL(formData.category);
 				setTypeDDL(ddl.data.result);
 			} catch (error) {
 				console.error("Error fetching client list:", error);
@@ -133,12 +133,12 @@ const EmpEquipmentForm = ({
 		};
 
 		fetchclientDDL();
-		fetchDepartmentsDDL();
-		fetchInstallaitonDDL();
+		formData.client && fetchDepartmentsDDL();
+		formData.client && fetchInstallaitonDDL();
 		fetchCategoryDDL();
-		fetchTypeDDL();
+		formData.category && fetchTypeDDL();
 		fetchStandardDDL();
-	}, []);
+	}, [formData.client, formData.category]);
 
 	return (
 		<div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-10">
@@ -200,7 +200,7 @@ const EmpEquipmentForm = ({
 									value={formData["department"]}
 									onChange={handleChange}
 									onBlur={(e) => validateField(e.target.name, e.target.value)}
-									disabled={formAction === "view"}
+									disabled={formAction === "view" || !formData.client}
 									label="Department"
 									className="w-[12rem]"
 								>
@@ -232,7 +232,7 @@ const EmpEquipmentForm = ({
 									value={formData["installation"]}
 									onChange={handleChange}
 									onBlur={(e) => validateField(e.target.name, e.target.value)}
-									disabled={formAction === "view"}
+									disabled={formAction === "view" || !formData.client}
 									label="Installation"
 									className="w-[12rem]"
 								>
@@ -296,7 +296,7 @@ const EmpEquipmentForm = ({
 									value={formData["type"]}
 									onChange={handleChange}
 									onBlur={(e) => validateField(e.target.name, e.target.value)}
-									disabled={formAction === "view"}
+									disabled={formAction === "view" || !formData.category}
 									label="type"
 									className="w-[12rem]"
 								>
