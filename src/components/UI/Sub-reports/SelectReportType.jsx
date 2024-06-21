@@ -47,8 +47,8 @@ const SelectReportType = ({
 				return <ArticulatingForm handleSubmit={handleSubmit} />;
 			// case subs.OVERHEAD_CRANE:
 			// 	return <OverHeadForm handleSubmit={handleSubmit} />;
-			// case subs.FORKLIFT_TRUCK_CHECKLIST:
-			// 	return <ForkLiftForm handleSubmit={handleSubmit} />;
+			case subs.FORKLIFT_TRUCK_CHECKLIST:
+				return <ForkLiftForm handleSubmit={handleSubmit} />;
 			// case subs.OFFSHORE_CRANE:
 			// 	return <OffshoreForm handleSubmit={handleSubmit} />;
 			case subs.MAGNETIC_PARTICLE:
@@ -89,11 +89,11 @@ const SelectReportType = ({
 								<MenuItem value={subs.MAGNETIC_PARTICLE}>
 									{subs.MAGNETIC_PARTICLE.split("_").join(" ")}
 								</MenuItem>
-								{/* <MenuItem value={subs.OVERHEAD_CRANE}>
-									{subs.OVERHEAD_CRANE.split("_").join(" ")}
-								</MenuItem>
 								<MenuItem value={subs.FORKLIFT_TRUCK_CHECKLIST}>
 									{subs.FORKLIFT_TRUCK_CHECKLIST.split("_").join(" ")}
+								</MenuItem>
+								{/* <MenuItem value={subs.OVERHEAD_CRANE}>
+									{subs.OVERHEAD_CRANE.split("_").join(" ")}
 								</MenuItem>
 								<MenuItem value={subs.OFFSHORE_CRANE}>
 									{subs.OFFSHORE_CRANE.split("_").join(" ")}
