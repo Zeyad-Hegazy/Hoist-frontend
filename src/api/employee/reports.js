@@ -17,3 +17,6 @@ export const getSubReports = (id) =>
 
 export const addSubReport = (formData, id, type) =>
 	API.post("/employee/report/sub-report/" + type + "/" + id, formData);
+
+export const downloadPDF = (id) =>
+	API.get("/employee/report/pdf/" + id, { responseType: "blob" });
