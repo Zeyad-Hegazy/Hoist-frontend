@@ -51,8 +51,8 @@ const SelectReportType = ({
 			// 	return <ForkLiftForm handleSubmit={handleSubmit} />;
 			// case subs.OFFSHORE_CRANE:
 			// 	return <OffshoreForm handleSubmit={handleSubmit} />;
-			// case subs.MAGNETIC_PARTICLE:
-			// 	return <MagneticForm handleSubmit={handleSubmit} />;
+			case subs.MAGNETIC_PARTICLE:
+				return <MagneticForm handleSubmit={handleSubmit} />;
 			// case subs.TELESCOPIC_BOOM_CRANE:
 			// 	return <TelescopicForm handleSubmit={handleSubmit} />;
 			default:
@@ -86,6 +86,9 @@ const SelectReportType = ({
 								<MenuItem value={subs.ARTICULATING_BOOM_CRANE}>
 									{subs.ARTICULATING_BOOM_CRANE.split("_").join(" ")}
 								</MenuItem>
+								<MenuItem value={subs.MAGNETIC_PARTICLE}>
+									{subs.MAGNETIC_PARTICLE.split("_").join(" ")}
+								</MenuItem>
 								{/* <MenuItem value={subs.OVERHEAD_CRANE}>
 									{subs.OVERHEAD_CRANE.split("_").join(" ")}
 								</MenuItem>
@@ -94,9 +97,6 @@ const SelectReportType = ({
 								</MenuItem>
 								<MenuItem value={subs.OFFSHORE_CRANE}>
 									{subs.OFFSHORE_CRANE.split("_").join(" ")}
-								</MenuItem>
-								<MenuItem value={subs.MAGNETIC_PARTICLE}>
-									{subs.MAGNETIC_PARTICLE.split("_").join(" ")}
 								</MenuItem>
 								<MenuItem value={subs.TELESCOPIC_BOOM_CRANE}>
 									{subs.TELESCOPIC_BOOM_CRANE.split("_").join(" ")}

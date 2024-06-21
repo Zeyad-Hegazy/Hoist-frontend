@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import {
 	Box,
 	TextField,
@@ -33,15 +33,25 @@ const emptyData = {
 			model: "",
 			serialNo: "",
 		},
-		permanentMagnet: null,
-		coil: null,
+		permanentMagnet: {
+			model: "",
+			serialNo: "",
+		},
+		coil: {
+			model: "",
+			serialNo: "",
+		},
 	},
 	mediaDetails: {
 		visibleBlackInk: {
 			contrast: "",
 			indicator: "",
 		},
-		fluorescentUVLight: null,
+		fluorescentUVLight: {
+			indicator: "",
+			model: "",
+			serialNo: "",
+		},
 	},
 	inspectionReportDetails: {
 		inspectorObservations: "",
@@ -50,29 +60,14 @@ const emptyData = {
 	},
 };
 
-const MagneticForm = ({ handleSubmit }) => {
-	const [formData, setFormData] = useState(emptyData);
+const MagneticFormTest = ({ handleSubmit }) => {
+	const formDataRef = useRef(emptyData);
 
 	const handleInputChange = (section, field, value, subfield) => {
 		if (subfield) {
-			setFormData((prevData) => ({
-				...prevData,
-				[section]: {
-					...prevData[section],
-					[field]: {
-						...prevData[section][field],
-						[subfield]: value,
-					},
-				},
-			}));
+			formDataRef.current[section][field][subfield] = value;
 		} else {
-			setFormData((prevData) => ({
-				...prevData,
-				[section]: {
-					...prevData[section],
-					[field]: value,
-				},
-			}));
+			formDataRef.current[section][field] = value;
 		}
 	};
 
@@ -92,7 +87,7 @@ const MagneticForm = ({ handleSubmit }) => {
 								label={key.replace(/([A-Z])/g, " $1")}
 								fullWidth
 								margin="normal"
-								value={value}
+								defaultValue={value}
 								onChange={(e) => handleInputChange(title, key, e.target.value)}
 							/>
 						)
@@ -104,7 +99,7 @@ const MagneticForm = ({ handleSubmit }) => {
 
 	return (
 		<Container>
-			{Object.entries(formData).map(([section, data]) => (
+			{Object.entries(formDataRef.current).map(([section, data]) => (
 				<React.Fragment key={section + data}>
 					{typeof data === "object" && data !== null ? (
 						renderAccordion(data, section)
@@ -113,7 +108,7 @@ const MagneticForm = ({ handleSubmit }) => {
 							label={section}
 							fullWidth
 							margin="normal"
-							value={data}
+							defaultValue={data}
 							onChange={(e) => handleInputChange(section, "", e.target.value)}
 						/>
 					)}
@@ -123,7 +118,7 @@ const MagneticForm = ({ handleSubmit }) => {
 				type="button"
 				variant="contained"
 				color="primary"
-				onClick={() => handleSubmit(formData)}
+				onClick={() => handleSubmit(formDataRef.current)}
 				className="w-full mt-2"
 				style={{ marginTop: "1rem" }}
 			>
@@ -133,4 +128,4 @@ const MagneticForm = ({ handleSubmit }) => {
 	);
 };
 
-export default MagneticForm;
+export default MagneticFormTest;
