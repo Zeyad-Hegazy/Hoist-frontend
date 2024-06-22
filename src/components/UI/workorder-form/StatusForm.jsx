@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
 	Button,
@@ -19,6 +19,7 @@ import {
 
 import { changestatus } from "../../../api/admin/workorder";
 import { openToastar } from "../../../actions/toastar";
+import { getWorkOrders } from "../../../actions/admin/workorder";
 
 const workOrderStatusObject = {
 	COMPLETED: "completed",
@@ -48,6 +49,7 @@ const StatusForm = ({ closeHandler, id }) => {
 	const changeStatusHandler = async (status, id) => {
 		try {
 			const response = await changestatus(status, id);
+			dispatch(getWorkOrders());
 			dispatch(
 				openToastar({ message: response.data.message, status: response.status })
 			);
@@ -111,11 +113,6 @@ const StatusForm = ({ closeHandler, id }) => {
 			</div>
 		</div>
 	);
-};
-
-StatusForm.propTypes = {
-	closeHandler: PropTypes.func.isRequired,
-	id: PropTypes.string.isRequired,
 };
 
 export default StatusForm;
