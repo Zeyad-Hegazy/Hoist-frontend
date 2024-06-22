@@ -6,8 +6,8 @@ import {
 	createWorkOrder,
 	updateOneWorkOrder,
 } from "../../actions/admin/workorder";
-import TableComponent from "../../components/UI/Table";
 import WorkOrderForm from "../../components/UI/workorder-form/WorkOrderForm";
+import WorkOrderTable from "../../components/UI/workorder-form/WorkOrderTable";
 
 const coulmns = [
 	{
@@ -118,9 +118,10 @@ const WorkOrder = () => {
 				setAction={setFormVisibleAndAction}
 			/>
 			{FormVisibleAndAction.visible && form && <div>{form}</div>}
+
 			<main className="flex justify-center items-center">
 				{workOrders && (
-					<TableComponent
+					<WorkOrderTable
 						columns={coulmns}
 						rows={workOrders}
 						openForm={setFormVisibleAndAction}

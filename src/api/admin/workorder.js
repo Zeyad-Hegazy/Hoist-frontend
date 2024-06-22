@@ -8,4 +8,6 @@ export const getDDL = () => API.get("/admin/workorder/DDL");
 export const updateone = (formData, id) =>
 	API.patch("/admin/workorder/" + id, formData);
 export const changestatus = (status, id) =>
-	API.patch(`/admin/workorder/${id}/changeStatus`, { params: { status } });
+	API.patch(`/admin/workorder/${id}/changeStatus`, null, {
+		params: { status },
+	});
