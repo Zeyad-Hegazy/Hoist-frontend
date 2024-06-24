@@ -2,10 +2,11 @@
 
 import { TextField, Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { faClose, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { schema } from "../../../utils/validation/categoryValidator";
 import useForm from "../../../utils/useForm";
+import { useState } from "react";
 
 const CategoryForm = ({
 	title,
@@ -17,6 +18,16 @@ const CategoryForm = ({
 }) => {
 	const initialState = {
 		name: "",
+		types: [],
+	};
+	const [fieldCount, setFieldCount] = useState(1);
+
+	const handleAddField = () => {
+		setFieldCount((prev) => prev + 1);
+	};
+
+	const handleRemoveField = () => {
+		setFieldCount((prev) => (prev > 1 ? prev - 1 : 1));
 	};
 
 	const {
@@ -26,6 +37,7 @@ const CategoryForm = ({
 		handleChange,
 		handleSubmit,
 		validateField,
+		setFormData,
 	} = useForm({
 		selected,
 		formAction,
@@ -35,6 +47,15 @@ const CategoryForm = ({
 		schema,
 		getAll,
 	});
+
+	const handleChangeDepartmentName = (event, index) => {
+		const { value } = event.target;
+		setFormData((prev) => {
+			const types = [...prev.types];
+			types[index] = { name: value };
+			return { ...prev, types };
+		});
+	};
 
 	return (
 		<div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-10">
@@ -46,7 +67,7 @@ const CategoryForm = ({
 					</button>
 					<form
 						onSubmit={handleSubmit}
-						className="flex justify-between items-start flex-wrap"
+						className="flex flex-col justify-between items-start flex-wrap"
 					>
 						{/* Name */}
 						<div className={`mb-4`}>
@@ -63,6 +84,43 @@ const CategoryForm = ({
 								error={errors["name"] ? true : false}
 								helperText={errors["name"]}
 							/>
+						</div>
+
+						<div className="my-4">
+							<div className="flex gap-3 justify-between mb-2">
+								<h3>Add Types</h3>
+								<div className="flex gap-2">
+									<div
+										className="flex justify-center items-center p-4 w-2 h-2 rounded-full bg-blue-700 text-white cursor-pointer"
+										onClick={handleAddField}
+									>
+										<FontAwesomeIcon icon={faPlus} />
+									</div>
+									<div
+										className="flex justify-center items-center p-4 w-2 h-2 rounded-full bg-red-700 text-white cursor-pointer"
+										onClick={handleRemoveField}
+									>
+										<FontAwesomeIcon icon={faMinus} />
+									</div>
+								</div>
+							</div>
+							<div className="shadow-md custom-border p-3 bg-gray-700">
+								<div className="flex flex-wrap gap-2">
+									{[...Array(fieldCount)].map((_, index) => (
+										<div key={index}>
+											<TextField
+												fullWidth={false}
+												label={`Type Name ${index + 1}`}
+												name={`name${index}`}
+												type="text"
+												variant="outlined"
+												value={formData.types[index]?.name || ""}
+												onChange={(e) => handleChangeDepartmentName(e, index)}
+											/>
+										</div>
+									))}
+								</div>
+							</div>
 						</div>
 
 						{formAction !== "view" && (
