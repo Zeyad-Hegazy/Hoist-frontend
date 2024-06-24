@@ -8,3 +8,6 @@ export const getDDL = () => API.get("/admin/clients/DDL");
 export const getParentsDDL = () => API.get("/admin/client/DDL/parents");
 export const updateone = (formData, id) =>
 	API.patch("/admin/clients/" + id, formData);
+
+export const createParentClient = (formData) =>
+	API.post("/admin/client/parent", formData);

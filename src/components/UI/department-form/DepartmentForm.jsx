@@ -14,7 +14,7 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { schema } from "../../../utils/validation/departmentValidator";
 import useForm from "../../../utils/useForm";
 import { useEffect, useState } from "react";
-import { getDDL } from "../../../api/admin/clients";
+import { getParentsDDL } from "../../../api/admin/clients";
 
 const DepartmentForm = ({
 	title,
@@ -52,7 +52,7 @@ const DepartmentForm = ({
 	useEffect(() => {
 		const fetchclientDDL = async () => {
 			try {
-				const ddl = await getDDL();
+				const ddl = await getParentsDDL();
 				setClientDDL(ddl.data.result);
 			} catch (error) {
 				console.error("Error fetching client list:", error);
