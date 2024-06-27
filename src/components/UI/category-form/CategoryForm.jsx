@@ -86,43 +86,44 @@ const CategoryForm = ({
 							/>
 						</div>
 
-						<div className="my-4">
-							<div className="flex gap-3 justify-between mb-2">
-								<h3>Add Types</h3>
-								<div className="flex gap-2">
-									<div
-										className="flex justify-center items-center p-4 w-2 h-2 rounded-full bg-blue-700 text-white cursor-pointer"
-										onClick={handleAddField}
-									>
-										<FontAwesomeIcon icon={faPlus} />
-									</div>
-									<div
-										className="flex justify-center items-center p-4 w-2 h-2 rounded-full bg-red-700 text-white cursor-pointer"
-										onClick={handleRemoveField}
-									>
-										<FontAwesomeIcon icon={faMinus} />
-									</div>
-								</div>
-							</div>
-							<div className="shadow-md custom-border p-3 bg-gray-700">
-								<div className="flex flex-wrap gap-2">
-									{[...Array(fieldCount)].map((_, index) => (
-										<div key={index}>
-											<TextField
-												fullWidth={false}
-												label={`Type Name ${index + 1}`}
-												name={`name${index}`}
-												type="text"
-												variant="outlined"
-												value={formData.types[index]?.name || ""}
-												onChange={(e) => handleChangeDepartmentName(e, index)}
-											/>
+						{formAction === "create" && (
+							<div className="my-4">
+								<div className="flex gap-3 justify-between mb-2">
+									<h3>Add Types</h3>
+									<div className="flex gap-2">
+										<div
+											className="flex justify-center items-center p-4 w-2 h-2 rounded-full bg-blue-700 text-white cursor-pointer"
+											onClick={handleAddField}
+										>
+											<FontAwesomeIcon icon={faPlus} />
 										</div>
-									))}
+										<div
+											className="flex justify-center items-center p-4 w-2 h-2 rounded-full bg-red-700 text-white cursor-pointer"
+											onClick={handleRemoveField}
+										>
+											<FontAwesomeIcon icon={faMinus} />
+										</div>
+									</div>
+								</div>
+								<div className="shadow-md custom-border p-3 bg-gray-700">
+									<div className="flex flex-wrap gap-2">
+										{[...Array(fieldCount)].map((_, index) => (
+											<div key={index}>
+												<TextField
+													fullWidth={false}
+													label={`Type Name ${index + 1}`}
+													name={`name${index}`}
+													type="text"
+													variant="outlined"
+													value={formData.types[index]?.name || ""}
+													onChange={(e) => handleChangeDepartmentName(e, index)}
+												/>
+											</div>
+										))}
+									</div>
 								</div>
 							</div>
-						</div>
-
+						)}
 						{formAction !== "view" && (
 							<Button
 								type="submit"
