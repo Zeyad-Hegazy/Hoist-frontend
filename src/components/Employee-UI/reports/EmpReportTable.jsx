@@ -11,6 +11,7 @@ import { useState } from "react";
 import { TextField } from "@mui/material";
 import EmpReportActions from "./EmpReportActions";
 import useEmpReportActions from "./../../../utils/useEmpReportsActions";
+import FormattedDate from "./../../../utils/FormattedDate";
 
 const StatusCell = ({ status }) => {
 	const getBackgroundColor = (status) => {
@@ -92,6 +93,8 @@ const EmpReportTable = ({ columns, rows, openForm }) => {
 										<TableCell key={col.id + row._id} align={col.align}>
 											{col.id === "status" ? (
 												<StatusCell status={row[col.id]} />
+											) : col.id === "createdAt" ? (
+												<FormattedDate dateString={row[col.id]} />
 											) : (
 												row[col.id]
 											)}

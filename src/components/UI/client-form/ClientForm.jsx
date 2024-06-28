@@ -8,6 +8,7 @@ import {
 	Select,
 	MenuItem,
 	FormHelperText,
+	Autocomplete,
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
@@ -17,6 +18,8 @@ import useForm from "../../../utils/useForm";
 import { useEffect, useState } from "react";
 
 import { getParentsDDL } from "../../../api/admin/clients";
+
+import countries from "../../../utils/countriesList.js";
 
 const ClientForm = ({
 	title,
@@ -216,38 +219,35 @@ const ClientForm = ({
 							</FormControl>
 						</div>
 
-						{/* <div className={`mb-4`}>
-							<TextField
-								fullWidth={false}
-								label={"Parent"}
-								name={"parentClient"}
-								type={"text"}
-								variant="outlined"
-								value={formData["parentClient"]}
-								onChange={handleChange}
-								onBlur={(e) => validateField(e.target.name, e.target.value)}
-								disabled={formAction === "view"}
-								error={errors["parentClient"] ? true : false}
-								helperText={errors["parentClient"]}
-							/>
-						</div> */}
-
-						{/* TODO Set country as country of parent country */}
-
 						{/* country */}
-						<div className={`mb-4`}>
-							<TextField
-								fullWidth={false}
-								label={"Country"}
-								name={"country"}
-								type={"text"}
-								variant="outlined"
-								value={formData["country"]}
-								onChange={handleChange}
-								onBlur={(e) => validateField(e.target.name, e.target.value)}
+						<div className={`mb-4 w-[44%]`}>
+							<Autocomplete
+								options={countries}
+								getOptionLabel={(option) => option}
+								renderInput={(params) => (
+									<TextField
+										{...params}
+										label="Country"
+										variant="outlined"
+										error={errors["country"] ? true : false}
+										helperText={errors["country"]}
+									/>
+								)}
+								value={
+									countries.find(
+										(country) => country === formData["country"]
+									) || null
+								}
+								onChange={(event, newValue) => {
+									handleChange({
+										target: {
+											name: "country",
+											value: newValue || "",
+										},
+									});
+									validateField("country", newValue || "");
+								}}
 								disabled={formAction === "view"}
-								error={errors["country"] ? true : false}
-								helperText={errors["country"]}
 							/>
 						</div>
 

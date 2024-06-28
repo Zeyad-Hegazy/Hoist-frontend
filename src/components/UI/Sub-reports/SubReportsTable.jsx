@@ -11,6 +11,7 @@ import { useState } from "react";
 import { TextField } from "@mui/material";
 // import useReportActions from "./../../../utils/useReportActions";
 // import ReportActions from "./ReportActions";
+import FormattedDate from "./../../../utils/FormattedDate";
 
 const SubReportTable = ({ columns, rows }) => {
 	// const { getViewHandler, getEditHandler, getDeleteHandler, getSubReports } =
@@ -67,7 +68,11 @@ const SubReportTable = ({ columns, rows }) => {
 								<TableRow hover key={row._id}>
 									{columns.map((col) => (
 										<TableCell key={col.id + row._id} align={col.align}>
-											{row[col.id]}
+											{col.id === "createdAt" ? (
+												<FormattedDate dateString={row[col.id]} />
+											) : (
+												row[col.id]
+											)}
 										</TableCell>
 									))}
 									{/* <TableCell>
