@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useMemo, useRef, useState } from "react";
 import { TextField, Container, Button } from "@mui/material";
 

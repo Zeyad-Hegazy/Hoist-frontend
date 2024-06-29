@@ -34,8 +34,8 @@ const SelectReportType = ({
 	};
 
 	const handleSubmit = async (formData) => {
-		console.log("Report Type: ", reportType);
-		console.log("Form Data Submitted: ", formData);
+		// console.log("Report Type: ", reportType);
+		// console.log("Form Data Submitted: ", formData);
 		await dispatch(submitHandler(formData, reportId, reportType));
 		await dispatch(getAllHandler(reportId));
 		closeHandler(false);
@@ -53,8 +53,8 @@ const SelectReportType = ({
 				return <OffshoreForm handleSubmit={handleSubmit} />;
 			case subs.MAGNETIC_PARTICLE:
 				return <MagneticForm handleSubmit={handleSubmit} />;
-			// case subs.TELESCOPIC_BOOM_CRANE:
-			// 	return <TelescopicForm handleSubmit={handleSubmit} />;
+			case subs.TELESCOPIC_BOOM_CRANE:
+				return <TelescopicForm handleSubmit={handleSubmit} />;
 			default:
 				return null;
 		}
@@ -98,11 +98,9 @@ const SelectReportType = ({
 								<MenuItem value={subs.OVERHEAD_CRANE}>
 									{subs.OVERHEAD_CRANE.split("_").join(" ")}
 								</MenuItem>
-								{/* 
 								<MenuItem value={subs.TELESCOPIC_BOOM_CRANE}>
 									{subs.TELESCOPIC_BOOM_CRANE.split("_").join(" ")}
 								</MenuItem>
-								*/}
 							</Select>
 						</FormControl>
 						{renderForm()}
