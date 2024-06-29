@@ -32,6 +32,7 @@ import "../../Header.css";
 import useForm from "../../../utils/useForm";
 import { DateField, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
@@ -59,9 +60,9 @@ const EmpReportForm = ({
 		isPotentialDanger: false,
 		repairRenewalAlteration: "",
 		testsCarriedOut: "",
-		isFirstExamination: false,
-		isEquipmentInstalledCorrectly: false,
-		isEquipmentSafeToOperate: false,
+		isFirstExamination: true,
+		isEquipmentInstalledCorrectly: true,
+		isEquipmentSafeToOperate: true,
 	};
 
 	const {
@@ -98,11 +99,52 @@ const EmpReportForm = ({
 
 	const handleSwitchChange = (event) => {
 		const { name, checked } = event.target;
-		setFormData((prevState) => ({
-			...prevState,
-			[name]: checked,
+
+		let newFormData = { ...formData, [name]: checked };
+
+		if (name === "isImmediateDanger" || name === "isPotentialDanger") {
+			newFormData = {
+				...newFormData,
+				isEquipmentInstalledCorrectly: false,
+				isEquipmentSafeToOperate: false,
+			};
+		}
+
+		setFormData(newFormData);
+	};
+
+	const calculateNextExaminationDate = (date, duration) => {
+		if (!date) return "";
+		const formattedDate = dayjs(date);
+		let nextExaminationDate;
+		switch (duration) {
+			case "3 months":
+				nextExaminationDate = formattedDate.add(3, "month");
+				break;
+			case "6 months":
+				nextExaminationDate = formattedDate.add(6, "month");
+				break;
+			case "1 year":
+				nextExaminationDate = formattedDate.add(1, "year");
+				break;
+			default:
+				nextExaminationDate = formattedDate;
+		}
+
+		return nextExaminationDate.format("DD MMM YYYY");
+	};
+
+	const handleExaminationChange = (event) => {
+		const { name, value } = event.target;
+		setFormData((prevData) => ({
+			...prevData,
+			dateOfNextExamination: calculateNextExaminationDate(
+				prevData.dateOfExamination,
+				value
+			),
 		}));
 	};
+
 	return (
 		<Dialog
 			fullScreen
@@ -193,6 +235,11 @@ const EmpReportForm = ({
 								<DateField
 									fullWidth={true}
 									label="Date Of Examination"
+									value={
+										formData["dateOfExamination"]
+											? dayjs(formData["dateOfExamination"])
+											: null
+									}
 									onChange={(dateOfExamination) =>
 										handleChange({
 											target: {
@@ -205,7 +252,6 @@ const EmpReportForm = ({
 									renderInput={(params) => (
 										<TextField
 											{...params}
-											value={formData["dateOfExamination"]}
 											fullWidth={true}
 											variant="outlined"
 											disabled={formAction === "view"}
@@ -217,28 +263,44 @@ const EmpReportForm = ({
 							</LocalizationProvider>
 						</div>
 
+						{/* Duration */}
+						<div className="mb-4">
+							<FormControl fullWidth={true} variant="outlined">
+								<InputLabel id="duration-label">Duration</InputLabel>
+								<Select
+									fullWidth={true}
+									labelId="duration-label"
+									id="duration"
+									name="duration"
+									onChange={handleExaminationChange}
+									disabled={formAction === "view"}
+									label="Thorough examination is being carried out In Accordance With"
+								>
+									<MenuItem value="3 months">3 months</MenuItem>
+									<MenuItem value="6 months">6 months</MenuItem>
+									<MenuItem value="1 year">1 year</MenuItem>
+								</Select>
+							</FormControl>
+						</div>
+
 						{/* Date Of Next Examination */}
 						<div className="mb-4">
 							<LocalizationProvider dateAdapter={AdapterDayjs}>
 								<DateField
 									fullWidth={true}
 									label="Date Of Next Examination"
-									onChange={(dateOfNextExamination) =>
-										handleChange({
-											target: {
-												name: "dateOfNextExamination",
-												value: dateOfNextExamination,
-											},
-										})
+									value={
+										formData["dateOfNextExamination"]
+											? dayjs(formData["dateOfNextExamination"])
+											: null
 									}
 									format="DD MMM YYYY"
+									disabled={true}
 									renderInput={(params) => (
 										<TextField
 											{...params}
-											value={formData["dateOfNextExamination"]}
 											fullWidth={true}
 											variant="outlined"
-											disabled={formAction === "view"}
 											error={errors["dateOfNextExamination"] ? true : false}
 											helperText={errors["dateOfNextExamination"]}
 										/>
@@ -300,7 +362,9 @@ const EmpReportForm = ({
 						<div className={`mb-4`}>
 							<TextField
 								fullWidth={true}
-								label={"Found Defect Danger To Person"}
+								label={
+									"Identification of any part found to have a defect which is or become a danger to person and a description of the defect (If none please leave it empty)"
+								}
 								name={"foundDefectDangerToPerson"}
 								type={"text"}
 								variant="outlined"
@@ -311,9 +375,9 @@ const EmpReportForm = ({
 							/>
 						</div>
 
-						<div className="flex w-[30%] justify-between">
+						<div className="flex justify-start items-center gap-12">
 							{/* Is Immediate Danger */}
-							<div className={`mb-4 w-fit`}>
+							<div className={`mb-4`}>
 								<FormGroup>
 									<FormControlLabel
 										control={
@@ -328,13 +392,13 @@ const EmpReportForm = ({
 												}
 											/>
 										}
-										label="Is Immediate Danger?"
+										label="Is the above a defect which is of immediate danger to persons?"
 									/>
 								</FormGroup>
 							</div>
 
 							{/* Is Potential Danger */}
-							<div className={`mb-4 w-fit`}>
+							<div className={`mb-4`}>
 								<FormGroup>
 									<FormControlLabel
 										control={
@@ -349,7 +413,7 @@ const EmpReportForm = ({
 												}
 											/>
 										}
-										label="Is Potential Danger?"
+										label="Is the above a defect which is not yet but could become a danger to persons?"
 									/>
 								</FormGroup>
 							</div>
@@ -359,7 +423,9 @@ const EmpReportForm = ({
 						<div className={`mb-4`}>
 							<TextField
 								fullWidth={true}
-								label={"Repair Renewal Alteration"}
+								label={
+									"Particulars of any repair, renewal or alteration required to remedy the defect identified above"
+								}
 								name={"repairRenewalAlteration"}
 								type={"text"}
 								variant="outlined"
@@ -373,7 +439,9 @@ const EmpReportForm = ({
 						<div className={`mb-4`}>
 							<TextField
 								fullWidth={true}
-								label={"Tests Carried Out"}
+								label={
+									"Particulars of any tests carried out as part of the examination (If none state NONE)"
+								}
 								name={"testsCarriedOut"}
 								type={"text"}
 								variant="outlined"
@@ -383,9 +451,9 @@ const EmpReportForm = ({
 							/>
 						</div>
 
-						<div className="flex w-[57%] justify-between">
+						<div className="flex justify-between">
 							{/* Is First Examination */}
-							<div className={`mb-4 w-fit`}>
+							<div className={`mb-4`}>
 								<FormGroup>
 									<FormControlLabel
 										control={
@@ -397,13 +465,13 @@ const EmpReportForm = ({
 												disabled={formAction === "view"}
 											/>
 										}
-										label="Is First Examination?"
+										label="Is This The First Examination After Installation Or After Assembly At New Site Or Location ?"
 									/>
 								</FormGroup>
 							</div>
 
 							{/* Is Equipment Installed Correctly */}
-							<div className={`mb-4 w-fit`}>
+							<div className={`mb-4`}>
 								<FormGroup>
 									<FormControlLabel
 										control={
@@ -412,16 +480,20 @@ const EmpReportForm = ({
 												onChange={handleSwitchChange}
 												name="isEquipmentInstalledCorrectly"
 												color="primary"
-												disabled={formAction === "view"}
+												disabled={
+													formData.isImmediateDanger ||
+													formData.isPotentialDanger ||
+													formAction === "view"
+												}
 											/>
 										}
-										label="Is Equipment Installed Correctly?"
+										label="f Yes, Has Equipment Been Installed Correctly ?"
 									/>
 								</FormGroup>
 							</div>
 
 							{/* Is Equipment Safe To Operate */}
-							<div className={`mb-4 w-fit`}>
+							<div className={`mb-4`}>
 								<FormGroup>
 									<FormControlLabel
 										control={
@@ -430,10 +502,14 @@ const EmpReportForm = ({
 												onChange={handleSwitchChange}
 												name="isEquipmentSafeToOperate"
 												color="primary"
-												disabled={formAction === "view"}
+												disabled={
+													formData.isImmediateDanger ||
+													formData.isPotentialDanger ||
+													formAction === "view"
+												}
 											/>
 										}
-										label="Is Equipment Safe To Operate?"
+										label="Is This Equipment Safe To Operate At Time Of Inspection ?"
 									/>
 								</FormGroup>
 							</div>
