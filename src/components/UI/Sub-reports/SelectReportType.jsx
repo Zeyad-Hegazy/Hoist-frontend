@@ -45,8 +45,8 @@ const SelectReportType = ({
 		switch (reportType) {
 			case subs.ARTICULATING_BOOM_CRANE:
 				return <ArticulatingForm handleSubmit={handleSubmit} />;
-			// case subs.OVERHEAD_CRANE:
-			// 	return <OverHeadForm handleSubmit={handleSubmit} />;
+			case subs.OVERHEAD_CRANE:
+				return <OverHeadForm handleSubmit={handleSubmit} />;
 			case subs.FORKLIFT_TRUCK_CHECKLIST:
 				return <ForkLiftForm handleSubmit={handleSubmit} />;
 			case subs.OFFSHORE_CRANE:
@@ -95,9 +95,10 @@ const SelectReportType = ({
 								<MenuItem value={subs.OFFSHORE_CRANE}>
 									{subs.OFFSHORE_CRANE.split("_").join(" ")}
 								</MenuItem>
-								{/* <MenuItem value={subs.OVERHEAD_CRANE}>
+								<MenuItem value={subs.OVERHEAD_CRANE}>
 									{subs.OVERHEAD_CRANE.split("_").join(" ")}
 								</MenuItem>
+								{/* 
 								<MenuItem value={subs.TELESCOPIC_BOOM_CRANE}>
 									{subs.TELESCOPIC_BOOM_CRANE.split("_").join(" ")}
 								</MenuItem>
