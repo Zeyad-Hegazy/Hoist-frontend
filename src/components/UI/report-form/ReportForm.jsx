@@ -138,10 +138,9 @@ const ReportForm = ({
 		const { name, value } = event.target;
 		setFormData((prevData) => ({
 			...prevData,
-			dateOfNextExamination: calculateNextExaminationDate(
-				prevData.dateOfExamination,
-				value
-			),
+			dateOfNextExamination: new Date(
+				calculateNextExaminationDate(prevData.dateOfExamination, value)
+			).getTime(),
 		}));
 	};
 
