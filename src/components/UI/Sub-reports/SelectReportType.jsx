@@ -83,7 +83,7 @@ const SelectReportType = ({
 								label="Report Type"
 								onChange={handleChange}
 							>
-								<MenuItem value={subs.ARTICULATING_BOOM_CRANE}>
+								<MenuItem value={subs.ARTICULATING_BOOM_CRANE} disabled>
 									{subs.ARTICULATING_BOOM_CRANE.split("_").join(" ")}
 								</MenuItem>
 								<MenuItem value={subs.MAGNETIC_PARTICLE}>
@@ -92,13 +92,13 @@ const SelectReportType = ({
 								<MenuItem value={subs.FORKLIFT_TRUCK_CHECKLIST}>
 									{subs.FORKLIFT_TRUCK_CHECKLIST.split("_").join(" ")}
 								</MenuItem>
-								<MenuItem value={subs.OFFSHORE_CRANE}>
+								<MenuItem value={subs.OFFSHORE_CRANE} disabled>
 									{subs.OFFSHORE_CRANE.split("_").join(" ")}
 								</MenuItem>
-								<MenuItem value={subs.OVERHEAD_CRANE}>
+								<MenuItem value={subs.OVERHEAD_CRANE} disabled>
 									{subs.OVERHEAD_CRANE.split("_").join(" ")}
 								</MenuItem>
-								<MenuItem value={subs.TELESCOPIC_BOOM_CRANE}>
+								<MenuItem value={subs.TELESCOPIC_BOOM_CRANE} disabled>
 									{subs.TELESCOPIC_BOOM_CRANE.split("_").join(" ")}
 								</MenuItem>
 							</Select>
